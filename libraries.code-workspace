@@ -1,0 +1,84 @@
+{
+  "folders": [
+    {
+      "name": ".root",
+      "path": ".root"
+    },
+    {
+      "name": "create",
+      "path": "packages/create"
+    },
+    {
+      "name": "core",
+      "path": "packages/core"
+    },
+    {
+      "name": "logger",
+      "path": "packages/logger"
+    },
+    {
+      "name": "service",
+      "path": "packages/service"
+    },
+    {
+      "name": "api",
+      "path": "packages/api"
+    }
+  ],
+  "settings": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll": true,
+      "source.organizeImports": true
+    },
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+    "eslint.codeAction.disableRuleComment": {
+      "enable": true,
+      "location": "separateLine"
+    },
+    "files.associations": {
+      "**/common/config/rush/*.json": "jsonc",
+      "**/rush.json": "jsonc"
+    },
+    "files.exclude": {
+      "**/.DS_Store": true,
+      "**/.git": true,
+      "**/.rush": true,
+      "**/.vscode": true,
+      "**/node_modules": true,
+      "dist": true
+    },
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    "javascript.preferences.quoteStyle": "single",
+    "peacock.affectAccentBorders": true,
+    "peacock.affectActivityBar": true,
+    "peacock.affectStatusBar": true,
+    "peacock.affectTabActiveBorder": true,
+    "peacock.affectTitleBar": true,
+    "peacock.color": "#67c63d",
+    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+    "typescript.preferences.quoteStyle": "single",
+    "workbench.colorCustomizations": {
+      "activityBar.activeBackground": "#86d264",
+      "activityBar.activeBorder": "#02fd51",
+      "activityBar.background": "#86d264",
+      "activityBar.foreground": "#15202b",
+      "activityBar.inactiveForeground": "#15202b99",
+      "activityBarBadge.background": "#5278cd",
+      "activityBarBadge.foreground": "#e7e7e7",
+      "statusBar.background": "#67c63d",
+      "statusBar.foreground": "#15202b",
+      "statusBarItem.hoverBackground": "#52a12f",
+      "statusBarItem.remoteBackground": "#67c63d",
+      "statusBarItem.remoteForeground": "#15202b",
+      "tab.activeBorder": "#86d264",
+      "titleBar.activeBackground": "#67c63d",
+      "titleBar.activeForeground": "#15202b",
+      "titleBar.inactiveBackground": "#67c63d99",
+      "titleBar.inactiveForeground": "#15202b99",
+      "sash.hoverBorder": "#86d264",
+      "commandCenter.border": "#15202b99"
+    }
+  }
+}

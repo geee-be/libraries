@@ -1,15 +1,30 @@
 {
-  "name": "libraries",
+  "name": "@geee-be/libraries",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [],
-  "author": "",
   "license": "ISC",
+  "author": "",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm --stream --parallel -r build",
+    "start": "pnpm --stream -r start",
+    "start:dev": "pnpm --stream --parallel -r start:dev"
+  },
   "devDependencies": {
-    "@changesets/cli": "^2.25.2"
+    "@changesets/cli": "^2.25.2",
+    "@swc/cli": "^0.1.57",
+    "@swc/core": "^1.3.20",
+    "@types/node": "^18.11.9",
+    "@typescript-eslint/eslint-plugin": "^5.44.0",
+    "@typescript-eslint/parser": "^5.44.0",
+    "chokidar": "^3.5.3",
+    "esbuild": "^0.15.15",
+    "eslint": "^8.28.0",
+    "eslint-plugin-filenames": "^1.3.2",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "rimraf": "^3.0.2",
+    "ts-unused-exports": "^8.0.0",
+    "typescript": "^4.9.3"
   }
 }

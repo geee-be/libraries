@@ -1,0 +1,31 @@
+{
+  "name": "@geee-be/logger",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "dist/index.js",
+  "types": "src/index.ts",
+  "scripts": {
+    "prebuild": "rimraf dist/*",
+    "build": "tsc",
+    "lint": "npm run lint:eslint && npm run lint:types && npm run lint:unused-exports",
+    "lint:eslint": "eslint src/ --ext .ts,.tsx",
+    "lint:types": "tsc --noEmit",
+    "lint:unused-exports": "ts-unused-exports tsconfig.json --excludePathsFromReport=src/index.ts",
+    "prestart:dev": "rimraf dist/*",
+    "start:dev": "tsc --watch"
+  },
+  "dependencies": {
+    "@geee-be/core": "workspace:../core",
+    "reflect-metadata": "^0.1.13",
+    "semver": "^7.3.8",
+    "stack-trace": "1.0.0-pre1"
+  },
+  "devDependencies": {
+    "@types/semver": "^7.3.13",
+    "@types/stack-trace": "^0.0.30"
+  }
+}
