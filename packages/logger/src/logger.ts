@@ -1,7 +1,7 @@
-import os from 'os';
+import { hostname } from 'os';
+import * as stackTrace from 'stack-trace';
 import { ConsoleWriter } from './console-writer.js';
 import { Log, LogWriter } from './log-writer.js';
-import * as stackTrace from './stack-trace.js';
 
 export interface DebugMeta {
   /** A ticket/reminder should be created to remove Debug logs */
@@ -45,7 +45,7 @@ const DEFAULT_OPTIONS: LoggerOptions = {
 };
 
 const systemMeta = {
-  hostname: os.hostname(),
+  hostname: hostname(),
   pid: process.pid,
 };
 
@@ -59,7 +59,7 @@ export const createLogger = (writer: () => LogWriter, meta?: Record<string, unkn
       try {
         // extend data
         const frame = stackTrace.get()[1];
-        log.file = frame.getFileName();
+        log.file = frame.getFileName() ?? undefined;
         log.line = Number(frame.getLineNumber());
 
         const type = frame.getTypeName();

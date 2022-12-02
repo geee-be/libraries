@@ -1,5 +1,6 @@
 import { RouterContext } from '@koa/router';
 import { JWTPayload } from 'jose';
+import { Request } from 'koa';
 
 export interface Client {
   ips: string[];

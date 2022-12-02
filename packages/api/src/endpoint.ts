@@ -188,8 +188,7 @@ export namespace Endpoint {
       }));
       const handlerArgs = resolved.filter((item) => !!item).reduce((acc, item) => ({ ...acc, ...item }), {} as A);
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-      const result = await handler({ ...handlerArgs, referrer: ctx.request.referrer }, ctx as any as Router.RouterContext);
+      const result = await handler({ ...handlerArgs, referrer: (ctx.request as unknown as { referrer: unknown }).referrer }, ctx as unknown as Router.RouterContext);
       if (result === undefined) return;
 
       ctx.body = result;

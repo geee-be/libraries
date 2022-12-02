@@ -6,6 +6,7 @@ import { query } from 'validata-koa';
 import { ApiContext, Entity, FindManyQuery, ForeignKeyValidation } from './types';
 
 export const validateForeignKeys = async (foreignKeys: ForeignKeyValidation, data: Entity, basePath?: Path): Promise<void> => {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
   const failedForeignKeys = (
     await Promise.all(Object.keys(foreignKeys).map(async (key) => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -13,7 +14,7 @@ export const validateForeignKeys = async (foreignKeys: ForeignKeyValidation, dat
       const ok = await foreignKeys[key](value);
       return ok ? null : key;
     }))
-  ).filter((key: string | null) => !!key);
+  ).filter((key: string | null) => !!key) as string[];
 
   if (failedForeignKeys.length) {
     const issues = failedForeignKeys.map((key) => {

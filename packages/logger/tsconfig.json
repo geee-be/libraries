@@ -1,16 +1,9 @@
 {
+  "extends": "../create/tsconfig.node.json",
   "compilerOptions": {
-    "emitDecoratorMetadata": true,
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "outDir": "dist"
+    "outDir": "./dist"
   },
   "include": [
-    "src/"
-  ],
-  "references": [
-    {
-      "path": "../create/tsconfig.node.json"
-    }
+    "./src"
   ]
 }
