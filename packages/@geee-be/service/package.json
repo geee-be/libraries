@@ -19,7 +19,7 @@
     "start:dev": "tsc --watch"
   },
   "dependencies": {
-    "@geee-be/core": "workspace:*",
+    "@geee-be/core": "workspace:1.0.0",
     "reflect-metadata": "^0.1.13"
   }
 }
