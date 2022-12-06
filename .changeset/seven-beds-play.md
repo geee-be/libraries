@@ -1,7 +1,7 @@
 ---
 "@geee-be/api": patch
-"@geee-ge/core": patch
-"@geee-ge/create": patch
+"@geee-be/core": patch
+"@geee-be/create": patch
 "@geee-be/logger": patch
 "@geee-be/service": patch
 ---
