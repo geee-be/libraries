@@ -6,23 +6,23 @@
     },
     {
       "name": "create",
-      "path": "packages/create"
+      "path": "packages/@geee-be/create"
     },
     {
       "name": "core",
-      "path": "packages/core"
+      "path": "packages/@geee-be/core"
     },
     {
       "name": "logger",
-      "path": "packages/logger"
+      "path": "packages/@geee-be/logger"
     },
     {
       "name": "service",
-      "path": "packages/service"
+      "path": "packages/@geee-be/service"
     },
     {
       "name": "api",
-      "path": "packages/api"
+      "path": "packages/@geee-be/api"
     }
   ],
   "settings": {

@@ -1,5 +1,5 @@
 {
-  "name": "@geee-be/service",
+  "name": "@geee-be/logger",
   "version": "1.0.0",
   "description": "",
   "keywords": [],
@@ -19,7 +19,13 @@
     "start:dev": "tsc --watch"
   },
   "dependencies": {
-    "@geee-be/core": "workspace:../core",
-    "reflect-metadata": "^0.1.13"
+    "@geee-be/core": "workspace:*",
+    "reflect-metadata": "^0.1.13",
+    "semver": "^7.3.8",
+    "stack-trace": "1.0.0-pre1"
+  },
+  "devDependencies": {
+    "@types/semver": "^7.3.13",
+    "@types/stack-trace": "^0.0.30"
   }
 }
