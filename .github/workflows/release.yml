@@ -20,8 +20,12 @@ jobs:
         with:
           node-version: 18.x
 
-      - name: Install Dependencies
-        run: pnpm i
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7.17.1
+          run_install: |
+            - recursive: true
+              args: [--frozen-lockfile, --strict-peer-dependencies]
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
