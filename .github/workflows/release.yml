@@ -26,6 +26,11 @@ jobs:
           run_install: |
             - args: [--no-frozen-lockfile]
 
+      - name: Build packages
+        shell: bash
+        run: |
+          pnpm -w build
+
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
