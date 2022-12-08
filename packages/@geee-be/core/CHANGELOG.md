@@ -1,5 +1,11 @@
 # @geee-be/core
 
+## 1.0.3
+
+### Patch Changes
+
+- 7d8a7b6: Build packages before publishing
+
 ## 1.0.2
 
 ### Patch Changes
