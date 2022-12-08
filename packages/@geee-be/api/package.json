@@ -1,6 +1,6 @@
 {
   "name": "@geee-be/api",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "keywords": [],
   "license": "MIT",
@@ -19,9 +19,9 @@
     "start:dev": "tsc --watch"
   },
   "dependencies": {
-    "@geee-be/core": "workspace:1.0.2",
-    "@geee-be/logger": "workspace:1.0.2",
-    "@geee-be/service": "workspace:1.0.2",
+    "@geee-be/core": "workspace:1.0.3",
+    "@geee-be/logger": "workspace:1.0.3",
+    "@geee-be/service": "workspace:1.0.3",
     "@koa/router": "^12.0.0",
     "async_hooks": "^1.0.0",
     "helmet": "^4.6.0",
