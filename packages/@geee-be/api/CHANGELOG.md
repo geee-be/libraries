@@ -1,5 +1,11 @@
 # @geee-be/api
 
+## 1.0.4
+
+### Patch Changes
+
+- a009814: More exports
+
 ## 1.0.3
 
 ### Patch Changes
