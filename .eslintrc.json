@@ -6,7 +6,7 @@
     "node": true
   },
   "extends": [
-    "./packages/create/.eslintrc.typescript.json"
+    "./packages/@geee-be/create/.eslintrc.typescript.json"
   ],
   "parserOptions": {
     "project": "./tsconfig.json",
