@@ -1,5 +1,11 @@
 # @geee-be/api
 
+## 1.0.5
+
+### Patch Changes
+
+- d1e747b: Added JWT API authorization
+
 ## 1.0.4
 
 ### Patch Changes
