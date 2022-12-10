@@ -1,5 +1,5 @@
 import { hostname } from 'os';
-import * as stackTrace from 'stack-trace';
+import { get } from 'stack-trace';
 import { ConsoleWriter } from './console-writer.js';
 import { Log, LogWriter } from './log-writer.js';
 
@@ -58,7 +58,7 @@ export const createLogger = (writer: () => LogWriter, meta?: Record<string, unkn
     if (actualOptions.addStackInfo) {
       try {
         // extend data
-        const frame = stackTrace.get()[1];
+        const frame = get()[1];
         log.file = frame.getFileName() ?? undefined;
         log.line = Number(frame.getLineNumber());
 
