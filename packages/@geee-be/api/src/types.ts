@@ -1,5 +1,4 @@
 import { RouterContext } from '@koa/router';
-import { JWTPayload } from 'jose';
 import { Request } from 'koa';
 
 export interface Client {
@@ -40,13 +39,6 @@ interface WithRequestHeaders {
 
 export declare type ExtraContext = WithRequestBody & WithRequestHeaders;
 export declare type ApiContext = RouterContext<any, ExtraContext>;
-
-export interface MaybeWithAuthorization {
-  authorization?: JWTPayload;
-}
-
-export interface AuthorizationContext extends ApiContext, MaybeWithAuthorization {
-}
 
 export interface PaginatedList<T> {
   items: T[];

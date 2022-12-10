@@ -2,11 +2,12 @@ import Router from '@koa/router';
 import { Filter } from 'mongodb';
 import { Contract, isObject, NotPrimitive, ValueProcessor } from 'validata';
 import { body, headers, params, query, Statuses } from 'validata-koa';
+import { AuthorizationContext } from './authorization.js';
 import { ForbiddenError } from './error.js';
 import { Inputs } from './inputs.js';
 import { filterAnd } from './mongo.js';
 import { requestContext } from './request-context.js';
-import type { ApiContext, AuthorizationContext, Entity, ForeignKeyValidation, PaginatedList } from './types.js';
+import type { ApiContext, Entity, ForeignKeyValidation, PaginatedList } from './types.js';
 import { findManyQuery, validateForeignKeys } from './util.js';
 
 export interface Input<T> {

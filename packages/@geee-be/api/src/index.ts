@@ -1,4 +1,5 @@
 export * from './api.js';
+export * from './authorization.js';
 export * from './error.js';
 export * from './inputs.js';
 export * from './koa-service.js';

@@ -3,7 +3,8 @@ import { Middleware } from '@koa/router';
 import { AsyncLocalStorage } from 'async_hooks';
 import { DateTime } from 'luxon';
 import { isArray, isIssue, isObject, isString, maybeString } from 'validata';
-import type { AuthorizationContext, Client } from './types.js';
+import type { AuthorizationContext } from './authorization.js';
+import type { Client } from './types.js';
 import { isUlid, maybeUlid } from './ulid.js';
 
 export interface RequestContext {
