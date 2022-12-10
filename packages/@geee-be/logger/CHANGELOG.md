@@ -1,5 +1,11 @@
 # @geee-be/logger
 
+## 1.0.4
+
+### Patch Changes
+
+- 9dc5dd6: Change import for stack-trace
+
 ## 1.0.3
 
 ### Patch Changes
