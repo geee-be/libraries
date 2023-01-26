@@ -1,0 +1,11 @@
+{
+  "name": "@geee-be/prettier-config",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "license": "MIT",
+  "author": "Greg Bacchus",
+  "type": "module",
+  "main": "index.json",
+  "scripts": {}
+}

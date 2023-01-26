@@ -23,6 +23,10 @@
     {
       "name": "api",
       "path": "packages/@geee-be/api"
+    },
+    {
+      "name": "prettier-config",
+      "path": "packages/@geee-be/prettier-config"
     }
   ],
   "settings": {
