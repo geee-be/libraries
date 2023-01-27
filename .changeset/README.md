@@ -14,3 +14,5 @@ After making changes create a changeset (or description of the changes) with
 ```bash
 pnpm -w changeset
 ```
+
+Commit and push changes. This will create a github PR. Once this PR is merged, packages will be updated.
