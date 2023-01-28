@@ -1,5 +1,11 @@
 # @geee-be/eslint-config
 
+## 1.0.2
+
+### Patch Changes
+
+- d2a51e4: config for import and promise plugins
+
 ## 1.0.1
 
 ### Patch Changes
