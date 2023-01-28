@@ -1,5 +1,11 @@
 # @geee-be/prettier-config
 
+## 1.0.3
+
+### Patch Changes
+
+- 24decfa: Ling and format config
+
 ## 1.0.2
 
 ### Patch Changes
