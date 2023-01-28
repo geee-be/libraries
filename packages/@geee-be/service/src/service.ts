@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 
-export const promiseReduceBoolean = async (promises: Promise<boolean>[]): Promise<boolean> => (await Promise.all(promises)).reduce((acc, b) => acc && b, true);
+export const promiseReduceBoolean = async (promises: Promise<boolean>[]): Promise<boolean> =>
+  (await Promise.all(promises)).reduce((acc, b) => acc && b, true);
 
 export namespace Service {
   export const combine = (...services: Service[]): Service => {

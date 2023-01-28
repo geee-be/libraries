@@ -28,11 +28,11 @@ Disable eslint rules that conflict.
 Install plugin:
 
 ```bash
-npm install --save-dev eslint-config-prettier@latest
+npm install --save-dev eslint-config-prettier@latest eslint@latest
 # -- or --
-pnpm add --save-dev eslint-config-prettier@latest
+pnpm add --save-dev eslint-config-prettier@latest eslint@latest
 # -- or --
-yarn add --dev eslint-config-prettier@latest
+yarn add --dev eslint-config-prettier@latest eslint@latest
 ```
 
 Configure `.eslintrc.json`

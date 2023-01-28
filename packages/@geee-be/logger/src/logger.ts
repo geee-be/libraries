@@ -49,7 +49,11 @@ const systemMeta = {
   pid: process.pid,
 };
 
-export const createLogger = (writer: () => LogWriter, meta?: Record<string, unknown>, options?: LoggerOptions): Logger => {
+export const createLogger = (
+  writer: () => LogWriter,
+  meta?: Record<string, unknown>,
+  options?: LoggerOptions,
+): Logger => {
   const actualOptions = { ...DEFAULT_OPTIONS, ...options };
   const baseMeta = { ...meta };
 
@@ -65,9 +69,7 @@ export const createLogger = (writer: () => LogWriter, meta?: Record<string, unkn
         const type = frame.getTypeName();
         const method = frame.getMethodName();
         Object.assign(log, {
-          method: method
-            ? `${type}.${method}`
-            : frame.getFunctionName(),
+          method: method ? `${type}.${method}` : frame.getFunctionName(),
         });
       } catch (err) {
         console.error(err);
@@ -87,13 +89,19 @@ export const createLogger = (writer: () => LogWriter, meta?: Record<string, unkn
   clz.debug = (message: string, meta?: DebugMeta): void => write('debug', message, meta as Record<string, unknown>);
   clz.info = (message: string, meta?: DebugMeta): void => write('info', message, meta as Record<string, unknown>);
   clz.notice = (message: string, meta?: Record<string, unknown>): void => write('notice', message, meta);
-  clz.warn = (message: string, error?: Error, meta?: Record<string, unknown>): void => write('warn', message, {
-    ...error ? { error: `${error.name}: ${error.message}` } : undefined,
-    ...error,
-    ...meta,
-  });
+  clz.warn = (message: string, error?: Error, meta?: Record<string, unknown>): void =>
+    write('warn', message, {
+      ...(error ? { error: `${error.name}: ${error.message}` } : undefined),
+      ...error,
+      ...meta,
+    });
   clz.error = (error: Error, meta?: Record<string, unknown>): void => {
-    const log = { level: 'error', message: `${error.name}: ${error.message}`, stack: error.stack, timestamp: new Date() };
+    const log = {
+      level: 'error',
+      message: `${error.name}: ${error.message}`,
+      stack: error.stack,
+      timestamp: new Date(),
+    };
     writer().write({
       ...log,
       ...error,
@@ -103,7 +111,12 @@ export const createLogger = (writer: () => LogWriter, meta?: Record<string, unkn
     });
   };
   clz.fatal = (error: Error, meta?: Record<string, unknown>): void => {
-    const log = { level: 'fatal', message: `${error.name}: ${error.message}`, stack: error.stack, timestamp: new Date() };
+    const log = {
+      level: 'fatal',
+      message: `${error.name}: ${error.message}`,
+      stack: error.stack,
+      timestamp: new Date(),
+    };
     writer().write({
       ...log,
       ...error,
@@ -112,7 +125,8 @@ export const createLogger = (writer: () => LogWriter, meta?: Record<string, unkn
       ...meta,
     });
   };
-  clz.critical = <T extends CriticalMeta>(message: string, meta: T): void => write('warn', message, meta as Record<string, unknown>);
+  clz.critical = <T extends CriticalMeta>(message: string, meta: T): void =>
+    write('warn', message, meta as Record<string, unknown>);
   clz.audit = (message: string, meta?: Record<string, unknown>): void => write('warn', message, meta);
   clz.child = (meta: Record<string, unknown>): Logger => {
     const combinedMeta = { ...baseMeta, ...meta };
@@ -122,7 +136,7 @@ export const createLogger = (writer: () => LogWriter, meta?: Record<string, unkn
 };
 
 export class Writer implements LogWriter {
-  constructor(private readonly writer: (log: Log) => void) { }
+  constructor(private readonly writer: (log: Log) => void) {}
 
   public write(log: Log): void {
     this.writer(log);
@@ -131,10 +145,7 @@ export class Writer implements LogWriter {
 
 export const loggerOptions: {
   writer?: LogWriter;
-  meta?: Record<string, unknown>
+  meta?: Record<string, unknown>;
 } = {};
 const consoleWriter = new ConsoleWriter({ pretty: true });
-export const logger: Logger = createLogger(
-  () => loggerOptions.writer || consoleWriter,
-  loggerOptions.meta,
-);
+export const logger: Logger = createLogger(() => loggerOptions.writer || consoleWriter, loggerOptions.meta);

@@ -21,7 +21,7 @@ export class Graceful implements Service {
     graceful(
       grace,
       () => this.service.stop(),
-      () => this.service.dispose()
+      () => this.service.dispose(),
     );
   }
 

@@ -14,7 +14,11 @@ const run = (fn: (() => unknown | Promise<unknown>) | undefined, done: () => unk
  * @param prepare callback to start shutdown
  * @param finish callback to force shutdown after grace period has expired
  */
-export const graceful = (grace: Duration, prepare?: () => unknown | Promise<unknown>, finish?: () => unknown | Promise<unknown>): { shuttingDown: boolean } => {
+export const graceful = (
+  grace: Duration,
+  prepare?: () => unknown | Promise<unknown>,
+  finish?: () => unknown | Promise<unknown>,
+): { shuttingDown: boolean } => {
   const status = { shuttingDown: false };
 
   // signal handlers

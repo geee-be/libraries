@@ -14,9 +14,7 @@
           "always",
           {
             "line": {
-              "markers": [
-                "/"
-              ]
+              "markers": ["/"]
             }
           }
         ]

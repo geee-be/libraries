@@ -31,36 +31,34 @@ describe('JwtAuthentication', () => {
     });
 
     it('must fail no Authorization header', async () => {
-      await request(server)
-        .post('/')
-        .expect(Statuses.UNAUTHORIZED);
+      await request(server).post('/').expect(Statuses.UNAUTHORIZED);
     });
 
     it('must fail malformed Authorization header', async () => {
-      await request(server)
-        .post('/')
-        .set('Authorization', 'TEST')
-        .expect(Statuses.UNAUTHORIZED);
+      await request(server).post('/').set('Authorization', 'TEST').expect(Statuses.UNAUTHORIZED);
     });
 
     it('must fail malformed Authorization header Bearer token', async () => {
-      await request(server)
-        .post('/')
-        .set('Authorization', 'Bearer TOKEN')
-        .expect(Statuses.FORBIDDEN);
+      await request(server).post('/').set('Authorization', 'Bearer TOKEN').expect(Statuses.FORBIDDEN);
     });
 
     it('must fail jwt signed by incorrect secret', async () => {
       await request(server)
         .post('/')
-        .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.rOtgTjkfWU-nIvbDkCKiYEI0_yk1Chf7hqxDyaF-_hU')
+        .set(
+          'Authorization',
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.rOtgTjkfWU-nIvbDkCKiYEI0_yk1Chf7hqxDyaF-_hU',
+        )
         .expect(Statuses.FORBIDDEN);
     });
 
     it('must set authorization on context if valid token', async () => {
       const response = await request(server)
         .post('/')
-        .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.XJFQwsk7KL2yjWHl55Q0KW1w0IgV6UjhyUUw_pERYOI')
+        .set(
+          'Authorization',
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.XJFQwsk7KL2yjWHl55Q0KW1w0IgV6UjhyUUw_pERYOI',
+        )
         .expect(Statuses.OK);
       const { authorization } = response.body as { authorization: JWTPayload };
       expect(authorization).toBeDefined();
@@ -72,7 +70,10 @@ describe('JwtAuthentication', () => {
     it('must fail if check returns false', async () => {
       await request(server)
         .post('/')
-        .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1NDMyMSIsIm5hbWUiOiJKb2huIERvZSIsImlhdCI6MTUxNjIzOTAyMn0.pCypSgCgyn-D8-_-HXVfssDG2Whjhh0faS7QY_1Qrk4')
+        .set(
+          'Authorization',
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1NDMyMSIsIm5hbWUiOiJKb2huIERvZSIsImlhdCI6MTUxNjIzOTAyMn0.pCypSgCgyn-D8-_-HXVfssDG2Whjhh0faS7QY_1Qrk4',
+        )
         .expect(Statuses.FORBIDDEN);
     });
   });
@@ -101,24 +102,19 @@ describe('JwtDecoder', () => {
     });
 
     it('must ignore no Authorization header', async () => {
-      const response = await request(server)
-        .post('/');
+      const response = await request(server).post('/');
       const { authorization } = response.body as { authorization: JWTPayload };
       expect(authorization).toBeUndefined();
     });
 
     it('must ignore malformed Authorization header', async () => {
-      const response = await request(server)
-        .post('/')
-        .set('Authorization', 'TEST');
+      const response = await request(server).post('/').set('Authorization', 'TEST');
       const { authorization } = response.body as { authorization: JWTPayload };
       expect(authorization).toBeUndefined();
     });
 
     it('must ignore malformed Authorization header Bearer token', async () => {
-      const response = await request(server)
-        .post('/')
-        .set('Authorization', 'Bearer TOKEN');
+      const response = await request(server).post('/').set('Authorization', 'Bearer TOKEN');
       const { authorization } = response.body as { authorization: JWTPayload };
       expect(authorization).toBeUndefined();
     });
@@ -126,7 +122,10 @@ describe('JwtDecoder', () => {
     it('must set authorization on context if valid token', async () => {
       const response = await request(server)
         .post('/')
-        .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.XbPfbIHMI6arZ3Y922BhjWgQzWXcXNrz0ogtVhfEd2o');
+        .set(
+          'Authorization',
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.XbPfbIHMI6arZ3Y922BhjWgQzWXcXNrz0ogtVhfEd2o',
+        );
       const { authorization } = response.body as { authorization: JWTPayload };
       expect(authorization).toBeDefined();
       expect(authorization.sub).toBe('1234567890');

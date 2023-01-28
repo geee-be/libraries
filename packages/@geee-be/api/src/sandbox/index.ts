@@ -15,26 +15,19 @@ class MyApi extends Api {
   }
 
   protected mountRoutes(): void {
-    this.get('/test/:id', Endpoint.action(
-      undefined,
-      this.testHandler(),
-      { params: { contract: idContract } }
-    ));
+    this.get('/test/:id', Endpoint.action(undefined, this.testHandler(), { params: { contract: idContract } }));
   }
 
-  private testHandler = (): ActionHandler<{ params: { id: number } }> => ({ params: { id } }) => {
-    return Promise.resolve({ id });
-  };
+  private testHandler =
+    (): ActionHandler<{ params: { id: number } }> =>
+    ({ params: { id } }) => {
+      return Promise.resolve({ id });
+    };
 }
 
-Graceful.service(
-  Time.seconds(1),
-  (isReady, isAlive) => Service.combine(
+Graceful.service(Time.seconds(1), (isReady, isAlive) =>
+  Service.combine(
     MonitoringService.create(8081, logger, isReady, isAlive),
-    ApiService.create(
-      8080,
-      logger,
-      new MyApi(),
-    ),
+    ApiService.create(8080, logger, new MyApi()),
   ),
 ).catch((err: Error) => logger.error(err));

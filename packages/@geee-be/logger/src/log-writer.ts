@@ -8,6 +8,10 @@ export interface Log {
   line?: number;
   method?: string;
   stack?: string;
+  host?: string;
+  ip?: string;
+  spanId?: string;
+  traceId?: string;
 }
 
 export interface LogWriter {

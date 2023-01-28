@@ -65,47 +65,57 @@ interface MaybeWithRouterPath {
 }
 
 const getRoute = (ctx: MaybeWithRouterPath): string | undefined => {
-  return ('_matchedRoute' in ctx) ? (typeof ctx._matchedRoute === 'object') ? ctx._matchedRoute.toString() : ctx._matchedRoute : undefined;
+  return '_matchedRoute' in ctx
+    ? typeof ctx._matchedRoute === 'object'
+      ? ctx._matchedRoute.toString()
+      : ctx._matchedRoute
+    : undefined;
 };
 
 /**
  * Adds headers for additional security
  */
-export const maxCacheMiddleware = (): Middleware => async (ctx, next: () => Promise<any>): Promise<void> => {
-  await next();
+export const maxCacheMiddleware =
+  (): Middleware =>
+  async (ctx, next: () => Promise<any>): Promise<void> => {
+    await next();
 
-  ctx.set('Cache-Control', 'immutable');
-};
+    ctx.set('Cache-Control', 'immutable');
+  };
 
-export const livenessEndpoint = (isAlive?: () => Promise<boolean>) => async (ctx: RouterContext): Promise<void> => {
-  let alive: boolean;
-  try {
-    alive = isAlive ? await isAlive() : true;
-  } catch (err) {
-    alive = false;
-  }
-  ctx.body = { alive };
-  if (!alive) {
-    ctx.status = Statuses.SERVICE_UNAVAILABLE;
-    const headers = ctx.response.headers as Record<string, unknown>;
-    headers['Retry-After'] = 30;
-  }
-};
+export const livenessEndpoint =
+  (isAlive?: () => Promise<boolean>) =>
+  async (ctx: RouterContext): Promise<void> => {
+    let alive: boolean;
+    try {
+      alive = isAlive ? await isAlive() : true;
+    } catch (err) {
+      alive = false;
+    }
+    ctx.body = { alive };
+    if (!alive) {
+      ctx.status = Statuses.SERVICE_UNAVAILABLE;
+      const headers = ctx.response.headers as Record<string, unknown>;
+      headers['Retry-After'] = 30;
+    }
+  };
 
-export const readinessEndpoint = (isReady?: () => Promise<boolean>) => async (ctx: RouterContext): Promise<void> => {
-  let ready: boolean;
-  try {
-    ready = isReady ? await isReady() : true;
-  } catch (err) {
-    ready = false;
-  }
-  ctx.body = { ready };
-  if (!ready) {
-    ctx.status = Statuses.SERVICE_UNAVAILABLE;
-    const headers = ctx.response.headers as Record<string, unknown>;
-    headers['Retry-After'] = 30;
-  }
-};
+export const readinessEndpoint =
+  (isReady?: () => Promise<boolean>) =>
+  async (ctx: RouterContext): Promise<void> => {
+    let ready: boolean;
+    try {
+      ready = isReady ? await isReady() : true;
+    } catch (err) {
+      ready = false;
+    }
+    ctx.body = { ready };
+    if (!ready) {
+      ctx.status = Statuses.SERVICE_UNAVAILABLE;
+      const headers = ctx.response.headers as Record<string, unknown>;
+      headers['Retry-After'] = 30;
+    }
+  };
 
 export const observeMiddleware = (logger: Logger, options: ObserveMiddlewareOptions): Middleware => {
   const middleware = async (ctx: RouterContext, next: () => Promise<unknown>): Promise<void> => {
@@ -128,19 +138,23 @@ export const observeMiddleware = (logger: Logger, options: ObserveMiddlewareOpti
     const durationMs = HrTime.toMs(duration);
     try {
       const route = getRoute(ctx as MaybeWithRouterPath);
-      responseSummary.observe({
-        method: ctx.method,
-        route,
-        status: String(ctx.status),
-      }, HrTime.toSeconds(duration));
+      responseSummary.observe(
+        {
+          method: ctx.method,
+          route,
+          status: String(ctx.status),
+        },
+        HrTime.toSeconds(duration),
+      );
 
-      options.monitor && options.monitor({
-        duration: durationMs,
-        method: ctx.method,
-        path: ctx.path,
-        route: getRoute(ctx as MaybeWithRouterPath),
-        status: ctx.status,
-      });
+      options.monitor &&
+        options.monitor({
+          duration: durationMs,
+          method: ctx.method,
+          path: ctx.path,
+          route: getRoute(ctx as MaybeWithRouterPath),
+          status: ctx.status,
+        });
       if (options.useLogger !== false && !options.loggerIgnorePath?.test(ctx.request.url)) {
         requestLogger.verbose('tx', { duration: durationMs, route, status: ctx.status });
       }

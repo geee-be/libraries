@@ -13,8 +13,7 @@ export interface MaybeWithAuthorization {
   authorization?: JWTPayload;
 }
 
-export interface AuthorizationContext extends ApiContext, MaybeWithAuthorization {
-}
+export interface AuthorizationContext extends ApiContext, MaybeWithAuthorization {}
 
 export type CheckToken = (authorization: JWTPayload | undefined, ctx: Context) => Promise<boolean>;
 
@@ -40,10 +39,12 @@ export namespace Jwt {
     const authorization = headers.authorization;
     if (!authorization) return undefined;
     const matches = TOKEN_EXTRACTOR.exec(Array.isArray(authorization) ? authorization[0] : authorization);
-    return matches && matches[1] || undefined;
+    return (matches && matches[1]) || undefined;
   };
 
-  export const decode = (jwt: string): {
+  export const decode = (
+    jwt: string,
+  ): {
     payload: JWTPayload;
     header: JWSHeaderParameters;
   } => {
@@ -58,15 +59,14 @@ export namespace Jwt {
       const header = JSON.parse(Buffer.from(encodedHeader, 'base64').toString('utf8')) as JWSHeaderParameters;
       const payload = JSON.parse(Buffer.from(encodedPayload, 'base64').toString('utf8')) as JWTPayload;
       return { payload, header };
-    }
-    catch (err) {
+    } catch (err) {
       throw new Error('Invalid JWT - Error Parsing JSON');
     }
   };
 }
 
 export class JwtDecoder {
-  constructor() { }
+  constructor() {}
 
   public middleware(): Middleware<any, AuthorizationContext> & Router.Middleware<any, AuthorizationContext> {
     return async (ctx: AuthorizationContext, next: Next): Promise<void> => {
@@ -93,11 +93,12 @@ export namespace JwtDecoder {
 }
 
 abstract class BaseJwtAuthentication {
-  constructor(
-    protected readonly options?: Options,
-  ) { }
+  constructor(protected readonly options?: Options) {}
 
-  public async getAuthorization(headers: RequestHeaders, log: Logger): Promise<AuthorizationSuccess | AuthorizationFailure> {
+  public async getAuthorization(
+    headers: RequestHeaders,
+    log: Logger,
+  ): Promise<AuthorizationSuccess | AuthorizationFailure> {
     try {
       // decode token
       const token = Jwt.getBearerToken(headers);
@@ -141,7 +142,10 @@ abstract class BaseJwtAuthentication {
 
   public middleware(): Middleware<any, AuthorizationContext> & Router.Middleware<any, AuthorizationContext> {
     return async (ctx: AuthorizationContext, next: Next): Promise<void> => {
-      const { status, authorization } = await this.getAuthorization(ctx.request.headers, (ctx as MaybeWithLogger).logger || debug);
+      const { status, authorization } = await this.getAuthorization(
+        ctx.request.headers,
+        (ctx as MaybeWithLogger).logger || debug,
+      );
       if (status) {
         ctx.status = status;
         if (!this.options?.continueOnUnauthorized) return;
@@ -159,10 +163,7 @@ abstract class BaseJwtAuthentication {
 }
 
 export class JwtAuthentication extends BaseJwtAuthentication {
-  constructor(
-    private readonly secretOrPublicKey: string | Buffer,
-    options?: Options,
-  ) {
+  constructor(private readonly secretOrPublicKey: string | Buffer, options?: Options) {
     super(options);
   }
 

@@ -6,6 +6,7 @@
   "license": "MIT",
   "author": "Greg Bacchus",
   "type": "module",
+  "prettier": "./packages/@geee-be/prettier-config",
   "scripts": {
     "build": "pnpm --stream --parallel -r build",
     "changeset": "changeset",

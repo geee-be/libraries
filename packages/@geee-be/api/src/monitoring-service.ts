@@ -15,7 +15,10 @@ export interface MonitoringServiceOptions {
   port: number | string; // server port
 }
 
-export class MonitoringService<TOptions extends MonitoringServiceOptions = MonitoringServiceOptions> extends Koa implements Service {
+export class MonitoringService<TOptions extends MonitoringServiceOptions = MonitoringServiceOptions>
+  extends Koa
+  implements Service
+{
   protected readonly logger: Logger;
 
   private server: Server | undefined;
@@ -35,9 +38,13 @@ export class MonitoringService<TOptions extends MonitoringServiceOptions = Monit
     this.on('error', onError(this.options.port, this.logger));
   }
 
-  public isAlive(): Promise<boolean> { return Promise.resolve(this.alive); }
+  public isAlive(): Promise<boolean> {
+    return Promise.resolve(this.alive);
+  }
 
-  public isReady(): Promise<boolean> { return Promise.resolve(!!this.server); }
+  public isReady(): Promise<boolean> {
+    return Promise.resolve(!!this.server);
+  }
 
   public start(): Promise<void> {
     if (this.server) throw new Error('Already started');
@@ -87,7 +94,12 @@ export class MonitoringService<TOptions extends MonitoringServiceOptions = Monit
 }
 
 export namespace MonitoringService {
-  export const create = (port: number | string, logger: Logger, isReady: () => Promise<boolean>, isAlive?: () => Promise<boolean>): Service => {
+  export const create = (
+    port: number | string,
+    logger: Logger,
+    isReady: () => Promise<boolean>,
+    isAlive?: () => Promise<boolean>,
+  ): Service => {
     return new MonitoringService({
       isReady: (): Promise<boolean> => isReady(),
       isAlive: async (): Promise<boolean> => {

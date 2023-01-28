@@ -21,14 +21,17 @@ export interface RequestContext {
   when: Date;
 }
 
-const checkAuthorization = isObject({
-  oid: maybeUlid(),
-  rls: isArray(isString()),
-  sid: isString(),
-  sub: isUlid(),
-  sty: maybeString(),
-  typ: maybeString(),
-}, { stripExtraProperties: true });
+const checkAuthorization = isObject(
+  {
+    oid: maybeUlid(),
+    rls: isArray(isString()),
+    sid: isString(),
+    sub: isUlid(),
+    sty: maybeString(),
+    typ: maybeString(),
+  },
+  { stripExtraProperties: true },
+);
 
 const localStorage = new AsyncLocalStorage<RequestContext>();
 
@@ -43,10 +46,7 @@ export const userHasRole = (...allOf: string[][]): boolean => {
   const user = request?.user;
   if (!user) return false;
 
-  return allOf.reduce<boolean>(
-    (acc, anyOf) => acc && user.roles.some((role) => anyOf.includes(role)),
-    true
-  );
+  return allOf.reduce<boolean>((acc, anyOf) => acc && user.roles.some((role) => anyOf.includes(role)), true);
 };
 
 export const requestContextMiddleware = (): Middleware => {
@@ -77,8 +77,11 @@ const makeRequestContext = (ctx: AuthorizationContext): RequestContext => {
 
   const result = checkAuthorization.process(ctx.authorization);
   if (isIssue(result)) {
-    const { logger } = (ctx as { logger?: Logger });
-    logger?.warn('Invalid authorization', undefined, { authorization: JSON.stringify(ctx.authorization), issues: JSON.stringify(result.issues) });
+    const { logger } = ctx as { logger?: Logger };
+    logger?.warn('Invalid authorization', undefined, {
+      authorization: JSON.stringify(ctx.authorization),
+      issues: JSON.stringify(result.issues),
+    });
     throw new Error('Invalid authorization');
   }
 

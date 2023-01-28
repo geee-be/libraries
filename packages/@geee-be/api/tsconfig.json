@@ -2,12 +2,7 @@
   "extends": "../create/tsconfig.node.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "types": [
-      "jest",
-      "node"
-    ],
+    "types": ["jest", "node"]
   },
-  "include": [
-    "./src"
-  ]
+  "include": ["./src"]
 }

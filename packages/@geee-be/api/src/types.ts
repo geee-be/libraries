@@ -6,7 +6,7 @@ export interface Client {
   userAgent?: string;
 }
 
-export interface Entity { }
+export interface Entity {}
 
 export type ApiEndpoint = (ctx: ApiContext) => Promise<void>;
 

@@ -26,10 +26,14 @@ const getStringProperty = (err: unknown, property: string): string | undefined =
  * @param {object[]} [err.errors] - validation errors
  */
 export const formatError = (ctx: Context, err: unknown): void => {
-  const { logger } = (ctx as { logger?: Logger });
+  const { logger } = ctx as { logger?: Logger };
 
   if (!(err instanceof Error)) {
-    logger?.warn('Unexpected error', undefined, { error: String(err), method: ctx.request.method, url: ctx.request.url });
+    logger?.warn('Unexpected error', undefined, {
+      error: String(err),
+      method: ctx.request.method,
+      url: ctx.request.url,
+    });
     ctx.set('Cache-Control', 'max-age=0');
     ctx.set('Pragma', 'no-cache');
     ctx.status = Statuses.SERVER_ERROR;
@@ -62,28 +66,28 @@ export const formatError = (ctx: Context, err: unknown): void => {
 /**
  * Handle Koa app errors
  */
-export const onError = (port: number | string, log: Logger) => (error: Error): void | never => {
-  log.error(error);
-  if (getStringProperty(error, 'syscall') !== 'listen') {
-    return;
-  }
+export const onError =
+  (port: number | string, log: Logger) =>
+  (error: Error): void | never => {
+    log.error(error);
+    if (getStringProperty(error, 'syscall') !== 'listen') {
+      return;
+    }
 
-  const bind = typeof port === 'string'
-    ? `Pipe ${port}`
-    : `Port ${port}`;
+    const bind = typeof port === 'string' ? `Pipe ${port}` : `Port ${port}`;
 
-  // handle specific listen errors with friendly messages
-  switch (getStringProperty(error, 'code')) {
-    case 'EACCES':
-      console.error(`${bind} requires elevated privileges`);
-      process.exit(EXIT_ERROR); // eslint-disable-line no-process-exit
-    case 'EADDRINUSE':
-      console.error(`${bind} is already in use`);
-      process.exit(EXIT_ERROR); // eslint-disable-line no-process-exit
-    default:
-      throw error;
-  }
-};
+    // handle specific listen errors with friendly messages
+    switch (getStringProperty(error, 'code')) {
+      case 'EACCES':
+        console.error(`${bind} requires elevated privileges`);
+        process.exit(EXIT_ERROR); // eslint-disable-line no-process-exit
+      case 'EADDRINUSE':
+        console.error(`${bind} is already in use`);
+        process.exit(EXIT_ERROR); // eslint-disable-line no-process-exit
+      default:
+        throw error;
+    }
+  };
 
 export class UnauthorizedError extends Error {
   constructor(public readonly status?: number) {

@@ -45,7 +45,14 @@ export interface ServiceOptions {
 }
 
 // noinspection JSUnusedGlobalSymbols
-export abstract class KoaService<TOptions extends ServiceOptions = ServiceOptions, StateT extends DefaultState = DefaultState, CustomT extends DefaultContext = DefaultContext> extends Koa<StateT, CustomT> implements Service {
+export abstract class KoaService<
+    TOptions extends ServiceOptions = ServiceOptions,
+    StateT extends DefaultState = DefaultState,
+    CustomT extends DefaultContext = DefaultContext,
+  >
+  extends Koa<StateT, CustomT>
+  implements Service
+{
   protected readonly options: TOptions;
 
   protected readonly logger: Logger;
@@ -74,6 +81,7 @@ export abstract class KoaService<TOptions extends ServiceOptions = ServiceOption
     this.use(errorMiddleware());
     this.use(validate());
     if (this.options.helmetOptions) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       this.use(helmet(this.options.helmetOptions));
     }
     this.use(conditional());
@@ -92,12 +100,16 @@ export abstract class KoaService<TOptions extends ServiceOptions = ServiceOption
   /**
    * Return true if this service is alive
    */
-  public isAlive(): Promise<boolean> { return Promise.resolve(this.alive); }
+  public isAlive(): Promise<boolean> {
+    return Promise.resolve(this.alive);
+  }
 
   /**
-    * Return true if this service is ready for operation
-    */
-  public isReady(): Promise<boolean> { return Promise.resolve(!!this.server); }
+   * Return true if this service is ready for operation
+   */
+  public isReady(): Promise<boolean> {
+    return Promise.resolve(!!this.server);
+  }
 
   /**
    * Start the app
@@ -139,16 +151,17 @@ export abstract class KoaService<TOptions extends ServiceOptions = ServiceOption
   /**
    * Start the web server
    */
-  private startServer = (): Promise<void> => new Promise<void>((resolve, reject) => {
-    if (this.server) {
-      reject(new Error('Already started'));
-      return;
-    }
-    this.server = this.listen(this.options.port, () => {
-      this.logger.info(`HTTP started on http://localhost:${this.options.port}/`);
-      resolve();
+  private startServer = (): Promise<void> =>
+    new Promise<void>((resolve, reject) => {
+      if (this.server) {
+        reject(new Error('Already started'));
+        return;
+      }
+      this.server = this.listen(this.options.port, () => {
+        this.logger.info(`HTTP started on http://localhost:${this.options.port}/`);
+        resolve();
+      });
     });
-  });
 
   /**
    * Override to mount API routes

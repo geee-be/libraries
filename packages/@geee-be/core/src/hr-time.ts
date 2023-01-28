@@ -13,7 +13,10 @@ export namespace HrTime {
   export const past = (interval: HrDuration): Date => new Date(Date.now() - toMs(interval));
   export const future = (interval: HrDuration): Date => new Date(Date.now() + toMs(interval));
 
-  export const ns = (nanoSeconds: number): HrDuration => [Math.round(nanoSeconds / HrTime.SECOND), Math.round(nanoSeconds % HrTime.SECOND)];
+  export const ns = (nanoSeconds: number): HrDuration => [
+    Math.round(nanoSeconds / HrTime.SECOND),
+    Math.round(nanoSeconds % HrTime.SECOND),
+  ];
   export const ms = (milliSeconds: number): HrDuration => ns(milliSeconds * HrTime.MS);
   export const seconds = (s: number): HrDuration => ns(s * HrTime.SECOND);
   export const minutes = (m: number): HrDuration => ns(m * HrTime.MINUTE);

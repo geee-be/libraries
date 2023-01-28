@@ -1,4 +1,8 @@
-export const omit = (obj: { [key: string]: any }, props: string[], fn?: (val: any, key: string, obj: Record<string, unknown>) => boolean) => {
+export const omit = <T extends { [key: string]: any }, K extends keyof T>(
+  obj: T,
+  props: K[],
+  fn?: (val: any, key: K, obj: Record<string, unknown>) => boolean,
+): Exclude<T, K> => {
   if (typeof props === 'function') {
     fn = props;
     props = [];
@@ -9,7 +13,7 @@ export const omit = (obj: { [key: string]: any }, props: string[], fn?: (val: an
   }
 
   const isFunction = typeof fn === 'function';
-  const keys = Object.keys(obj);
+  const keys = Object.keys(obj) as K[];
   const res: any = {};
 
   // eslint-disable-next-line @typescript-eslint/prefer-for-of

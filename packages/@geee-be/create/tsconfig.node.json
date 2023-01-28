@@ -9,9 +9,7 @@
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
     "isolatedModules": true,
-    "lib": [
-      "ES2021"
-    ],
+    "lib": ["ES2021"],
     "module": "ESNext",
     "moduleResolution": "Node",
     "noEmit": false,
@@ -20,8 +18,6 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "ES2020",
-    "types": [
-      "node"
-    ],
+    "types": ["node"]
   }
 }

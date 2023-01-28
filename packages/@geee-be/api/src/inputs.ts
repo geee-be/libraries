@@ -6,16 +6,25 @@ import type { ApiContext } from './types.js';
 import { isUlid } from './ulid.js';
 
 const idParam = (ctx: ApiContext): string => {
-  const { id } = params(ctx, isObject({
-    id: isUlid(),
-  }));
+  const { id } = params(
+    ctx,
+    isObject({
+      id: isUlid(),
+    }),
+  );
   return id;
 };
 
 const filterByQueryIdsForOrganization = <T = any>(ctx: ApiContext): Filter<T> => {
-  const { id } = query(ctx, isObject({
-    id: maybeAsArray<string, string[]>(undefined, { minLength: 1 }),
-  }, { stripExtraProperties: true }));
+  const { id } = query(
+    ctx,
+    isObject(
+      {
+        id: maybeAsArray<string, string[]>(undefined, { minLength: 1 }),
+      },
+      { stripExtraProperties: true },
+    ),
+  );
 
   const request = requestContext();
   const organizationId = request.user?.organizationId ?? null;
@@ -39,4 +48,3 @@ export const Inputs = {
   filterByIdParamForOrganization,
   change,
 };
-
