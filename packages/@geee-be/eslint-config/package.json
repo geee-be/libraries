@@ -1,0 +1,19 @@
+{
+  "name": "@geee-be/eslint-config",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "license": "MIT",
+  "author": "Greg Bacchus",
+  "type": "module",
+  "main": "index.json",
+  "scripts": {},
+  "peerDependencies": {
+    "@typescript-eslint/eslint-plugin": ">= 5.49",
+    "@typescript-eslint/parser": ">= 5.49",
+    "eslint": ">= 8.32",
+    "eslint-config-prettier": ">= 8.6",
+    "eslint-plugin-import": ">= 2.27",
+    "eslint-plugin-promise": ">= 6.1"
+  }
+}

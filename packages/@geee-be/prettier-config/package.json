@@ -7,5 +7,9 @@
   "author": "Greg Bacchus",
   "type": "module",
   "main": "index.json",
-  "scripts": {}
+  "scripts": {},
+  "peerDependencies": {
+    "eslint-config-prettier": ">= 8.6",
+    "prettier": ">= 2.8"
+  }
 }

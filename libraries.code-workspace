@@ -27,6 +27,10 @@
     {
       "name": "prettier-config",
       "path": "packages/@geee-be/prettier-config"
+    },
+    {
+      "name": "eslint-config",
+      "path": "packages/@geee-be/eslint-config"
     }
   ],
   "settings": {
