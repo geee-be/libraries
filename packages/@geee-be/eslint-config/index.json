@@ -30,13 +30,6 @@
     "sourceType": "module"
   },
   "plugins": ["@typescript-eslint", "filenames", "prefer-arrow"],
-  "settings": {
-    "import/resolver": {
-      "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
-      }
-    }
-  },
   "rules": {
     "@typescript-eslint/array-type": "off",
     "@typescript-eslint/consistent-type-assertions": "error",
@@ -118,6 +111,7 @@
     "filenames/match-regex": ["error", "^[a-z\\-\\.]+$", true],
     "guard-for-in": "error",
     "id-match": "error",
+    "import/no-unresolved": "off",
     "max-classes-per-file": "off",
     "max-len": "off",
     "new-parens": "error",
