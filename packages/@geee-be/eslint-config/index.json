@@ -30,6 +30,9 @@
     "sourceType": "module"
   },
   "plugins": ["@typescript-eslint", "filenames", "prefer-arrow"],
+  "settings": {
+    "import/extensions": [".js", ".jsx", ".ts", ".tsx"]
+  },
   "rules": {
     "@typescript-eslint/array-type": "off",
     "@typescript-eslint/consistent-type-assertions": "error",
