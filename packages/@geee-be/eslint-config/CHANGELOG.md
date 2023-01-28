@@ -1,5 +1,11 @@
 # @geee-be/eslint-config
 
+## 1.0.3
+
+### Patch Changes
+
+- f369cf8: import/extensions
+
 ## 1.0.2
 
 ### Patch Changes
