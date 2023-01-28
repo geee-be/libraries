@@ -1,5 +1,11 @@
 # @geee-be/eslint-config
 
+## 1.0.4
+
+### Patch Changes
+
+- f2e7299: Disabled import/no-unresolved
+
 ## 1.0.3
 
 ### Patch Changes
