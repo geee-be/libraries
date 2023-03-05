@@ -1,4 +1,3 @@
-import Router from '@koa/router';
 import { Filter } from 'mongodb';
 import { Contract, isObject, NotPrimitive, ValueProcessor } from 'validata';
 import { body, headers, params, query, Statuses } from 'validata-koa';
@@ -39,7 +38,7 @@ export type FindManyHandler<T> = (
 export type FindOneHandler<T> = (filter: Filter<T>) => Promise<unknown | undefined | null>;
 export type InsertOneHandler<T extends Entity> = (entity: T) => Promise<unknown>;
 export type PatchOneHandler<T extends Entity> = (filter: Filter<T>, patch: Partial<T>) => Promise<unknown>;
-export type ActionHandler<A> = (args: A, ctx: Router.RouterContext) => Promise<unknown>;
+export type ActionHandler<A> = (args: A, ctx: ApiContext) => Promise<unknown>;
 export type ActionWithBodyHandler<B, P = undefined, Q = undefined, H = undefined> = (
   args: ActionWithBodyArgs<B, P, Q, H>,
   ctx: ApiContext,
@@ -199,7 +198,7 @@ export namespace Endpoint {
 
       const result = await handler(
         { ...handlerArgs, referrer: (ctx.request as unknown as { referrer: unknown }).referrer },
-        ctx as unknown as Router.RouterContext,
+        ctx as ApiContext,
       );
       if (result === undefined) return;
 
