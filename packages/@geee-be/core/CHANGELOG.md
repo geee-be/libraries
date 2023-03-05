@@ -1,5 +1,11 @@
 # @geee-be/core
 
+## 1.0.4
+
+### Patch Changes
+
+- 2202092: Update packages
+
 ## 1.0.3
 
 ### Patch Changes

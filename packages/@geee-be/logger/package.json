@@ -1,6 +1,6 @@
 {
   "name": "@geee-be/logger",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "",
   "keywords": [],
   "license": "MIT",
@@ -19,7 +19,7 @@
     "start:dev": "tsc --watch"
   },
   "dependencies": {
-    "@geee-be/core": "workspace:1.0.3",
+    "@geee-be/core": "workspace:1.0.4",
     "reflect-metadata": "^0.1.13",
     "semver": "^7.3.8",
     "stack-trace": "1.0.0-pre2"

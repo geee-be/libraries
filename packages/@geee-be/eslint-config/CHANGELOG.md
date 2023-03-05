@@ -1,5 +1,11 @@
 # @geee-be/eslint-config
 
+## 1.0.5
+
+### Patch Changes
+
+- 2202092: Update packages
+
 ## 1.0.4
 
 ### Patch Changes
