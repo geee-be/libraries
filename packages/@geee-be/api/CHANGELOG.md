@@ -1,5 +1,11 @@
 # @geee-be/api
 
+## 1.0.7
+
+### Patch Changes
+
+- fb32aa7: Fixed import of jose
+
 ## 1.0.6
 
 ### Patch Changes
