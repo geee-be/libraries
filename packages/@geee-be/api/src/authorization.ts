@@ -2,7 +2,7 @@ import { Statuses } from '@geee-be/core';
 import { logger, Logger, MaybeWithLogger } from '@geee-be/logger';
 import * as Router from '@koa/router';
 import { createSecretKey } from 'crypto';
-import jose, { JWSHeaderParameters, JWTPayload, JWTVerifyOptions, KeyLike } from 'jose';
+import { JWSHeaderParameters, JWTPayload, jwtVerify, JWTVerifyOptions, KeyLike } from 'jose';
 import { Context, Middleware, Next } from 'koa';
 import { ApiContext, RequestHeaders } from './types';
 
@@ -103,7 +103,7 @@ abstract class BaseJwtAuthentication {
       // decode token
       const token = Jwt.getBearerToken(headers);
       if (token) {
-        const result = await jose.jwtVerify(token, await this.getSecretOrPublicKey(token), this.options?.verifyOptions);
+        const result = await jwtVerify(token, await this.getSecretOrPublicKey(token), this.options?.verifyOptions);
         return {
           authorization: result.payload,
           status: undefined,
