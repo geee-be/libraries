@@ -1,5 +1,11 @@
 # @geee-be/api
 
+## 1.0.10
+
+### Patch Changes
+
+- 08a649e: Fixes
+
 ## 1.0.9
 
 ### Patch Changes
