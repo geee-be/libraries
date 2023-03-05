@@ -1,8 +1,8 @@
 import { Collection, Filter, MongoError, OptionalUnlessRequiredId } from 'mongodb';
 import { ulid } from 'ulid';
-import { FindManyHandler, FindOneHandler, InsertOneHandler, PatchOneHandler } from './endpoint';
+import { FindManyHandler, FindOneHandler, InsertOneHandler, PatchOneHandler } from './endpoint.js';
 import type { Entity } from './types.js';
-import { parseSort } from './util';
+import { parseSort } from './util.js';
 
 export interface MutationOptions<T extends Entity> {
   mutateInsert?: (input: Partial<T>) => Partial<T>;

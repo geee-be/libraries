@@ -3,7 +3,7 @@ import get from 'lodash.get';
 import { SortDirection } from 'mongodb';
 import { asNumber, isObject, isString, Issue, maybeAsArray, maybeAsObject, Path, ValidationError } from 'validata';
 import { query } from 'validata-koa';
-import { ApiContext, Entity, FindManyQuery, ForeignKeyValidation } from './types';
+import type { ApiContext, Entity, FindManyQuery, ForeignKeyValidation } from './types.js';
 
 export const validateForeignKeys = async (
   foreignKeys: ForeignKeyValidation,

@@ -4,7 +4,7 @@ import * as Router from '@koa/router';
 import { createSecretKey } from 'crypto';
 import { JWSHeaderParameters, JWTPayload, jwtVerify, JWTVerifyOptions, KeyLike } from 'jose';
 import { Context, Middleware, Next } from 'koa';
-import { ApiContext, RequestHeaders } from './types';
+import type { ApiContext, RequestHeaders } from './types.js';
 
 const TOKEN_EXTRACTOR = /^Bearer (.*)$/;
 const debug = logger.child({ module: 'api:authorization' });
