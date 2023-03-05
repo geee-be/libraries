@@ -1,5 +1,11 @@
 # @geee-be/api
 
+## 1.0.9
+
+### Patch Changes
+
+- 92600da: ES Module fixes
+
 ## 1.0.8
 
 ### Patch Changes
