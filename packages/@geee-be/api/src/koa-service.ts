@@ -1,6 +1,7 @@
 import type { Logger } from '@geee-be/logger';
 import type { Service } from '@geee-be/service';
 import Router from '@koa/router';
+import type { HelmetOptions } from 'helmet';
 import type { DefaultContext, DefaultState } from 'koa';
 import Koa from 'koa';
 import helmet from 'koa-helmet';
@@ -9,7 +10,6 @@ import { collectDefaultMetrics } from 'prom-client';
 import 'reflect-metadata';
 import { validate } from 'validata-koa';
 import { onError } from './error.js';
-import type { HelmetOptions } from './helmet.js';
 import { DEFAULT_HELMET_OPTIONS } from './helmet.js';
 import type { Monitor } from './middleware.js';
 import { errorMiddleware, observeMiddleware } from './middleware.js';
@@ -85,7 +85,7 @@ export abstract class KoaService<
     this.use(validate());
     if (this.options.helmetOptions) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      this.use(helmet(this.options.helmetOptions));
+      this.use(helmet(this.options.helmetOptions as any));
     }
     this.use(conditional());
     this.use(etag());

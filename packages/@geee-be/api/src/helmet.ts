@@ -1,6 +1,4 @@
-import helmet from 'helmet';
-
-export type HelmetOptions = Required<Parameters<typeof helmet>>[0];
+import type { HelmetOptions } from 'helmet';
 
 export const DEFAULT_HELMET_OPTIONS: HelmetOptions = {};
 

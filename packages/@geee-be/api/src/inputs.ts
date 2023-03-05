@@ -6,7 +6,7 @@ import type { ApiContext } from './types.js';
 import { isUlid } from './ulid.js';
 
 const idParam = (ctx: ApiContext): string => {
-  const { id } = params(
+  const { id } = params<{ id: string }>(
     ctx,
     isObject({
       id: isUlid(),
@@ -16,7 +16,7 @@ const idParam = (ctx: ApiContext): string => {
 };
 
 const filterByQueryIdsForOrganization = <T = any>(ctx: ApiContext): Filter<T> => {
-  const { id } = query(
+  const { id } = query<{ id: unknown }>(
     ctx,
     isObject(
       {
