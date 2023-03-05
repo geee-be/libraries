@@ -64,7 +64,7 @@ export class MonitoringService<TOptions extends MonitoringServiceOptions = Monit
         return;
       }
       this.server = this.listen(this.options.port, () => {
-        this.logger.info(`Monitoring started on http://localhost:${this.options.port}/`);
+        this.logger(`Monitoring started on http://localhost:${this.options.port}/`);
         resolve();
       });
     });

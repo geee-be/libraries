@@ -88,7 +88,7 @@ export abstract class KoaService<
     this.use(etag());
     this.use(compress());
     if (this.options.staticPath) {
-      this.logger.info(`Serving static content from ${this.options.staticPath}`);
+      this.logger(`Serving static content from ${this.options.staticPath}`);
       this.use(serveStatic(this.options.staticPath));
     }
     this.use(bodyParser());
@@ -158,7 +158,7 @@ export abstract class KoaService<
         return;
       }
       this.server = this.listen(this.options.port, () => {
-        this.logger.info(`HTTP started on http://localhost:${this.options.port}/`);
+        this.logger(`HTTP started on http://localhost:${this.options.port}/`);
         resolve();
       });
     });
