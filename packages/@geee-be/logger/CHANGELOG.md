@@ -1,5 +1,13 @@
 # @geee-be/logger
 
+## 1.0.5
+
+### Patch Changes
+
+- 2202092: Update packages
+- Updated dependencies [2202092]
+  - @geee-be/core@1.0.4
+
 ## 1.0.4
 
 ### Patch Changes

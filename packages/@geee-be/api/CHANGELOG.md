@@ -1,5 +1,15 @@
 # @geee-be/api
 
+## 1.0.12
+
+### Patch Changes
+
+- 2202092: Update packages
+- Updated dependencies [2202092]
+  - @geee-be/core@1.0.4
+  - @geee-be/logger@1.0.5
+  - @geee-be/service@1.0.4
+
 ## 1.0.11
 
 ### Patch Changes
