@@ -1,5 +1,11 @@
 # @geee-be/api
 
+## 1.0.11
+
+### Patch Changes
+
+- 157cd9f: Change to `import type`
+
 ## 1.0.10
 
 ### Patch Changes
