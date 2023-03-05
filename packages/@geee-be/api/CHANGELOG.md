@@ -1,5 +1,11 @@
 # @geee-be/api
 
+## 1.0.8
+
+### Patch Changes
+
+- 6d672dd: Export missing modules
+
 ## 1.0.7
 
 ### Patch Changes
