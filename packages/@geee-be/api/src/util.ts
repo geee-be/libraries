@@ -1,7 +1,8 @@
 import { jsonDateParser } from 'json-date-parser';
 import get from 'lodash.get';
-import { SortDirection } from 'mongodb';
-import { asNumber, isObject, isString, Issue, maybeAsArray, maybeAsObject, Path, ValidationError } from 'validata';
+import type { SortDirection } from 'mongodb';
+import type { Path } from 'validata';
+import { Issue, ValidationError, asNumber, isObject, isString, maybeAsArray, maybeAsObject } from 'validata';
 import { query } from 'validata-koa';
 import type { ApiContext, Entity, FindManyQuery, ForeignKeyValidation } from './types.js';
 

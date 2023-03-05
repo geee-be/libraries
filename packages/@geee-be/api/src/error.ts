@@ -1,6 +1,6 @@
 import { Statuses } from '@geee-be/core';
-import { Logger } from '@geee-be/logger';
-import { Context } from 'koa';
+import type { Logger } from '@geee-be/logger';
+import type { Context } from 'koa';
 
 const EXIT_ERROR = 1;
 

@@ -1,5 +1,5 @@
-import { Logger } from '@geee-be/logger';
-import { Middleware } from '@koa/router';
+import type { Logger } from '@geee-be/logger';
+import type { Middleware } from '@koa/router';
 import { AsyncLocalStorage } from 'async_hooks';
 import { DateTime } from 'luxon';
 import { isArray, isIssue, isObject, isString, maybeString } from 'validata';

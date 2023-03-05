@@ -1,5 +1,5 @@
-import { RouterContext } from '@koa/router';
-import { Request } from 'koa';
+import type { RouterContext } from '@koa/router';
+import type { Request } from 'koa';
 
 export interface Client {
   ips: string[];

@@ -1,15 +1,20 @@
-import { Logger } from '@geee-be/logger';
-import { Service } from '@geee-be/service';
+import type { Logger } from '@geee-be/logger';
+import type { Service } from '@geee-be/service';
 import Router from '@koa/router';
-import { DefaultContext } from 'koa';
-import { KoaService, ServiceOptions } from './koa-service.js';
+import type { DefaultContext } from 'koa';
+import type { ServiceOptions } from './koa-service.js';
+import { KoaService } from './koa-service.js';
 import type { ApiContext } from './types.js';
 
 export interface Mountable {
   mount(parent: Router<any, any>): void;
 }
 
-export class ApiService<StateT = any, CustomT extends DefaultContext = ApiContext> extends KoaService<ServiceOptions, StateT, CustomT> {
+export class ApiService<StateT = any, CustomT extends DefaultContext = ApiContext> extends KoaService<
+  ServiceOptions,
+  StateT,
+  CustomT
+> {
   public static create(port: number | string, logger: Logger, ...apis: Mountable[]): Service {
     return new ApiService(apis, { logger, port, proxy: true });
   }

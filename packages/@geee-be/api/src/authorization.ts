@@ -1,9 +1,11 @@
 import { Statuses } from '@geee-be/core';
-import { logger, Logger, MaybeWithLogger } from '@geee-be/logger';
+import type { Logger, MaybeWithLogger } from '@geee-be/logger';
+import { logger } from '@geee-be/logger';
 import * as Router from '@koa/router';
 import { createSecretKey } from 'crypto';
-import { JWSHeaderParameters, JWTPayload, jwtVerify, JWTVerifyOptions, KeyLike } from 'jose';
-import { Context, Middleware, Next } from 'koa';
+import type { JWSHeaderParameters, JWTPayload, JWTVerifyOptions, KeyLike } from 'jose';
+import { jwtVerify } from 'jose';
+import type { Context, Middleware, Next } from 'koa';
 import type { ApiContext, RequestHeaders } from './types.js';
 
 const TOKEN_EXTRACTOR = /^Bearer (.*)$/;

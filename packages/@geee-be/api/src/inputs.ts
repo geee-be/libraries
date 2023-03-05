@@ -1,4 +1,4 @@
-import { Filter } from 'mongodb';
+import type { Filter } from 'mongodb';
 import { isObject, maybeAsArray } from 'validata';
 import { params, query } from 'validata-koa';
 import { requestContext } from './request-context.js';

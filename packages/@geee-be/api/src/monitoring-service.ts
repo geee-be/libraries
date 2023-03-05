@@ -1,5 +1,5 @@
-import { Logger } from '@geee-be/logger';
-import { Service } from '@geee-be/service';
+import type { Logger } from '@geee-be/logger';
+import type { Service } from '@geee-be/service';
 import Router from '@koa/router';
 import Koa from 'koa';
 import { Server } from 'net';

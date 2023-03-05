@@ -1,7 +1,8 @@
-import { Filter } from 'mongodb';
-import { Contract, isObject, NotPrimitive, ValueProcessor } from 'validata';
-import { body, headers, params, query, Statuses } from 'validata-koa';
-import { AuthorizationContext } from './authorization.js';
+import type { Filter } from 'mongodb';
+import type { Contract, NotPrimitive, ValueProcessor } from 'validata';
+import { isObject } from 'validata';
+import { Statuses, body, headers, params, query } from 'validata-koa';
+import type { AuthorizationContext } from './authorization.js';
 import { ForbiddenError } from './error.js';
 import { Inputs } from './inputs.js';
 import { filterAnd } from './mongo.js';

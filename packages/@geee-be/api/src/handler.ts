@@ -1,6 +1,7 @@
-import { Collection, Filter, MongoError, OptionalUnlessRequiredId } from 'mongodb';
+import type { Collection, Filter, OptionalUnlessRequiredId } from 'mongodb';
+import { MongoError } from 'mongodb';
 import { ulid } from 'ulid';
-import { FindManyHandler, FindOneHandler, InsertOneHandler, PatchOneHandler } from './endpoint.js';
+import type { FindManyHandler, FindOneHandler, InsertOneHandler, PatchOneHandler } from './endpoint.js';
 import type { Entity } from './types.js';
 import { parseSort } from './util.js';
 

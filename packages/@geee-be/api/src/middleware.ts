@@ -1,7 +1,7 @@
 import { HrTime, Statuses } from '@geee-be/core';
-import { Logger } from '@geee-be/logger';
-import { RouterContext } from '@koa/router';
-import { Middleware } from 'koa';
+import type { Logger } from '@geee-be/logger';
+import type { RouterContext } from '@koa/router';
+import type { Middleware } from 'koa';
 import { Summary } from 'prom-client';
 import { formatError } from './error.js';
 
