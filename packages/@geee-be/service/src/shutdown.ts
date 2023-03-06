@@ -1,11 +1,15 @@
-import { Duration } from '@geee-be/core';
+import type { Callback, Duration } from '@geee-be/core';
+import { promiseToCallback } from '@geee-be/core';
 
-const run = (fn: (() => unknown | Promise<unknown>) | undefined, done: () => unknown): void => {
+const run = (fn: (() => unknown | Promise<unknown>) | undefined, done: Callback<void>): void => {
   if (!fn) {
-    done();
+    done(undefined, undefined);
     return;
   }
-  Promise.all([fn()]).finally(done);
+  void promiseToCallback(
+    Promise.all([fn()]).then(() => undefined),
+    done,
+  );
 };
 
 /**

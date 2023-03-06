@@ -10,8 +10,8 @@ export class Mutex {
       return new Promise(begin);
     });
 
-    return new Promise((res) => {
-      begin = res;
+    return new Promise((resolve) => {
+      begin = resolve;
     });
   }
 

@@ -1,4 +1,4 @@
-import { Duration } from '@geee-be/core';
+import type { Duration } from '@geee-be/core';
 import { promiseReduceBoolean, Service, ServiceFactory } from './service.js';
 import { graceful } from './shutdown.js';
 

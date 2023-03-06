@@ -6,11 +6,11 @@ export const promiseReduceBoolean = async (promises: Promise<boolean>[]): Promis
 export namespace Service {
   export const combine = (...services: Service[]): Service => {
     return {
-      dispose: () => Promise.all(services.map((service) => service.dispose())).then(),
+      dispose: () => Promise.all(services.map((service) => service.dispose())).then(() => undefined),
       isAlive: (): Promise<boolean> => promiseReduceBoolean(services.map((service) => service.isAlive())),
       isReady: (): Promise<boolean> => promiseReduceBoolean(services.map((service) => service.isReady())),
-      start: () => Promise.all(services.map((service) => service.start())).then(),
-      stop: () => Promise.all(services.map((service) => service.stop())).then(),
+      start: () => Promise.all(services.map((service) => service.start())).then(() => undefined),
+      stop: () => Promise.all(services.map((service) => service.stop())).then(() => undefined),
     };
   };
 }

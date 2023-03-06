@@ -1,7 +1,7 @@
-import { Duration } from './time';
+import { Duration } from './time.js';
 
 export const sleep = (duration: Duration): Promise<unknown> => {
-  return new Promise((res) => {
-    setTimeout(res, duration);
+  return new Promise((resolve) => {
+    setTimeout(resolve, duration);
   });
 };

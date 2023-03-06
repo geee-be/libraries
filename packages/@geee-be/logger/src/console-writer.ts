@@ -1,4 +1,4 @@
-import { Log, LogWriter } from './log-writer';
+import type { Log, LogWriter } from './log-writer.js';
 import { omit } from './omit.js';
 
 export interface ConsoleOptions {
