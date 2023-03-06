@@ -26,15 +26,15 @@ jobs:
           run_install: |
             - args: [--no-frozen-lockfile]
 
-      - name: Lint packages
-        shell: bash
-        run: |
-          pnpm -w lint
-
       - name: Build packages
         shell: bash
         run: |
           pnpm -w build
+
+      - name: Lint packages
+        shell: bash
+        run: |
+          pnpm -w lint
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
