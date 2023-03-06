@@ -1,5 +1,17 @@
 # @geee-be/api
 
+## 1.0.14
+
+### Patch Changes
+
+- 594f3a4: Change types to use .d.ts
+- 9600334: Linting and typing
+- Updated dependencies [594f3a4]
+- Updated dependencies [661f04d]
+  - @geee-be/service@1.0.5
+  - @geee-be/logger@1.0.6
+  - @geee-be/core@1.0.5
+
 ## 1.0.13
 
 ### Patch Changes

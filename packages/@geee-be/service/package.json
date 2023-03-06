@@ -1,6 +1,6 @@
 {
   "name": "@geee-be/service",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "",
   "keywords": [],
   "license": "MIT",
@@ -19,7 +19,7 @@
     "start:dev": "tsc --watch"
   },
   "dependencies": {
-    "@geee-be/core": "workspace:1.0.4",
+    "@geee-be/core": "workspace:1.0.5",
     "reflect-metadata": "^0.1.13"
   }
 }

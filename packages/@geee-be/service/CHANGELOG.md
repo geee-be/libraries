@@ -1,5 +1,15 @@
 # @geee-be/service
 
+## 1.0.5
+
+### Patch Changes
+
+- 594f3a4: Change types to use .d.ts
+- 661f04d: Linting
+- Updated dependencies [594f3a4]
+- Updated dependencies [661f04d]
+  - @geee-be/core@1.0.5
+
 ## 1.0.4
 
 ### Patch Changes
