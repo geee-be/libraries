@@ -1,5 +1,11 @@
 # @geee-be/api
 
+## 1.0.13
+
+### Patch Changes
+
+- 74fffe7: Improved ESM linting
+
 ## 1.0.12
 
 ### Patch Changes

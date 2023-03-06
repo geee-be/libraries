@@ -1,5 +1,12 @@
 # @geee-be/eslint-config
 
+## 1.0.6
+
+### Patch Changes
+
+- 74fffe7: Improved ESM linting
+- dbfc716: Added support for eslint-plugin-node for node-esm projects
+
 ## 1.0.5
 
 ### Patch Changes
