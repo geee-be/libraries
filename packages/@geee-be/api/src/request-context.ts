@@ -4,7 +4,7 @@ import { AsyncLocalStorage } from 'async_hooks';
 import { DateTime } from 'luxon';
 import { isArray, isIssue, isObject, isString, maybeString } from 'validata';
 import type { AuthorizationContext } from './authorization.js';
-import type { Client } from './types.js';
+import type { ApiContext, Client } from './types.js';
 import { isUlid, maybeUlid } from './ulid.js';
 
 export interface RequestContext {
@@ -49,9 +49,9 @@ export const userHasRole = (...allOf: string[][]): boolean => {
   return allOf.reduce<boolean>((acc, anyOf) => acc && user.roles.some((role) => anyOf.includes(role)), true);
 };
 
-export const requestContextMiddleware = (): Middleware => {
+export const requestContextMiddleware = (): Middleware<any, ApiContext> => {
   return (ctx, next) => {
-    const request = makeRequestContext(ctx as any as AuthorizationContext);
+    const request = makeRequestContext(ctx);
     return localStorage.run(request, () => {
       return next();
     });

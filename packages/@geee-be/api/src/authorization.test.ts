@@ -1,9 +1,10 @@
 import { Statuses } from '@geee-be/core';
-import { JWTPayload } from 'jose';
+import type { JWTPayload } from 'jose';
 import Koa from 'koa';
 import { Server } from 'net';
 import request from 'supertest';
-import { AuthorizationContext, JwtAuthentication, JwtDecoder } from './authorization';
+import type { AuthorizationContext } from './authorization.js';
+import { JwtAuthentication, JwtDecoder } from './authorization.js';
 
 describe('JwtAuthentication', () => {
   describe('middleware()', () => {
