@@ -1,5 +1,5 @@
 import type { RouterContext } from '@koa/router';
-import type { Request } from 'koa';
+import type { DefaultContext, Request } from 'koa';
 
 export interface Client {
   ips: string[];
@@ -37,7 +37,7 @@ interface WithRequestHeaders {
   };
 }
 
-export declare type ExtraContext = WithRequestBody & WithRequestHeaders;
+export declare type ExtraContext = DefaultContext & WithRequestBody & WithRequestHeaders;
 export declare type ApiContext = RouterContext<any, ExtraContext>;
 
 export interface PaginatedList<T> {
