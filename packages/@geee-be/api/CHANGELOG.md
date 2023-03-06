@@ -1,5 +1,11 @@
 # @geee-be/api
 
+## 1.0.17
+
+### Patch Changes
+
+- 250cf9f: Include request context in authorization middleware
+
 ## 1.0.16
 
 ### Patch Changes
