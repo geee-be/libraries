@@ -1,5 +1,11 @@
 # @geee-be/api
 
+## 1.0.15
+
+### Patch Changes
+
+- bee4650: Moved @type packages into dependencies
+
 ## 1.0.14
 
 ### Patch Changes
