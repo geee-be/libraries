@@ -1,5 +1,12 @@
 # @geee-be/core
 
+## 1.0.5
+
+### Patch Changes
+
+- 594f3a4: Change types to use .d.ts
+- 661f04d: Linting
+
 ## 1.0.4
 
 ### Patch Changes
