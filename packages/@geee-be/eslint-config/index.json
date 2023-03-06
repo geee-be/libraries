@@ -15,7 +15,10 @@
   ],
   "overrides": [
     {
-      "files": ["*.test.ts", "*.test.tsx"],
+      "files": [
+        "*.test.ts",
+        "*.test.tsx"
+      ],
       "rules": {
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/no-non-null-assertion": "off",
@@ -29,7 +32,11 @@
     "project": "tsconfig.json",
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint", "filenames", "prefer-arrow"],
+  "plugins": [
+    "@typescript-eslint",
+    "filenames",
+    "prefer-arrow"
+  ],
   "rules": {
     "@typescript-eslint/array-type": "off",
     "@typescript-eslint/consistent-type-assertions": "error",
@@ -52,16 +59,20 @@
     "@typescript-eslint/naming-convention": [
       "error",
       {
-        "selector": "typeLike",
-        "format": ["PascalCase"]
+        "format": [
+          "PascalCase"
+        ],
+        "selector": "typeLike"
       },
       {
-        "selector": "interface",
-        "format": ["PascalCase"],
         "custom": {
-          "regex": "^I[A-Z]",
-          "match": false
-        }
+          "match": false,
+          "regex": "^I[A-Z]"
+        },
+        "format": [
+          "PascalCase"
+        ],
+        "selector": "interface"
       }
     ],
     "@typescript-eslint/no-empty-function": "off",
@@ -96,19 +107,29 @@
       "error",
       {
         "arrays": "always-multiline",
-        "objects": "always-multiline",
-        "imports": "only-multiline",
         "exports": "only-multiline",
-        "functions": "only-multiline"
+        "functions": "only-multiline",
+        "imports": "only-multiline",
+        "objects": "always-multiline"
       }
     ],
     "complexity": "off",
     "constructor-super": "error",
-    "curly": ["error", "multi-line"],
+    "curly": [
+      "error",
+      "multi-line"
+    ],
     "dot-notation": "error",
-    "eol-last": ["warn", "always"],
+    "eol-last": [
+      "warn",
+      "always"
+    ],
     "eqeqeq": "error",
-    "filenames/match-regex": ["error", "^[a-z\\-\\.]+$", true],
+    "filenames/match-regex": [
+      "error",
+      "^[a-z\\-\\.]+$",
+      true
+    ],
     "guard-for-in": "error",
     "id-match": "error",
     "import/no-unresolved": "off",
@@ -153,16 +174,22 @@
     "no-unused-labels": "error",
     "no-var": "error",
     "object-shorthand": "error",
-    "one-var": ["error", "never"],
-    "padded-blocks": ["warn", "never"],
+    "one-var": [
+      "error",
+      "never"
+    ],
+    "padded-blocks": [
+      "warn",
+      "never"
+    ],
     "prefer-arrow/prefer-arrow-functions": "error",
     "prefer-const": "error",
     "radix": "error",
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
     "semi": "error",
     "spaced-comment": "error",
     "use-isnan": "error",
-    "valid-typeof": "off",
-    "react/prop-types": "off",
-    "react/react-in-jsx-scope": "off"
+    "valid-typeof": "off"
   }
 }

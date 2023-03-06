@@ -1,16 +1,16 @@
 {
   "env": {
-    "browser": true,
+    "browser": false,
     "es6": true,
     "jest": true,
-    "node": false
+    "node": true
   },
+  "extends": [
+    "plugin:node/recommended"
+  ],
   "overrides": [
     {
-      "files": [
-        "vite-env.d.ts",
-        "reset.d.ts"
-      ],
+      "files": "reset.d.ts",
       "rules": {
         "spaced-comment": [
           "error",
@@ -26,10 +26,8 @@
       }
     }
   ],
-  "rules": {},
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
-  }
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  },
+  "rules": {}
 }
