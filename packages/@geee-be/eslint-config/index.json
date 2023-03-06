@@ -24,6 +24,22 @@
         "@typescript-eslint/no-non-null-assertion": "off",
         "@typescript-eslint/unbound-method": "off"
       }
+    },
+    {
+      "files": "reset.d.ts",
+      "rules": {
+        "spaced-comment": [
+          "error",
+          "always",
+          {
+            "line": {
+              "markers": [
+                "/"
+              ]
+            }
+          }
+        ]
+      }
     }
   ],
   "parser": "@typescript-eslint/parser",
@@ -132,7 +148,15 @@
     ],
     "guard-for-in": "error",
     "id-match": "error",
+    "import/first": "error",
+    "import/newline-after-import": "error",
+    "import/no-absolute-path": "error",
+    "import/no-cycle": "off",
+    "import/no-empty-named-blocks": "error",
+    "import/no-extraneous-dependencies": "error",
+    "import/no-mutable-exports": "error",
     "import/no-unresolved": "off",
+    "import/no-useless-path-segments": "error",
     "max-classes-per-file": "off",
     "max-len": "off",
     "new-parens": "error",
