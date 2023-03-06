@@ -1,5 +1,12 @@
 # @geee-be/api
 
+## 1.0.16
+
+### Patch Changes
+
+- 21ad63a: Add @types/stack-trace
+- f4ca06a: ApiContext extends DefaultContext
+
 ## 1.0.15
 
 ### Patch Changes
