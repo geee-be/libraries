@@ -5,7 +5,8 @@ import * as Router from '@koa/router';
 import { createSecretKey } from 'crypto';
 import type { JWSHeaderParameters, JWTPayload, JWTVerifyOptions, KeyLike } from 'jose';
 import { jwtVerify } from 'jose';
-import type { Context, Middleware, Next } from 'koa';
+import type { Context, DefaultState, ExtendableContext, Middleware, Next, ParameterizedContext } from 'koa';
+import { requestContextMiddleware } from './request-context.js';
 import type { ApiContext, RequestHeaders } from './types.js';
 
 const TOKEN_EXTRACTOR = /^Bearer (.*)$/;
@@ -15,7 +16,10 @@ export interface MaybeWithAuthorization {
   authorization?: JWTPayload;
 }
 
-export interface AuthorizationContext extends ApiContext, MaybeWithAuthorization {}
+export type AuthorizationContext = ParameterizedContext<DefaultState, ApiContext> &
+  Router.RouterParamContext<DefaultState, ApiContext> &
+  ExtendableContext &
+  MaybeWithAuthorization;
 
 export type CheckToken = (authorization: JWTPayload | undefined, ctx: Context) => Promise<boolean>;
 
@@ -157,7 +161,8 @@ abstract class BaseJwtAuthentication {
         return;
       }
       ctx.authorization = authorization;
-      await next();
+      const mx = requestContextMiddleware();
+      await mx(ctx, next);
     };
   }
 

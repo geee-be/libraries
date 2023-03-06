@@ -65,7 +65,7 @@ const getClient = (ctx: AuthorizationContext): Client => ({
   userAgent: ctx.request.header['user-agent'],
 });
 
-const makeRequestContext = (ctx: AuthorizationContext): RequestContext => {
+export const makeRequestContext = (ctx: AuthorizationContext): RequestContext => {
   const traceId = Array.isArray(ctx.header['trace-id']) ? ctx.header['trace-id'][0] : ctx.header['trace-id'];
   if (!ctx.authorization) {
     return {
