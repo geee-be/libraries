@@ -1,25 +1,12 @@
+import type { Client, RequestContext } from '@geee-be/core';
 import type { Logger } from '@geee-be/logger';
 import type { Middleware } from '@koa/router';
 import { AsyncLocalStorage } from 'async_hooks';
 import { DateTime } from 'luxon';
 import { isArray, isIssue, isObject, isString, maybeString } from 'validata';
 import type { AuthorizationContext } from './authorization.js';
-import type { ApiContext, Client } from './types.js';
+import type { ApiContext } from './types.js';
 import { isUlid, maybeUlid } from './ulid.js';
-
-export interface RequestContext {
-  client: Client;
-  sessionId?: string;
-  sessionType?: string;
-  tokenType?: string;
-  traceId: string | undefined;
-  user?: {
-    organizationId?: string;
-    roles: string[];
-    _id: string;
-  };
-  when: Date;
-}
 
 const checkAuthorization = isObject(
   {
