@@ -1,5 +1,12 @@
 # @geee-be/core
 
+## 1.0.6
+
+### Patch Changes
+
+- e4eadac: Moved isUlid and maybeUlid to core
+- ed3f84f: Move request context to core
+
 ## 1.0.5
 
 ### Patch Changes
