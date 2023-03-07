@@ -17,5 +17,8 @@
     "lint:unused-exports": "ts-unused-exports tsconfig.json --excludePathsFromReport=src/index.ts",
     "prestart:dev": "rimraf dist/*",
     "start:dev": "tsc --watch"
+  },
+  "dependencies": {
+    "validata": "^5.0.2"
   }
 }

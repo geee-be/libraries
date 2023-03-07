@@ -6,5 +6,6 @@ export * from './request-context.js';
 export * from './sleep.js';
 export * from './statuses.js';
 export * from './time.js';
+export * from './ulid.js';
 
 // intentionally left empty

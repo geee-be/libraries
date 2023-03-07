@@ -124,7 +124,10 @@ importers:
       supertest: 6.3.3
 
   packages/@geee-be/core:
-    specifiers: {}
+    specifiers:
+      validata: ^5.0.2
+    dependencies:
+      validata: 5.0.2
 
   packages/@geee-be/create:
     specifiers: {}
