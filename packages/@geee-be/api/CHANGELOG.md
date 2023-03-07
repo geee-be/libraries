@@ -1,5 +1,17 @@
 # @geee-be/api
 
+## 1.0.18
+
+### Patch Changes
+
+- e4eadac: Moved isUlid and maybeUlid to core
+- ed3f84f: Move request context to core
+- Updated dependencies [e4eadac]
+- Updated dependencies [ed3f84f]
+  - @geee-be/core@1.0.6
+  - @geee-be/logger@1.0.7
+  - @geee-be/service@1.0.6
+
 ## 1.0.17
 
 ### Patch Changes
