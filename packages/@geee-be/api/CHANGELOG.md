@@ -1,5 +1,11 @@
 # @geee-be/api
 
+## 1.0.19
+
+### Patch Changes
+
+- e12d108: Fix: remove erroneous export
+
 ## 1.0.18
 
 ### Patch Changes
