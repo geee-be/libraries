@@ -17,10 +17,13 @@
     "lint:unused-exports": "ts-unused-exports tsconfig.json --excludePathsFromReport=src/index.ts",
     "prestart:dev": "rimraf dist/*",
     "start:dev": "tsc --watch",
-    "test": "vitest --run --reporter basic",
-    "test:watch": "vitest --watch --reporter basic"
+    "test": "vitest --reporter basic",
+    "test:dev": "vitest --watch --ui --reporter basic"
   },
   "dependencies": {
     "vitest": "^0.29.2"
+  },
+  "devDependencies": {
+    "@vitest/ui": "^0.29.2"
   }
 }
