@@ -7,7 +7,7 @@ import { isIssue, isObject, isString, maybeString } from 'validata';
 import type { AuthorizationContext } from './authorization.js';
 import type { ApiContext } from './types.js';
 
-type UserResolver = (sub: string, iss: string) => RequestUser;
+export type UserResolver = (sub: string, iss: string) => Promise<RequestUser>;
 
 const checkAuthorization = isObject(
   {
@@ -20,15 +20,15 @@ const checkAuthorization = isObject(
 
 const localStorage = new AsyncLocalStorage<RequestContext>();
 
-export const requestContext = (): RequestContext => {
+export const requestContext = <T extends RequestUser = RequestUser>(): RequestContext<T> => {
   const request = localStorage.getStore();
   if (!request) throw Error('Context failure');
-  return request;
+  return request as RequestContext<T>;
 };
 
 export const requestContextMiddleware = (resolveUser?: UserResolver): Middleware<any, ApiContext> => {
-  return (ctx, next) => {
-    const request = makeRequestContext(ctx, resolveUser);
+  return async (ctx, next) => {
+    const request = await makeRequestContext(ctx, resolveUser);
     return localStorage.run(request, () => {
       return next();
     });
@@ -42,7 +42,10 @@ const getClient = (ctx: AuthorizationContext): Client => ({
   userAgent: ctx.request.header['user-agent'],
 });
 
-export const makeRequestContext = (ctx: AuthorizationContext, resolveUser?: UserResolver): RequestContext => {
+export const makeRequestContext = async (
+  ctx: AuthorizationContext,
+  resolveUser?: UserResolver,
+): Promise<RequestContext> => {
   const traceId = Array.isArray(ctx.header['trace-id']) ? ctx.header['trace-id'][0] : ctx.header['trace-id'];
   if (!ctx.authorization) {
     return {
@@ -66,7 +69,7 @@ export const makeRequestContext = (ctx: AuthorizationContext, resolveUser?: User
     client: getClient(ctx),
     traceId,
     user: resolveUser
-      ? resolveUser(result.value.iss, result.value.sub)
+      ? await resolveUser(result.value.iss, result.value.sub)
       : {
           iss: result.value.iss,
           sub: result.value.sub,

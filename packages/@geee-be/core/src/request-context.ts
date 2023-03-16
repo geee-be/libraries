@@ -8,12 +8,12 @@ export interface RequestUser {
   sub: string;
 }
 
-export interface RequestContext {
+export interface RequestContext<User extends RequestUser = RequestUser> {
   client: Client;
   sessionId?: string;
   sessionType?: string;
   tokenType?: string;
   traceId: string | undefined;
-  user?: RequestUser;
+  user?: User;
   when: Date;
 }

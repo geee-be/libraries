@@ -6,7 +6,7 @@ import { createSecretKey } from 'crypto';
 import type { JWSHeaderParameters, JWTPayload, JWTVerifyOptions, KeyLike } from 'jose';
 import { jwtVerify } from 'jose';
 import type { Context, DefaultState, ExtendableContext, Middleware, Next, ParameterizedContext } from 'koa';
-import { requestContextMiddleware } from './request-context.js';
+import { UserResolver, requestContextMiddleware } from './request-context.js';
 import type { ApiContext, RequestHeaders } from './types.js';
 
 const TOKEN_EXTRACTOR = /^Bearer (.*)$/;
@@ -27,6 +27,7 @@ export interface Options {
   verifyOptions?: JWTVerifyOptions;
   continueOnUnauthorized?: boolean;
 
+  resolveUser?: UserResolver;
   check?: CheckToken;
 }
 
@@ -161,7 +162,7 @@ export abstract class BaseJwtAuthentication {
         return;
       }
       ctx.authorization = authorization;
-      const mx = requestContextMiddleware();
+      const mx = requestContextMiddleware(this.options?.resolveUser);
       await mx(ctx, next);
     };
   }
