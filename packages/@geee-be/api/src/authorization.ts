@@ -27,7 +27,7 @@ export interface Options {
   verifyOptions?: JWTVerifyOptions;
   continueOnUnauthorized?: boolean;
 
-  resolveUser?: UserResolver;
+  userResolver?: UserResolver;
   check?: CheckToken;
 }
 
@@ -162,7 +162,7 @@ export abstract class BaseJwtAuthentication {
         return;
       }
       ctx.authorization = authorization;
-      const mx = requestContextMiddleware(this.options?.resolveUser);
+      const mx = requestContextMiddleware(this.options?.userResolver);
       await mx(ctx, next);
     };
   }

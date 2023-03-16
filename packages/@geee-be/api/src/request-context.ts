@@ -7,7 +7,7 @@ import { isIssue, isObject, isString, maybeString } from 'validata';
 import type { AuthorizationContext } from './authorization.js';
 import type { ApiContext } from './types.js';
 
-export type UserResolver = (sub: string, iss: string) => Promise<RequestUser>;
+export type UserResolver = (sub: string, iss: string) => Promise<RequestUser | undefined>;
 
 const checkAuthorization = isObject(
   {
@@ -26,9 +26,9 @@ export const requestContext = <T extends RequestUser = RequestUser>(): RequestCo
   return request as RequestContext<T>;
 };
 
-export const requestContextMiddleware = (resolveUser?: UserResolver): Middleware<any, ApiContext> => {
+export const requestContextMiddleware = (userResolver?: UserResolver): Middleware<any, ApiContext> => {
   return async (ctx, next) => {
-    const request = await makeRequestContext(ctx, resolveUser);
+    const request = await makeRequestContext(ctx, userResolver);
     return localStorage.run(request, () => {
       return next();
     });
@@ -44,7 +44,7 @@ const getClient = (ctx: AuthorizationContext): Client => ({
 
 export const makeRequestContext = async (
   ctx: AuthorizationContext,
-  resolveUser?: UserResolver,
+  userResolver?: UserResolver,
 ): Promise<RequestContext> => {
   const traceId = Array.isArray(ctx.header['trace-id']) ? ctx.header['trace-id'][0] : ctx.header['trace-id'];
   if (!ctx.authorization) {
@@ -68,8 +68,8 @@ export const makeRequestContext = async (
   return {
     client: getClient(ctx),
     traceId,
-    user: resolveUser
-      ? await resolveUser(result.value.iss, result.value.sub)
+    user: userResolver
+      ? await userResolver(result.value.iss, result.value.sub)
       : {
           iss: result.value.iss,
           sub: result.value.sub,
