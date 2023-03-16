@@ -1,5 +1,11 @@
 # @geee-be/api
 
+## 1.0.20
+
+### Patch Changes
+
+- 58bf0c4: Export BaseJwtAuthentication
+
 ## 1.0.19
 
 ### Patch Changes
