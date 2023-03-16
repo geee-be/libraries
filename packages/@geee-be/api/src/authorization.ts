@@ -98,7 +98,7 @@ export namespace JwtDecoder {
   };
 }
 
-abstract class BaseJwtAuthentication {
+export abstract class BaseJwtAuthentication {
   constructor(protected readonly options?: Options) {}
 
   public async getAuthorization(
