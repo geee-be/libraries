@@ -1,5 +1,11 @@
 # @geee-be/core
 
+## 1.1.1
+
+### Patch Changes
+
+- 1e98b31: User resolution
+
 ## 1.1.0
 
 ### Minor Changes

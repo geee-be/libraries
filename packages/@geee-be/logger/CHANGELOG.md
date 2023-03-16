@@ -1,5 +1,12 @@
 # @geee-be/logger
 
+## 1.0.9
+
+### Patch Changes
+
+- Updated dependencies [1e98b31]
+  - @geee-be/core@1.1.1
+
 ## 1.0.8
 
 ### Patch Changes
