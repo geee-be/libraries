@@ -1,5 +1,11 @@
 # @geee-be/core
 
+## 1.1.0
+
+### Minor Changes
+
+- b6d79bc: Remove arbitrary token claims
+
 ## 1.0.6
 
 ### Patch Changes

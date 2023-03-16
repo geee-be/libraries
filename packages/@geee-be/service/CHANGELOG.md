@@ -1,5 +1,12 @@
 # @geee-be/service
 
+## 1.0.7
+
+### Patch Changes
+
+- Updated dependencies [b6d79bc]
+  - @geee-be/core@1.1.0
+
 ## 1.0.6
 
 ### Patch Changes
