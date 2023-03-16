@@ -65,11 +65,13 @@ export const makeRequestContext = (ctx: AuthorizationContext, resolveUser?: User
   return {
     client: getClient(ctx),
     traceId,
-    user: resolveUser?.(result.value.iss, result.value.sub) ?? {
-      email: result.value.email,
-      iss: result.value.iss,
-      sub: result.value.sub,
-    },
+    user: resolveUser
+      ? resolveUser(result.value.iss, result.value.sub)
+      : {
+          email: result.value.email,
+          iss: result.value.iss,
+          sub: result.value.sub,
+        },
     when: DateTime.utc().toJSDate(),
   };
 };
