@@ -4,7 +4,6 @@ export interface Client {
 }
 
 export interface RequestUser {
-  email?: string;
   iss: string;
   sub: string;
 }

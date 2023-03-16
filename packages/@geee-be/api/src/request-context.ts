@@ -68,7 +68,6 @@ export const makeRequestContext = (ctx: AuthorizationContext, resolveUser?: User
     user: resolveUser
       ? resolveUser(result.value.iss, result.value.sub)
       : {
-          email: result.value.email,
           iss: result.value.iss,
           sub: result.value.sub,
         },
