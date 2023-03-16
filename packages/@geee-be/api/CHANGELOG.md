@@ -1,5 +1,18 @@
 # @geee-be/api
 
+## 1.1.0
+
+### Minor Changes
+
+- b6d79bc: Remove arbitrary token claims
+
+### Patch Changes
+
+- Updated dependencies [b6d79bc]
+  - @geee-be/core@1.1.0
+  - @geee-be/logger@1.0.8
+  - @geee-be/service@1.0.7
+
 ## 1.0.20
 
 ### Patch Changes
