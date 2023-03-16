@@ -7,7 +7,7 @@ import { isIssue, isObject, isString, maybeString } from 'validata';
 import type { AuthorizationContext } from './authorization.js';
 import type { ApiContext } from './types.js';
 
-export type UserResolver = (sub: string, iss: string) => Promise<RequestUser | undefined>;
+export type UserResolver = (iss: string, sub: string) => Promise<RequestUser | undefined>;
 
 const checkAuthorization = isObject(
   {
