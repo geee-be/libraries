@@ -1,8 +1,6 @@
 import { isUlid } from '@geee-be/core';
-import type { Filter } from 'mongodb';
-import { isObject, maybeAsArray } from 'validata';
-import { params, query } from 'validata-koa';
-import { requestContext } from './request-context.js';
+import { isObject } from 'validata';
+import { params } from 'validata-koa';
 import type { ApiContext } from './types.js';
 
 const idParam = (ctx: ApiContext): string => {
@@ -15,36 +13,11 @@ const idParam = (ctx: ApiContext): string => {
   return id;
 };
 
-const filterByQueryIdsForOrganization = <T = any>(ctx: ApiContext): Filter<T> => {
-  const { id } = query<{ id: unknown }>(
-    ctx,
-    isObject(
-      {
-        id: maybeAsArray<string, string[]>(undefined, { minLength: 1 }),
-      },
-      { stripExtraProperties: true },
-    ),
-  );
-
-  const request = requestContext();
-  const organizationId = request.user?.organizationId ?? null;
-  return (id ? { _id: { $in: id }, organizationId } : { organizationId }) as any as Filter<T>;
-};
-
-const filterByIdParamForOrganization = <T = any>(ctx: ApiContext): Filter<T> => {
-  const id = idParam(ctx);
-  const request = requestContext();
-  const organizationId = request.user?.organizationId ?? null;
-  return { _id: id, organizationId } as any as Filter<T>;
-};
-
 const change = (_ctx: ApiContext): unknown => {
   return new Date();
 };
 
 export const Inputs = {
   idParam,
-  filterByQueryIdsForOrganization,
-  filterByIdParamForOrganization,
   change,
 };

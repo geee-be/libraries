@@ -1,10 +1,10 @@
+import { RequestContext } from '@geee-be/core';
 import type { Filter } from 'mongodb';
 import type { Contract, NotPrimitive, ValueProcessor } from 'validata';
 import { isObject } from 'validata';
 import { Statuses, body, headers, params, query } from 'validata-koa';
 import type { AuthorizationContext } from './authorization.js';
-import { ForbiddenError } from './error.js';
-import { Inputs } from './inputs.js';
+import { ForbiddenError, UnauthorizedError } from './error.js';
 import { filterAnd } from './mongo.js';
 import { requestContext } from './request-context.js';
 import type { ApiContext, Entity, ForeignKeyValidation, PaginatedList } from './types.js';
@@ -45,8 +45,6 @@ export type ActionWithBodyHandler<B, P = undefined, Q = undefined, H = undefined
   ctx: ApiContext,
 ) => Promise<unknown>;
 
-export type RoleCheck = (roles: string[]) => boolean;
-
 const getInsertEntity: InsertEntityFactory<any> = (ctx, check) => {
   return body(ctx, check);
 };
@@ -58,17 +56,17 @@ const extractors: Record<string, (ctx: ApiContext, checker: ValueProcessor<Entit
   headers,
 };
 
-const checkSessionAndRoles = (roleCheck: string[] | RoleCheck | undefined): void => {
+export type AuthCheck = (request: RequestContext) => boolean;
+
+const checkAuth = (authCheck?: AuthCheck): void => {
   const request = requestContext();
+  if (!request.user) throw new UnauthorizedError();
+
   // TODO: ensure session exists and is valid
 
-  if (roleCheck === undefined) return;
+  if (authCheck === undefined) return;
 
-  const roles = request.user?.roles;
-  if (roles === undefined) throw new ForbiddenError();
-
-  const pass = !Array.isArray(roleCheck) ? roleCheck(roles) : roleCheck.some((role) => roles.includes(role));
-
+  const pass = authCheck(request);
   if (!pass) throw new ForbiddenError();
 };
 
@@ -76,7 +74,7 @@ export namespace Endpoint {
   export const findMany =
     <T>(
       handler: FindManyHandler<T>,
-      filter: (ctx: ApiContext) => Filter<T> = Inputs.filterByQueryIdsForOrganization,
+      filter: (ctx: ApiContext) => Filter<T>,
       mutator?: (result: T[]) => unknown,
       ...extensions: ((ctx: ApiContext) => void)[]
     ) =>
@@ -94,7 +92,7 @@ export namespace Endpoint {
   export const findOne =
     <T>(
       handler: FindOneHandler<T>,
-      filter: (ctx: ApiContext) => Filter<T> = Inputs.filterByIdParamForOrganization,
+      filter: (ctx: ApiContext) => Filter<T>,
       mutator?: (result: T) => unknown,
       ...extensions: ((ctx: ApiContext) => void)[]
     ) =>
@@ -110,14 +108,14 @@ export namespace Endpoint {
 
   export const insertOne =
     <T extends Entity>(
-      roleCheck: string[] | RoleCheck | undefined,
+      authCheck: AuthCheck | undefined,
       handler: InsertOneHandler<T>,
       check: ValueProcessor<T>,
       foreignKeys: ForeignKeyValidation,
       getInsert: InsertEntityFactory<T> = getInsertEntity,
     ) =>
     async (ctx: AuthorizationContext): Promise<void> => {
-      checkSessionAndRoles(roleCheck);
+      checkAuth(authCheck);
 
       const entity = getInsert(ctx, check);
       await validateForeignKeys(foreignKeys, entity);
@@ -131,14 +129,14 @@ export namespace Endpoint {
 
   export const patchOne =
     <T extends Entity>(
-      roleCheck: string[] | RoleCheck | undefined,
+      authCheck: AuthCheck | undefined,
       handler: PatchOneHandler<T>,
       check: ValueProcessor<Partial<T>>,
       foreignKeys: ForeignKeyValidation,
-      filter: (ctx: ApiContext) => Filter<T> = Inputs.filterByIdParamForOrganization,
+      filter: (ctx: ApiContext) => Filter<T>,
     ) =>
     async (ctx: AuthorizationContext): Promise<void> => {
-      checkSessionAndRoles(roleCheck);
+      checkAuth(authCheck);
 
       const filterObject = filter(ctx);
       const patch = body(ctx, check);
@@ -154,7 +152,7 @@ export namespace Endpoint {
 
   export const actionWithBody =
     <B, P extends NotPrimitive | undefined, Q extends NotPrimitive | undefined, H extends NotPrimitive | undefined>(
-      roleCheck: string[] | RoleCheck | undefined,
+      authCheck: AuthCheck | undefined,
       handler: ActionWithBodyHandler<B, P, Q, H>,
       bodyValidata: ValueProcessor<B>,
       paramContract?: ContractOrUndefined<P>,
@@ -163,7 +161,7 @@ export namespace Endpoint {
       onSuccess?: (ctx: ApiContext) => void,
     ) =>
     async (ctx: AuthorizationContext): Promise<void> => {
-      checkSessionAndRoles(roleCheck);
+      checkAuth(authCheck);
 
       const b = body(ctx, bodyValidata);
       const p = paramContract ? params(ctx, isObject(paramContract, { stripExtraProperties: true })) : undefined;
@@ -178,9 +176,9 @@ export namespace Endpoint {
     };
 
   export const action =
-    <A>(roleCheck: string[] | RoleCheck | undefined, handler: ActionHandler<A>, inputs: ActionInputs<A>) =>
+    <A>(authCheck: AuthCheck | undefined, handler: ActionHandler<A>, inputs: ActionInputs<A>) =>
     async (ctx: AuthorizationContext): Promise<void> => {
-      checkSessionAndRoles(roleCheck);
+      checkAuth(authCheck);
 
       const resolved = await Promise.all(
         Object.keys(inputs).map(async (key) => {

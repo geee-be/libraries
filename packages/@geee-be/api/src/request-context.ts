@@ -1,21 +1,19 @@
-import type { Client, RequestContext } from '@geee-be/core';
-import { isUlid, maybeUlid } from '@geee-be/core';
+import type { Client, RequestContext, RequestUser } from '@geee-be/core';
 import type { Logger } from '@geee-be/logger';
 import type { Middleware } from '@koa/router';
 import { AsyncLocalStorage } from 'async_hooks';
 import { DateTime } from 'luxon';
-import { isArray, isIssue, isObject, isString, maybeString } from 'validata';
+import { isIssue, isObject, isString, maybeString } from 'validata';
 import type { AuthorizationContext } from './authorization.js';
 import type { ApiContext } from './types.js';
 
+type UserResolver = (sub: string, iss: string) => RequestUser;
+
 const checkAuthorization = isObject(
   {
-    oid: maybeUlid(),
-    rls: isArray(isString()),
-    sid: isString(),
-    sub: isUlid(),
-    sty: maybeString(),
-    typ: maybeString(),
+    iss: isString(),
+    sub: isString(),
+    email: maybeString(),
   },
   { stripExtraProperties: true },
 );
@@ -28,17 +26,9 @@ export const requestContext = (): RequestContext => {
   return request;
 };
 
-export const userHasRole = (...allOf: string[][]): boolean => {
-  const request = localStorage.getStore();
-  const user = request?.user;
-  if (!user) return false;
-
-  return allOf.reduce<boolean>((acc, anyOf) => acc && user.roles.some((role) => anyOf.includes(role)), true);
-};
-
-export const requestContextMiddleware = (): Middleware<any, ApiContext> => {
+export const requestContextMiddleware = (resolveUser?: UserResolver): Middleware<any, ApiContext> => {
   return (ctx, next) => {
-    const request = makeRequestContext(ctx);
+    const request = makeRequestContext(ctx, resolveUser);
     return localStorage.run(request, () => {
       return next();
     });
@@ -52,7 +42,7 @@ const getClient = (ctx: AuthorizationContext): Client => ({
   userAgent: ctx.request.header['user-agent'],
 });
 
-export const makeRequestContext = (ctx: AuthorizationContext): RequestContext => {
+export const makeRequestContext = (ctx: AuthorizationContext, resolveUser?: UserResolver): RequestContext => {
   const traceId = Array.isArray(ctx.header['trace-id']) ? ctx.header['trace-id'][0] : ctx.header['trace-id'];
   if (!ctx.authorization) {
     return {
@@ -74,14 +64,11 @@ export const makeRequestContext = (ctx: AuthorizationContext): RequestContext =>
 
   return {
     client: getClient(ctx),
-    sessionId: result.value.sid,
-    sessionType: result.value.sty,
-    tokenType: result.value.typ,
     traceId,
-    user: {
-      _id: result.value.sub,
-      organizationId: result.value.oid,
-      roles: result.value.rls,
+    user: resolveUser?.(result.value.iss, result.value.sub) ?? {
+      email: result.value.email,
+      iss: result.value.iss,
+      sub: result.value.sub,
     },
     when: DateTime.utc().toJSDate(),
   };

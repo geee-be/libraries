@@ -3,16 +3,18 @@ export interface Client {
   userAgent?: string;
 }
 
+export interface RequestUser {
+  email?: string;
+  iss: string;
+  sub: string;
+}
+
 export interface RequestContext {
   client: Client;
   sessionId?: string;
   sessionType?: string;
   tokenType?: string;
   traceId: string | undefined;
-  user?: {
-    organizationId?: string;
-    roles: string[];
-    _id: string;
-  };
+  user?: RequestUser;
   when: Date;
 }
