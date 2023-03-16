@@ -1,5 +1,11 @@
 # @geee-be/api
 
+## 1.1.2
+
+### Patch Changes
+
+- 93f0676: Allow userResolver to resolve to undefined
+
 ## 1.1.1
 
 ### Patch Changes
