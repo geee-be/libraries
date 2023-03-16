@@ -1,4 +1,4 @@
-import { RequestContext } from '@geee-be/core';
+import type { RequestContext } from '@geee-be/core';
 import type { Filter } from 'mongodb';
 import type { Contract, NotPrimitive, ValueProcessor } from 'validata';
 import { isObject } from 'validata';
