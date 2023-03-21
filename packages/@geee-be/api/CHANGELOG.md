@@ -1,5 +1,11 @@
 # @geee-be/api
 
+## 1.1.3
+
+### Patch Changes
+
+- 831561a: Add ability to customise token retrieval
+
 ## 1.1.2
 
 ### Patch Changes
