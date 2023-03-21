@@ -102,13 +102,10 @@ export namespace JwtDecoder {
 export abstract class BaseJwtAuthentication {
   constructor(protected readonly options?: Options) {}
 
-  public async getAuthorization(
-    headers: RequestHeaders,
-    log: Logger,
-  ): Promise<AuthorizationSuccess | AuthorizationFailure> {
+  public async getAuthorization(ctx: ApiContext, log: Logger): Promise<AuthorizationSuccess | AuthorizationFailure> {
     try {
       // decode token
-      const token = Jwt.getBearerToken(headers);
+      const token = this.getToken(ctx);
       if (token) {
         const result = await jwtVerify(token, await this.getSecretOrPublicKey(token), this.options?.verifyOptions);
         return {
@@ -149,10 +146,7 @@ export abstract class BaseJwtAuthentication {
 
   public middleware(): Middleware<any, AuthorizationContext> & Router.Middleware<any, AuthorizationContext> {
     return async (ctx: AuthorizationContext, next: Next): Promise<void> => {
-      const { status, authorization } = await this.getAuthorization(
-        ctx.request.headers,
-        (ctx as MaybeWithLogger).logger || debug,
-      );
+      const { status, authorization } = await this.getAuthorization(ctx, (ctx as MaybeWithLogger).logger || debug);
       if (status) {
         ctx.status = status;
         if (!this.options?.continueOnUnauthorized) return;
@@ -168,6 +162,10 @@ export abstract class BaseJwtAuthentication {
   }
 
   protected abstract getSecretOrPublicKey(token: string): Promise<Uint8Array | KeyLike>;
+
+  protected getToken(ctx: ApiContext): string | undefined {
+    return Jwt.getBearerToken(ctx.request.headers);
+  }
 }
 
 export class JwtAuthentication extends BaseJwtAuthentication {
