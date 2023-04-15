@@ -53,6 +53,11 @@ export const formatError = (ctx: Context, err: unknown): void => {
       ctx.set('Pragma', 'no-cache');
       ctx.status = getErrorStatus(err) ?? Statuses.FORBIDDEN;
       break;
+    case 'ServerError':
+      ctx.set('Cache-Control', 'max-age=0');
+      ctx.set('Pragma', 'no-cache');
+      ctx.status = getErrorStatus(err) ?? Statuses.SERVER_ERROR;
+      break;
     default:
       logger?.error(err, { method: ctx.request.method, url: ctx.request.url });
       ctx.set('Cache-Control', 'max-age=0');
@@ -106,5 +111,15 @@ export class ForbiddenError extends Error {
     // Set the prototype explicitly.
     Object.setPrototypeOf(this, ForbiddenError.prototype);
     this.name = 'ForbiddenError';
+  }
+}
+
+export class ServerError extends Error {
+  constructor(public readonly status?: number) {
+    super('ServerError');
+
+    // Set the prototype explicitly.
+    Object.setPrototypeOf(this, ServerError.prototype);
+    this.name = 'ServerError';
   }
 }
