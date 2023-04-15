@@ -1,5 +1,12 @@
 # @geee-be/api
 
+## 1.1.4
+
+### Patch Changes
+
+- 4409dd7: Fix types
+- cb3c2de: Added ServerError
+
 ## 1.1.3
 
 ### Patch Changes
