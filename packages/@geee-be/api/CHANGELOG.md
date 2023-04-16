@@ -1,5 +1,11 @@
 # @geee-be/api
 
+## 1.1.5
+
+### Patch Changes
+
+- 40ab9b6: Allow unauthenticated endpoint actions
+
 ## 1.1.4
 
 ### Patch Changes
