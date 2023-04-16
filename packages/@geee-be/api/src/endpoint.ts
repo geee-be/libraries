@@ -59,12 +59,12 @@ const extractors: Record<string, (ctx: ApiContext, checker: ValueProcessor<Entit
 export type AuthCheck = (request: RequestContext) => boolean;
 
 const checkAuth = (authCheck?: AuthCheck): void => {
+  if (authCheck === undefined) return;
+
   const request = requestContext();
   if (!request.user) throw new UnauthorizedError();
 
   // TODO: ensure session exists and is valid
-
-  if (authCheck === undefined) return;
 
   const pass = authCheck(request);
   if (!pass) throw new ForbiddenError();
