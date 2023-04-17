@@ -1,5 +1,11 @@
 # @geee-be/eslint-config
 
+## 1.0.7
+
+### Patch Changes
+
+- 8b2d4ca: Allow numbers in filenames
+
 ## 1.0.6
 
 ### Patch Changes
