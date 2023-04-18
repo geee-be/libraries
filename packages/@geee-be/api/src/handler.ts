@@ -1,4 +1,4 @@
-import type { Collection, Filter, MatchKeysAndValues } from 'mongodb';
+import type { Collection, Filter, MatchKeysAndValues, OptionalUnlessRequiredId } from 'mongodb';
 import { MongoError } from 'mongodb';
 import { ulid } from 'ulid';
 import type { FindManyHandler, FindOneHandler, InsertOneHandler, PatchOneHandler } from './endpoint.js';
@@ -10,7 +10,7 @@ export interface MutationOptions<
   TInsert extends Entity = Partial<T>,
   TPatch extends Entity = Partial<T>,
 > {
-  mutateInsert?: (input: TInsert) => TInsert;
+  mutateInsert?: (input: TInsert) => T;
   mutatePatch?: (patch: TPatch) => TPatch;
   mutateResult?: (result: T) => unknown;
 }
@@ -61,13 +61,8 @@ export class Handler<
       const _id = ulid();
       const withId = { _id, ...entity };
       const mutated = this.mutateInsert(withId);
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      const result = await this.collection.insertOne(mutated as any);
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      return this.mutateResult({
-        ...mutated,
-        _id: result.insertedId,
-      } as any);
+      await this.collection.insertOne(mutated as OptionalUnlessRequiredId<T>);
+      return this.mutateResult(mutated);
     };
   }
 
@@ -86,8 +81,9 @@ export class Handler<
     };
   }
 
-  protected mutateInsert(input: TInsert): TInsert {
-    return this.options.mutateInsert ? this.options.mutateInsert(input) : input;
+  protected mutateInsert(input: TInsert): T {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    return this.options.mutateInsert ? this.options.mutateInsert(input) : (input as any);
   }
 
   protected mutatePatch(patch: TPatch): TPatch {
