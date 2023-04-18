@@ -1,5 +1,11 @@
 # @geee-be/api
 
+## 1.1.7
+
+### Patch Changes
+
+- de1258a: Change mutateInsert to return T
+
 ## 1.1.6
 
 ### Patch Changes
