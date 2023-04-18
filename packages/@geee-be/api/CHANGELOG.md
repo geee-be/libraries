@@ -1,5 +1,11 @@
 # @geee-be/api
 
+## 1.1.6
+
+### Patch Changes
+
+- 1a48247: Add different types for insert and patch in api handler
+
 ## 1.1.5
 
 ### Patch Changes
