@@ -1,5 +1,11 @@
 # @geee-be/api
 
+## 1.1.8
+
+### Patch Changes
+
+- 41b7931: mutate insert typing
+
 ## 1.1.7
 
 ### Patch Changes
