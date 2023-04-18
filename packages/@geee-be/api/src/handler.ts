@@ -5,18 +5,21 @@ import type { FindManyHandler, FindOneHandler, InsertOneHandler, PatchOneHandler
 import type { Entity } from './types.js';
 import { parseSort } from './util.js';
 
+export interface WithId {
+  _id: string;
+}
+
 export interface MutationOptions<
   T extends Entity,
   TInsert extends Entity = Partial<T>,
   TPatch extends Entity = Partial<T>,
 > {
-  mutateInsert?: (input: TInsert) => T;
+  mutateInsert?: (input: TInsert & WithId) => T;
   mutatePatch?: (patch: TPatch) => TPatch;
   mutateResult?: (result: T) => unknown;
 }
-
 export class Handler<
-  T extends Entity & { _id: string },
+  T extends Entity & WithId,
   TInsert extends Entity = Partial<T>,
   TPatch extends Entity = Partial<T>,
 > {
@@ -81,7 +84,7 @@ export class Handler<
     };
   }
 
-  protected mutateInsert(input: TInsert): T {
+  protected mutateInsert(input: TInsert & WithId): T {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return this.options.mutateInsert ? this.options.mutateInsert(input) : (input as any);
   }
