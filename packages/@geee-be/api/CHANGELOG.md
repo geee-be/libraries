@@ -1,5 +1,11 @@
 # @geee-be/api
 
+## 1.2.0
+
+### Minor Changes
+
+- f4bedac: Change mutate results to promise & array
+
 ## 1.1.8
 
 ### Patch Changes
