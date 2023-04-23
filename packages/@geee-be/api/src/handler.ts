@@ -16,7 +16,7 @@ export interface MutationOptions<
 > {
   mutateInsert?: (input: TInsert & WithId) => T;
   mutatePatch?: (patch: TPatch) => TPatch;
-  mutateResult?: (result: T) => unknown;
+  mutateResult?: (results: T[]) => Promise<unknown[]>;
 }
 export class Handler<
   T extends Entity & WithId,
@@ -40,7 +40,7 @@ export class Handler<
       const items = await this.collection.aggregate(paginated).toArray();
       const matches = await this.collection.aggregate<{ count: number }>([...stages, { $count: 'count' }]).toArray();
       return {
-        items: items.map((item) => this.mutateResult(item as T)),
+        items: await this.mutateResult(items as T[]),
         matches: (matches.length && matches[0] && matches[0].count) || 0,
       };
     };
@@ -55,7 +55,7 @@ export class Handler<
       const items = await this.collection.aggregate(stages).toArray();
       if (!items.length) return;
 
-      return this.mutateResult(items[0] as T);
+      return (await this.mutateResult(items as T[]))[0];
     };
   }
 
@@ -65,7 +65,7 @@ export class Handler<
       const withId = { _id, ...entity };
       const mutated = this.mutateInsert(withId);
       await this.collection.insertOne(mutated as OptionalUnlessRequiredId<T>);
-      return this.mutateResult(mutated);
+      return (await this.mutateResult([mutated]))[0];
     };
   }
 
@@ -80,7 +80,7 @@ export class Handler<
       );
       if (!result.value) throw new MongoError('Unable to patch');
 
-      return this.mutateResult(result.value as T);
+      return (await this.mutateResult([result.value as T]))[0];
     };
   }
 
@@ -93,7 +93,7 @@ export class Handler<
     return this.options.mutatePatch ? this.options.mutatePatch(patch) : patch;
   }
 
-  protected mutateResult(result: T): unknown {
-    return this.options.mutateResult ? this.options.mutateResult(result) : result;
+  protected mutateResult(results: T[]): Promise<unknown[]> {
+    return this.options.mutateResult ? this.options.mutateResult(results) : Promise.resolve(results);
   }
 }
