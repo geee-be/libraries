@@ -38,7 +38,10 @@ export type FindManyHandler<T> = (
 ) => Promise<PaginatedList<unknown>>;
 export type FindOneHandler<T> = (filter: Filter<T> | Promise<Filter<T>>) => Promise<unknown | undefined | null>;
 export type InsertOneHandler<T extends Entity> = (entity: T) => Promise<unknown>;
-export type PatchOneHandler<T extends Entity> = (filter: Filter<T>, patch: Partial<T>) => Promise<unknown>;
+export type PatchOneHandler<T extends Entity> = (
+  filter: Filter<T> | Promise<Filter<T>>,
+  patch: Partial<T>,
+) => Promise<unknown>;
 export type ActionHandler<A> = (args: A, ctx: ApiContext) => Promise<unknown>;
 export type ActionWithBodyHandler<B, P = undefined, Q = undefined, H = undefined> = (
   args: ActionWithBodyArgs<B, P, Q, H>,

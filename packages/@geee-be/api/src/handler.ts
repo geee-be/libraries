@@ -76,7 +76,7 @@ export class Handler<
     return async (filter, patch) => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const result = await this.collection.findOneAndUpdate(
-        filter as Filter<T>,
+        (await asPromise(filter)) as Filter<T>,
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         { $set: this.mutatePatch(patch as any) as MatchKeysAndValues<T> },
         { returnDocument: 'after' },
