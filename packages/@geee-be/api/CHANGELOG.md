@@ -1,5 +1,11 @@
 # @geee-be/api
 
+## 1.2.1
+
+### Patch Changes
+
+- e86622b: Allow filter promises
+
 ## 1.2.0
 
 ### Minor Changes
