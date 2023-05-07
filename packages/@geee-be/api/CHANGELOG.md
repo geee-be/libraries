@@ -1,5 +1,11 @@
 # @geee-be/api
 
+## 1.2.2
+
+### Patch Changes
+
+- 47774c3: Allow promise for patch filter
+
 ## 1.2.1
 
 ### Patch Changes
