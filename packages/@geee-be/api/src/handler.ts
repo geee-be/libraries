@@ -9,6 +9,9 @@ export interface WithId {
   _id: string;
 }
 
+const asPromise = async <T>(input: T | Promise<T>): Promise<T> =>
+  (input as Promise<T>).then && typeof (input as Promise<T>).then === 'function' ? await input : Promise.resolve(input);
+
 export interface MutationOptions<
   T extends Entity,
   TInsert extends Entity = Partial<T>,
@@ -31,7 +34,7 @@ export class Handler<
   public findMany(additionalAggregateStates: () => Record<string, unknown>[] = () => []): FindManyHandler<T> {
     return async (filter, sort, limit, skip) => {
       const $sort = parseSort(sort);
-      const stages: Record<string, unknown>[] = [{ $match: filter }];
+      const stages: Record<string, unknown>[] = [{ $match: await asPromise(filter) }];
       stages.push(...additionalAggregateStates());
       if (Object.keys($sort).length) {
         stages.push({ $sort });
@@ -48,7 +51,7 @@ export class Handler<
 
   public findOne(additionalAggregateStates: () => Record<string, unknown>[] = () => []): FindOneHandler<T> {
     return async (filter) => {
-      const stages: Record<string, unknown>[] = [{ $match: filter }];
+      const stages: Record<string, unknown>[] = [{ $match: await asPromise(filter) }];
       stages.push(...additionalAggregateStates());
       stages.push({ $limit: 1 });
 

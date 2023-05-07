@@ -31,12 +31,12 @@ export type NoId<T> = { [K in keyof Omit<T, '_id'>]: T[K] | never };
 export type InsertEntityFactory<T extends Entity> = (ctx: ApiContext, check: ValueProcessor<NoId<T>>) => T;
 
 export type FindManyHandler<T> = (
-  filter: Filter<T>,
+  filter: Filter<T> | Promise<Filter<T>>,
   sort: string[] | undefined,
   limit: number | undefined,
   skip: number,
 ) => Promise<PaginatedList<unknown>>;
-export type FindOneHandler<T> = (filter: Filter<T>) => Promise<unknown | undefined | null>;
+export type FindOneHandler<T> = (filter: Filter<T> | Promise<Filter<T>>) => Promise<unknown | undefined | null>;
 export type InsertOneHandler<T extends Entity> = (entity: T) => Promise<unknown>;
 export type PatchOneHandler<T extends Entity> = (filter: Filter<T>, patch: Partial<T>) => Promise<unknown>;
 export type ActionHandler<A> = (args: A, ctx: ApiContext) => Promise<unknown>;
