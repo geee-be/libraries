@@ -1,5 +1,18 @@
 # @geee-be/api
 
+## 1.3.0
+
+### Minor Changes
+
+- 7bcae48: Update dependencies
+
+### Patch Changes
+
+- Updated dependencies [7bcae48]
+  - @geee-be/logger@1.1.0
+  - @geee-be/core@1.2.0
+  - @geee-be/service@1.0.9
+
 ## 1.2.3
 
 ### Patch Changes
