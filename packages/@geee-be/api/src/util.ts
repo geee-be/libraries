@@ -59,3 +59,6 @@ export const findManyQuery = (ctx: ApiContext): FindManyQuery =>
       { stripExtraProperties: true },
     ),
   );
+
+export const asPromise = async <T>(input: T | Promise<T>): Promise<T> =>
+  (input as Promise<T>).then && typeof (input as Promise<T>).then === 'function' ? await input : Promise.resolve(input);

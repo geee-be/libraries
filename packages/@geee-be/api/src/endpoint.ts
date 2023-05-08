@@ -8,7 +8,7 @@ import { ForbiddenError, UnauthorizedError } from './error.js';
 import { filterAnd } from './mongo.js';
 import { requestContext } from './request-context.js';
 import type { ApiContext, Entity, ForeignKeyValidation, PaginatedList } from './types.js';
-import { findManyQuery, validateForeignKeys } from './util.js';
+import { asPromise, findManyQuery, validateForeignKeys } from './util.js';
 
 export interface Input<T> {
   contract: Contract<T>;
@@ -77,13 +77,13 @@ export namespace Endpoint {
   export const findMany =
     <T>(
       handler: FindManyHandler<T>,
-      filter: (ctx: ApiContext) => Filter<T>,
+      filter: (ctx: ApiContext) => Filter<T> | Promise<Filter<T>>,
       mutator?: (result: T[]) => unknown,
       ...extensions: ((ctx: ApiContext) => void)[]
     ) =>
     async (ctx: AuthorizationContext): Promise<void> => {
       const { filter: queryFilter, limit, skip, sort } = findManyQuery(ctx);
-      const contextFilter = filter(ctx);
+      const contextFilter = await asPromise(filter(ctx));
       const combinedFilter = filterAnd([queryFilter, contextFilter]) ?? {};
       const result = await handler(combinedFilter as Filter<T>, sort, limit, skip);
 
@@ -95,12 +95,12 @@ export namespace Endpoint {
   export const findOne =
     <T>(
       handler: FindOneHandler<T>,
-      filter: (ctx: ApiContext) => Filter<T>,
+      filter: (ctx: ApiContext) => Filter<T> | Promise<Filter<T>>,
       mutator?: (result: T) => unknown,
       ...extensions: ((ctx: ApiContext) => void)[]
     ) =>
     async (ctx: AuthorizationContext): Promise<void> => {
-      const filterQuery = filter(ctx);
+      const filterQuery = await asPromise(filter(ctx));
       const item = await handler(filterQuery);
       if (!item) return;
 
@@ -136,12 +136,12 @@ export namespace Endpoint {
       handler: PatchOneHandler<T>,
       check: ValueProcessor<Partial<T>>,
       foreignKeys: ForeignKeyValidation,
-      filter: (ctx: ApiContext) => Filter<T>,
+      filter: (ctx: ApiContext) => Filter<T> | Promise<Filter<T>>,
     ) =>
     async (ctx: AuthorizationContext): Promise<void> => {
       checkAuth(authCheck);
 
-      const filterObject = filter(ctx);
+      const filterObject = await asPromise(filter(ctx));
       const patch = body(ctx, check);
 
       await validateForeignKeys(foreignKeys, patch);

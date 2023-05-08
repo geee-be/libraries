@@ -3,14 +3,11 @@ import { MongoError } from 'mongodb';
 import { ulid } from 'ulid';
 import type { FindManyHandler, FindOneHandler, InsertOneHandler, PatchOneHandler } from './endpoint.js';
 import type { Entity } from './types.js';
-import { parseSort } from './util.js';
+import { asPromise, parseSort } from './util.js';
 
 export interface WithId {
   _id: string;
 }
-
-const asPromise = async <T>(input: T | Promise<T>): Promise<T> =>
-  (input as Promise<T>).then && typeof (input as Promise<T>).then === 'function' ? await input : Promise.resolve(input);
 
 export interface MutationOptions<
   T extends Entity,
