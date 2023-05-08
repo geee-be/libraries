@@ -1,5 +1,11 @@
 # @geee-be/api
 
+## 1.2.3
+
+### Patch Changes
+
+- dbbd7a0: Promise filters in endpoints
+
 ## 1.2.2
 
 ### Patch Changes
