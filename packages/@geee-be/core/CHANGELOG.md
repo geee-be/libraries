@@ -1,5 +1,11 @@
 # @geee-be/core
 
+## 1.2.0
+
+### Minor Changes
+
+- 7bcae48: Update dependencies
+
 ## 1.1.1
 
 ### Patch Changes
