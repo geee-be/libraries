@@ -21,11 +21,11 @@
   "dependencies": {
     "@geee-be/core": "workspace:1.1.1",
     "reflect-metadata": "^0.1.13",
-    "semver": "^7.3.8",
+    "semver": "^7.5.0",
     "stack-trace": "1.0.0-pre2"
   },
   "devDependencies": {
-    "@types/semver": "^7.3.13",
+    "@types/semver": "^7.5.0",
     "@types/stack-trace": "^0.0.30"
   }
 }

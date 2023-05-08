@@ -19,6 +19,6 @@
     "start:dev": "tsc --watch"
   },
   "dependencies": {
-    "validata": "^5.0.2"
+    "validata": "^5.0.4"
   }
 }

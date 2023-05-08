@@ -21,9 +21,9 @@
     "test:dev": "vitest --watch --ui --reporter basic"
   },
   "dependencies": {
-    "vitest": "^0.29.2"
+    "vitest": "^0.31.0"
   },
   "devDependencies": {
-    "@vitest/ui": "^0.29.2"
+    "@vitest/ui": "^0.31.0"
   }
 }
