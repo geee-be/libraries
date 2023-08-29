@@ -1,12 +1,13 @@
 import { Statuses } from '@geee-be/core';
 import type { Logger, MaybeWithLogger } from '@geee-be/logger';
 import { logger } from '@geee-be/logger';
-import * as Router from '@koa/router';
+import type * as Router from '@koa/router';
 import { createSecretKey } from 'crypto';
 import type { JWSHeaderParameters, JWTPayload, JWTVerifyOptions, KeyLike } from 'jose';
 import { jwtVerify } from 'jose';
 import type { Context, DefaultState, ExtendableContext, Middleware, Next, ParameterizedContext } from 'koa';
-import { UserResolver, requestContextMiddleware } from './request-context.js';
+import type { UserResolver } from './request-context.js';
+import { requestContextMiddleware } from './request-context.js';
 import type { ApiContext, RequestHeaders } from './types.js';
 
 const TOKEN_EXTRACTOR = /^Bearer (.*)$/;

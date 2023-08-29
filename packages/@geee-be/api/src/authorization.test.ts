@@ -1,7 +1,7 @@
 import { Statuses } from '@geee-be/core';
 import type { JWTPayload } from 'jose';
 import Koa from 'koa';
-import { Server } from 'net';
+import type { Server } from 'net';
 import request from 'supertest';
 import type { AuthorizationContext } from './authorization.js';
 import { JwtAuthentication, JwtDecoder } from './authorization.js';

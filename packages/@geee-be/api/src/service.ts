@@ -1,6 +1,6 @@
 import type { Logger } from '@geee-be/logger';
 import type { Service } from '@geee-be/service';
-import Router from '@koa/router';
+import type Router from '@koa/router';
 import type { DefaultContext } from 'koa';
 import type { ServiceOptions } from './koa-service.js';
 import { KoaService } from './koa-service.js';

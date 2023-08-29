@@ -5,7 +5,7 @@ import type { HelmetOptions } from 'helmet';
 import type { DefaultContext, DefaultState } from 'koa';
 import Koa from 'koa';
 import helmet from 'koa-helmet';
-import { Server } from 'net';
+import type { Server } from 'net';
 import { collectDefaultMetrics } from 'prom-client';
 import 'reflect-metadata';
 import { validate } from 'validata-koa';
