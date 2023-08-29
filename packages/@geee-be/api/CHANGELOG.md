@@ -1,5 +1,15 @@
 # @geee-be/api
 
+## 1.3.1
+
+### Patch Changes
+
+- fc474ae: Updated linting
+- Updated dependencies [fc474ae]
+  - @geee-be/service@1.0.10
+  - @geee-be/logger@1.1.1
+  - @geee-be/core@1.2.1
+
 ## 1.3.0
 
 ### Minor Changes
