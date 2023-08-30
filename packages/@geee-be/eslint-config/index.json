@@ -185,7 +185,7 @@
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
     "semi": "error",
-    "spaced-comment": "error",
+    "spaced-comment": ["error", "always", { "markers": ["/"] }],
     "use-isnan": "error",
     "valid-typeof": "off"
   }
