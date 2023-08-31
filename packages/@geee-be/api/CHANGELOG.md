@@ -1,5 +1,11 @@
 # @geee-be/api
 
+## 1.3.2
+
+### Patch Changes
+
+- ab8c724: AuthCheck generic type
+
 ## 1.3.1
 
 ### Patch Changes
