@@ -1,5 +1,11 @@
 # @geee-be/eslint-config
 
+## 1.0.9
+
+### Patch Changes
+
+- b79cde3: Handle /// in d.ts files
+
 ## 1.0.8
 
 ### Patch Changes
