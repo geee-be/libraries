@@ -1,5 +1,11 @@
 # @geee-be/vitest-bdd
 
+## 1.1.1
+
+### Patch Changes
+
+- a52ff6f: Update packages
+
 ## 1.1.0
 
 ### Minor Changes
