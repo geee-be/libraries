@@ -10,7 +10,7 @@
     "./packages/@geee-be/eslint-config/esm.json"
   ],
   "parserOptions": {
-    "project": "./tsconfig.json",
+    "project": true,
     "sourceType": "module"
   }
 }
