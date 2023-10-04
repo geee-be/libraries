@@ -1,5 +1,11 @@
 # @geee-be/prettier-config
 
+## 1.0.5
+
+### Patch Changes
+
+- d3a1403: update packages
+
 ## 1.0.4
 
 ### Patch Changes
