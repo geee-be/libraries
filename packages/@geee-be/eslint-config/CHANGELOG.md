@@ -1,5 +1,11 @@
 # @geee-be/eslint-config
 
+## 1.0.10
+
+### Patch Changes
+
+- d3a1403: update packages
+
 ## 1.0.9
 
 ### Patch Changes
