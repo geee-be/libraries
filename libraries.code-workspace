@@ -35,6 +35,10 @@
     {
       "name": "vitest-bdd",
       "path": "packages/@geee-be/vitest-bdd"
+    },
+    {
+      "name": "migrate",
+      "path": "packages/@geee-be/migrate"
     }
   ],
   "settings": {
