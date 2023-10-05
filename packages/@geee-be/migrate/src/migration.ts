@@ -2,7 +2,7 @@ import { glob } from 'glob';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import type { Storage } from './types.js';
-import { isMigration, promisish } from './utils.js';
+import { fileDigest, isMigration, promisish } from './utils.js';
 
 export class Migration<Props> {
   private readonly migrations: Promise<string[]>;
@@ -17,10 +17,8 @@ export class Migration<Props> {
   public async run(props: Props): Promise<void> {
     const migrations = await Promise.all(
       (await this.migrations).map(async (migration) => {
-        const file = Bun.file(migration);
         const info = await fs.stat(migration);
-
-        const digest = Bun.SHA256.hash(await file.arrayBuffer(), 'base64');
+        const digest = await fileDigest(migration);
         const fileName = path.relative(process.cwd(), migration);
         const modified = info.mtime;
         return {

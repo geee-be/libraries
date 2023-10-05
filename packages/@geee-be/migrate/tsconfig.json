@@ -1,3 +1,8 @@
 {
-  "extends": "../create/tsconfig.bun.json"
+  "extends": "../create/tsconfig.node.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "types": []
+  },
+  "include": ["./src"]
 }

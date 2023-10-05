@@ -1,5 +1,15 @@
+import * as crypto from 'node:crypto';
+import fs from 'node:fs/promises';
 import { isPromise } from 'util/types';
 import type { MigrationDef } from './types';
+
+export const fileDigest = async (filePath: string): Promise<string> => {
+  const hash = crypto.createHash('sha256');
+  const input = await fs.readFile(filePath);
+
+  hash.update(input);
+  return hash.digest('base64');
+};
 
 export const isMigration = <Props>(value: unknown): value is MigrationDef<Props> => {
   if (!(typeof value === 'object') || !value) return false;

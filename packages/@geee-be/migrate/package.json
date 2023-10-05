@@ -6,7 +6,7 @@
   "license": "MIT",
   "author": "Greg Bacchus",
   "type": "module",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
   "types": "src/index.ts",
   "scripts": {
     "prebuild": "rimraf dist/*",
@@ -24,7 +24,6 @@
     "mongodb": "^6"
   },
   "devDependencies": {
-    "bun-types": "^1.0.3",
     "glob": "^10.3.6"
   }
 }
