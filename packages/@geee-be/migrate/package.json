@@ -10,7 +10,7 @@
   "types": "src/index.ts",
   "scripts": {
     "prebuild": "rimraf dist/*",
-    "build": ":",
+    "build": "tsc",
     "lint": "npm run lint:eslint && npm run lint:types && npm run lint:unused-exports",
     "lint:eslint": "eslint src/ --ext .ts,.tsx",
     "lint:types": "tsc --noEmit",
