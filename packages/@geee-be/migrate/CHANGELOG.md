@@ -1,5 +1,11 @@
 # @geee-be/migrate
 
+## 1.0.4
+
+### Patch Changes
+
+- 8fbd1fc: Reinstate build
+
 ## 1.0.3
 
 ### Patch Changes
