@@ -1,5 +1,11 @@
 # @geee-be/migrate
 
+## 1.0.3
+
+### Patch Changes
+
+- 2267ec2: migrate using nodejs
+
 ## 1.0.2
 
 ### Patch Changes
