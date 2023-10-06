@@ -1,5 +1,11 @@
 # @geee-be/migrate
 
+## 1.0.5
+
+### Patch Changes
+
+- 3882c22: Try to fix glob type version conflict
+
 ## 1.0.4
 
 ### Patch Changes
