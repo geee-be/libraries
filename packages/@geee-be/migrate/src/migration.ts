@@ -1,4 +1,4 @@
-import { glob } from 'glob';
+import { glob } from 'glob10';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import type { Storage } from './types.js';

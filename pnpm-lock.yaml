@@ -244,12 +244,9 @@ importers:
         specifier: ^6
         version: 6.1.0
     devDependencies:
-      bun-types:
-        specifier: ^1.0.3
-        version: 1.0.4
-      glob:
-        specifier: ^10.3.6
-        version: 10.3.10
+      glob10:
+        specifier: npm:glob@^10.3.10
+        version: /glob@10.3.10
 
   packages/@geee-be/prettier-config:
     dependencies:
@@ -2649,10 +2646,6 @@ packages:
 
   /buffer-from@1.1.2:
     resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==}
-    dev: true
-
-  /bun-types@1.0.4:
-    resolution: {integrity: sha512-MIXp8MXPqzjjDrBs2fNzODFgFB+Mkl/OdTsPjYaefRoBt+Bk8VEJc3S1bbs6pvBi/wCpPf/ZSmzfIyZ5w4gAMg==}
     dev: true
 
   /bytes@3.1.2:

@@ -24,6 +24,6 @@
     "mongodb": "^6"
   },
   "devDependencies": {
-    "glob": "^10.3.6"
+    "glob10": "npm:glob@^10.3.10"
   }
 }
