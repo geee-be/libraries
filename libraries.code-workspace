@@ -39,6 +39,10 @@
     {
       "name": "migrate",
       "path": "packages/@geee-be/migrate"
+    },
+    {
+      "name": "react-utils",
+      "path": "packages/@geee-be/react-utils"
     }
   ],
   "settings": {
