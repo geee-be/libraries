@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useLocalState } from './use-local-state.js';
 
-const meta: Meta<typeof useLocalState> = {
+const meta: Meta = {
   title: 'hooks/useLocalState',
 };
 
 export default meta;
-type Story = StoryObj<typeof useLocalState>;
+type Story = StoryObj;
 
 export const Primary: Story = {
   render: () => {
