@@ -1,5 +1,11 @@
 # @geee-be/react-utils
 
+## 1.0.3
+
+### Patch Changes
+
+- ffa9af4: fix: missing output
+
 ## 1.0.2
 
 ### Patch Changes
