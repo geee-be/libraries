@@ -6,6 +6,7 @@ import { deserialize, getInitialValue, serialize } from './state.util.js';
 type SetValue<T> = Dispatch<SetStateAction<T>>;
 
 // Provides hook that persist the state with local storage with sync'd updates
+// NOTE: this only syncs between different window contexts, it doesn't sync between components in the same window
 export const useLocalState = <T, S = T>(
   key: string,
   initialValue: InitialValue<T>,

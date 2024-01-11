@@ -1,3 +1,4 @@
+import type { Dispatch, SetStateAction } from 'react';
 import { useEffect, useState } from 'react';
 import type { InitialValue, SerializationOptions } from './state.util.js';
 import { deserialize, getInitialValue, serialize } from './state.util.js';
@@ -7,7 +8,7 @@ export const useHistoryState = <T, S = T>(
   initialValue: InitialValue<T>,
   replace = true,
   options?: SerializationOptions<T, S>,
-): [T, (value: T) => void] => {
+): [T, Dispatch<SetStateAction<T>>] => {
   const [value, setValue] = useState<T>(
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     () => deserialize(history.state?.[key], options?.fromSerializable) ?? getInitialValue(initialValue),
