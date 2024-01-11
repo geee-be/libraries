@@ -1,5 +1,23 @@
 # @geee-be/eslint-config
 
+## 1.0.10
+
+### Patch Changes
+
+- d3a1403: update packages
+
+## 1.0.9
+
+### Patch Changes
+
+- b79cde3: Handle /// in d.ts files
+
+## 1.0.8
+
+### Patch Changes
+
+- 8a952db: Add rules for import/export type
+
 ## 1.0.7
 
 ### Patch Changes

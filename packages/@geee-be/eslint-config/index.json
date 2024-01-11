@@ -15,10 +15,7 @@
   ],
   "overrides": [
     {
-      "files": [
-        "*.test.ts",
-        "*.test.tsx"
-      ],
+      "files": ["*.test.ts", "*.test.tsx"],
       "rules": {
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/no-non-null-assertion": "off",
@@ -33,9 +30,7 @@
           "always",
           {
             "line": {
-              "markers": [
-                "/"
-              ]
+              "markers": ["/"]
             }
           }
         ]
@@ -45,17 +40,15 @@
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",
-    "project": "tsconfig.json",
+    "project": true,
     "sourceType": "module"
   },
-  "plugins": [
-    "@typescript-eslint",
-    "filenames",
-    "prefer-arrow"
-  ],
+  "plugins": ["@typescript-eslint", "filenames", "prefer-arrow"],
   "rules": {
     "@typescript-eslint/array-type": "off",
     "@typescript-eslint/consistent-type-assertions": "error",
+    "@typescript-eslint/consistent-type-exports": "error",
+    "@typescript-eslint/consistent-type-imports": "error",
     "@typescript-eslint/explicit-function-return-type": [
       "warn",
       {
@@ -75,9 +68,7 @@
     "@typescript-eslint/naming-convention": [
       "error",
       {
-        "format": [
-          "PascalCase"
-        ],
+        "format": ["PascalCase"],
         "selector": "typeLike"
       },
       {
@@ -85,9 +76,7 @@
           "match": false,
           "regex": "^I[A-Z]"
         },
-        "format": [
-          "PascalCase"
-        ],
+        "format": ["PascalCase"],
         "selector": "interface"
       }
     ],
@@ -131,21 +120,11 @@
     ],
     "complexity": "off",
     "constructor-super": "error",
-    "curly": [
-      "error",
-      "multi-line"
-    ],
+    "curly": ["error", "multi-line"],
     "dot-notation": "error",
-    "eol-last": [
-      "warn",
-      "always"
-    ],
+    "eol-last": ["warn", "always"],
     "eqeqeq": "error",
-    "filenames/match-regex": [
-      "error",
-      "^[a-z\\-\\.][a-z\\-\\.0-9]*$",
-      true
-    ],
+    "filenames/match-regex": ["error", "^[a-z\\-\\.][a-z\\-\\.0-9]*$", true],
     "guard-for-in": "error",
     "id-match": "error",
     "import/first": "error",
@@ -198,21 +177,15 @@
     "no-unused-labels": "error",
     "no-var": "error",
     "object-shorthand": "error",
-    "one-var": [
-      "error",
-      "never"
-    ],
-    "padded-blocks": [
-      "warn",
-      "never"
-    ],
+    "one-var": ["error", "never"],
+    "padded-blocks": ["warn", "never"],
     "prefer-arrow/prefer-arrow-functions": "error",
     "prefer-const": "error",
     "radix": "error",
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
     "semi": "error",
-    "spaced-comment": "error",
+    "spaced-comment": ["error", "always", { "markers": ["/"] }],
     "use-isnan": "error",
     "valid-typeof": "off"
   }

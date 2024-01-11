@@ -1,5 +1,13 @@
 # @geee-be/service
 
+## 1.0.10
+
+### Patch Changes
+
+- fc474ae: Updated linting
+- Updated dependencies [fc474ae]
+  - @geee-be/core@1.2.1
+
 ## 1.0.9
 
 ### Patch Changes

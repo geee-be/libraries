@@ -3,7 +3,8 @@ import { logger } from '@geee-be/logger';
 import { Graceful, Service } from '@geee-be/service';
 import { asNumber } from 'validata';
 import { Api } from '../api.js';
-import { ActionHandler, Endpoint } from '../endpoint.js';
+import type { ActionHandler } from '../endpoint.js';
+import { Endpoint } from '../endpoint.js';
 import { MonitoringService } from '../monitoring-service.js';
 import { ApiService } from '../service.js';
 

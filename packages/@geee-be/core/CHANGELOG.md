@@ -1,5 +1,11 @@
 # @geee-be/core
 
+## 1.2.1
+
+### Patch Changes
+
+- fc474ae: Updated linting
+
 ## 1.2.0
 
 ### Minor Changes

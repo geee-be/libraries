@@ -1,7 +1,7 @@
 import { hostname } from 'os';
 import { get } from 'stack-trace';
 import { ConsoleWriter } from './console-writer.js';
-import { Log, LogWriter } from './log-writer.js';
+import type { Log, LogWriter } from './log-writer.js';
 
 export interface DebugMeta {
   /** A ticket/reminder should be created to remove Debug logs */

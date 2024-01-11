@@ -1,6 +1,6 @@
 {
-  "name": "@geee-be/service",
-  "version": "1.0.10",
+  "name": "@geee-be/migrate",
+  "version": "1.0.5",
   "description": "",
   "keywords": [],
   "license": "MIT",
@@ -16,10 +16,14 @@
     "lint:types": "tsc --noEmit",
     "lint:unused-exports": "ts-unused-exports tsconfig.json --excludePathsFromReport=src/index.ts",
     "prestart:dev": "rimraf dist/*",
-    "start:dev": "tsc --watch"
+    "start:dev": "tsc --watch",
+    "test": "vitest --reporter basic",
+    "test:dev": "vitest --watch --ui --reporter basic"
   },
   "dependencies": {
-    "@geee-be/core": "workspace:1.2.1",
-    "reflect-metadata": "^0.1.13"
+    "mongodb": "^6"
+  },
+  "devDependencies": {
+    "glob10": "npm:glob@^10.3.10"
   }
 }

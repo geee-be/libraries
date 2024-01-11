@@ -1,6 +1,6 @@
 {
   "name": "@geee-be/prettier-config",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "",
   "keywords": [],
   "license": "MIT",
@@ -9,7 +9,7 @@
   "main": "index.json",
   "scripts": {},
   "peerDependencies": {
-    "eslint-config-prettier": ">= 8.6",
-    "prettier": ">= 2.8"
+    "eslint-config-prettier": ">= 9.0",
+    "prettier": ">= 3.0"
   }
 }

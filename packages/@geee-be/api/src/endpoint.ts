@@ -1,4 +1,4 @@
-import type { RequestContext } from '@geee-be/core';
+import type { RequestContext, RequestUser } from '@geee-be/core';
 import type { Filter } from 'mongodb';
 import type { Contract, NotPrimitive, ValueProcessor } from 'validata';
 import { isObject } from 'validata';
@@ -59,12 +59,12 @@ const extractors: Record<string, (ctx: ApiContext, checker: ValueProcessor<Entit
   headers,
 };
 
-export type AuthCheck = (request: RequestContext) => boolean;
+export type AuthCheck<User extends RequestUser = RequestUser> = (request: RequestContext<User>) => boolean;
 
-const checkAuth = (authCheck?: AuthCheck): void => {
+const checkAuth = <User extends RequestUser = RequestUser>(authCheck?: AuthCheck<User>): void => {
   if (authCheck === undefined) return;
 
-  const request = requestContext();
+  const request = requestContext<User>();
   if (!request.user) throw new UnauthorizedError();
 
   // TODO: ensure session exists and is valid
