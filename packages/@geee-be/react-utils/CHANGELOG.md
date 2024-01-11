@@ -1,5 +1,11 @@
 # @geee-be/react-utils
 
+## 1.0.2
+
+### Patch Changes
+
+- 6ba0442: update peerDependencies
+
 ## 1.0.1
 
 ### Patch Changes
