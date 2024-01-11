@@ -1,5 +1,11 @@
 # @geee-be/react-utils
 
+## 1.0.4
+
+### Patch Changes
+
+- b1b11e7: use client
+
 ## 1.0.3
 
 ### Patch Changes
