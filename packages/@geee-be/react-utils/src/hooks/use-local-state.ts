@@ -1,3 +1,5 @@
+'use client';
+
 import type { Dispatch, SetStateAction } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import type { InitialValue, SerializationOptions } from './state.util.js';
