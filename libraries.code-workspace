@@ -43,6 +43,10 @@
     {
       "name": "react-utils",
       "path": "packages/@geee-be/react-utils"
+    },
+    {
+      "name": "react-twui",
+      "path": "packages/@geee-be/react-twui"
     }
   ],
   "settings": {
