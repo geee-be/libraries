@@ -1,4 +1,4 @@
-import { type ThemableColors } from '../foundation/index.js';
+import { type ThemableColors } from '../colors/themable-colors.js';
 
 export type ConfigTheme = {
   /**
