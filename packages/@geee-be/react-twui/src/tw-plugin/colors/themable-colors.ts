@@ -10,7 +10,7 @@ import { warning } from './warning.js';
 /*                                    Types                                   */
 /* -------------------------------------------------------------------------- */
 
-export type ColorScale = {
+type ColorScale = {
   // 50: string | [string, string];
   '100': string | [string, string | [string, string]];
   '200': string | [string, string | [string, string]];
@@ -48,7 +48,7 @@ export type ThemableColors = {
 };
 
 /* -------------------------------------------------------------------------- */
-export const themableColorsVariable: ThemableColors = {
+const themableColorsVariable: ThemableColors = {
   background: ['hsl(255 0% 92%)', 'hsl(255 0% 10%)'],
   foreground: ['hsl(255 0% 10%)', 'hsl(255 0% 92%)'],
 

@@ -4,7 +4,7 @@ import React from 'react';
 
 import { cn, isElementWithChildren, isReactElement } from '../../helpers/utils.js';
 import { Tooltip } from '../Tooltip/index.js';
-import { RequiredIcon } from '../icons/RequiredIcon.js';
+import { RequiredIcon } from '../icons/index.js';
 
 /* ---------------------------------- Types --------------------------------- */
 export type LabelElement = React.ElementRef<typeof LabelPrimitive.Root>;

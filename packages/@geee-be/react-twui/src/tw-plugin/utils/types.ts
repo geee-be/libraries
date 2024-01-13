@@ -22,7 +22,7 @@ export type ConfigTheme = {
   colors?: Partial<ThemableColors> | Record<string, string | Record<string, string>>;
 };
 
-export type BaseThemes = 'variable';
+type BaseThemes = 'variable';
 // eslint-disable-next-line @typescript-eslint/ban-types
 // export type DefaultThemeType = BaseThemes | (string & {});
 export type ConfigThemes = { [key in BaseThemes]?: ConfigTheme } & Record<string, ConfigTheme>;

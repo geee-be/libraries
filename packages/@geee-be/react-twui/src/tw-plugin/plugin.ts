@@ -265,11 +265,12 @@ export const wedgesTW = (config: WedgesOptions = {}): ReturnType<typeof plugin> 
   const otherUserThemes = omit(themeObject, ['variable']);
 
   Object.keys(otherUserThemes).forEach((themeName) => {
-    const { colors }: ConfigTheme = otherUserThemes[themeName] ?? {};
+    const theme = (otherUserThemes[themeName] = { ...otherUserThemes[themeName] });
+    const { colors }: ConfigTheme = theme;
     // const baseTheme = extend && isBaseTheme(extend) ? extend : defaultExtendTheme;
 
     if (colors && typeof colors === 'object') {
-      otherUserThemes[themeName]!.colors = deepMerge(themableColors.variable, colors);
+      theme.colors = deepMerge(themableColors.variable, colors);
     }
   });
 

@@ -52,6 +52,7 @@ const contentColor = (hsl: Hsl): Hsl => {
     .hsl()
     .round()
     .array();
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   return { h: h!, s: s!, l: l! };
 };
 
@@ -83,11 +84,11 @@ const switchDefaultColorCss = (themeColors: ThemableColors): CSSRuleObject => {
           if (!light || !dark) return variantAcc;
 
           const lightContent = contentColor(light);
-          const darkContent = contentColor(dark);
+          // const darkContent = contentColor(dark);
 
           const colorVariable = `--color-default${variant !== 'DEFAULT' ? `-${variant}` : ''}`;
           const colorContentVariable = `--color-default${variant !== 'DEFAULT' ? `-${variant}` : ''}-content`;
-          const opacityVariable = `--color-default${variant !== 'DEFAULT' ? `-${variant}` : ''}-opacity`;
+          // const opacityVariable = `--color-default${variant !== 'DEFAULT' ? `-${variant}` : ''}-opacity`;
 
           // return variantAcc;
 

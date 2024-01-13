@@ -101,7 +101,7 @@ const TooltipContent = React.forwardRef<TooltipContentElement, TooltipContentPro
 });
 
 /* ----------------------------- Tooltip Component ----------------------------- */
-export type TooltipElement = TooltipContentElement;
+type TooltipElement = TooltipContentElement;
 type TooltipProps = React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Root> &
   TooltipContentProps &
   VariantProps<typeof tooltipTriggerVariant>;
