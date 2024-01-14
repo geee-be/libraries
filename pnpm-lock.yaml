@@ -262,6 +262,9 @@ importers:
       '@geee-be/core':
         specifier: workspace:*
         version: link:../core
+      '@geee-be/react-utils':
+        specifier: workspace:*
+        version: link:../react-utils
       '@iconicicons/react':
         specifier: latest
         version: 1.5.1(react@18.2.0)

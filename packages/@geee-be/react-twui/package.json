@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "@geee-be/core": "workspace:*",
+    "@geee-be/react-utils": "workspace:*",
     "@iconicicons/react": "latest",
     "@radix-ui/react-avatar": "^1.0.4",
     "@radix-ui/react-checkbox": "^1.0.4",

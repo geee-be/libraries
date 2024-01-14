@@ -21,8 +21,8 @@ type ColorScale = {
   '700': string | [string, string | [string, string]];
   '800': string | [string, string | [string, string]];
   '900': string | [string, string];
-  'faded': string | [string, string];
-  'faded-content': string | [string, string];
+  'soft': string | [string, string];
+  'soft-content': string | [string, string];
   'border': string | [string, string];
   'content': string | [string, string];
   'icon': string | [string, string];

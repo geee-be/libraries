@@ -10,6 +10,7 @@ const meta = {
       defaultValue: { summary: 'default' },
     },
   },
+  tags: ['autodocs'],
 } satisfies Meta<typeof Tooltip>;
 
 export default meta;
