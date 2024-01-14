@@ -213,7 +213,6 @@ export const resolveConfig = (themes: ConfigThemes = {}, prefix: string): Resolv
     });
 
     const switchDefaultColor = switchDefaultColorCss(colors as ThemableColors);
-    console.log('%$%$%$', switchDefaultColor);
 
     if (themeName === 'variable') {
       resolved.utilities[':root'] = {
