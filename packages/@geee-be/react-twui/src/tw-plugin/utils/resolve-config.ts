@@ -226,7 +226,10 @@ export const resolveConfig = (themes: ConfigThemes = {}, prefix: string): Resolv
       };
 
       resolved.utilities[":root[data-theme='dark'], .dark"] = { ...darkVariables, ...switchDefaultColor };
-      resolved.utilities[":root[data-theme='light'], .light"] = { ...lightVariables, ...switchDefaultColor };
+      resolved.utilities[":root[data-theme='light'], .light"] = {
+        ...lightVariables,
+        ...switchDefaultColor,
+      };
     } else {
       // TODO: additional themes
       // let cssSelector = `.${themeName}, [data-theme="${themeName}"]`;
