@@ -11,7 +11,7 @@ export const useHistoryState = <T, S = T>(
   replace = true,
   options?: SerializationOptions<T, S>,
 ): [T, Dispatch<SetStateAction<T>>] => {
-  if (!history) {
+  if (typeof history === 'undefined') {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return [undefined as any, () => {}];
   }
