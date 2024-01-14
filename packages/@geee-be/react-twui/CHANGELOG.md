@@ -1,5 +1,13 @@
 # @geee-be/react-twui
 
+## 1.0.4
+
+### Patch Changes
+
+- 5aa7200: remove console.log
+- Updated dependencies [5aa7200]
+  - @geee-be/react-utils@1.0.6
+
 ## 1.0.3
 
 ### Patch Changes
