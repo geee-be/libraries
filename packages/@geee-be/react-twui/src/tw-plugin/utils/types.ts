@@ -12,7 +12,7 @@ export type ConfigTheme = {
    *
    * @example
    * colors: {
-   *   'wg-red': '#ff0000',
+   *   'red': '#ff0000',
    *   customColor: {
    *     500: '#f0f0f0',
    *     600: '#0d0d0d',
@@ -27,7 +27,7 @@ type BaseThemes = 'variable';
 // export type DefaultThemeType = BaseThemes | (string & {});
 export type ConfigThemes = { [key in BaseThemes]?: ConfigTheme } & Record<string, ConfigTheme>;
 
-export type WedgesOptions = {
+export type TwuiOptions = {
   /**
    * The prefix for CSS variables.
    * @default "color"
@@ -40,9 +40,9 @@ export type WedgesOptions = {
   themes?: ConfigThemes;
 
   /**
-   * Specifies whether or not to apply font anti-aliasing to Wedges components.
+   * Specifies whether or not to apply font anti-aliasing to components.
    *
-   * If set to `antialiased` (default), Wedges components will have anti-aliasing applied to them.
+   * If set to `antialiased` (default), components will have anti-aliasing applied to them.
    * If set to `inherit`, no specific styles will be set for text anti-aliasing.
    *
    * * @default "antialiased"

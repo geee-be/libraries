@@ -15,7 +15,7 @@ import plugin from 'tailwindcss/plugin.js';
 import type { CSSRuleObject } from 'tailwindcss/types/config.js';
 import { themableColors } from './colors/themable-colors.js';
 import { resolveConfig } from './utils/resolve-config.js';
-import type { ConfigTheme, ConfigThemes, WedgesOptions } from './utils/types.js';
+import type { ConfigTheme, ConfigThemes, TwuiOptions } from './utils/types.js';
 
 const DEFAULT_PREFIX = 'color';
 
@@ -59,13 +59,11 @@ const switchDefaultColorCss = (): CSSRuleObject => {
 const corePlugin = (
   themes: ConfigThemes = {},
   prefix: string,
-  fontSmooth: WedgesOptions['fontSmooth'],
+  fontSmooth: TwuiOptions['fontSmooth'],
 ): ReturnType<typeof plugin> => {
   const resolved = resolveConfig(themes, prefix);
   // console.log('***', resolved);
 
-  // const prefixedBaseColors = addPrefix(wedgesPalette, 'wg');
-  // const prefixedBoxShadows = addPrefix(boxShadows, 'wg');
   // const animationEasing = 'cubic-bezier(.2,1,.4,1)';
 
   const switchDefaults = switchDefaultColorCss();
@@ -82,8 +80,8 @@ const corePlugin = (
       addBase([
         {
           ':root': {
-            '--wg-font-smooth--webkit': fontSmooth === 'antialiased' ? 'antialiased' : 'unset',
-            '--wg-font-smooth--moz': fontSmooth === 'antialiased' ? 'grayscale' : 'unset',
+            '--font-smooth--webkit': fontSmooth === 'antialiased' ? 'antialiased' : 'unset',
+            '--font-smooth--moz': fontSmooth === 'antialiased' ? 'grayscale' : 'unset',
           },
 
           'html, body': {
@@ -96,9 +94,9 @@ const corePlugin = (
       addUtilities([
         resolved.utilities,
         {
-          '.wg-antialiased': {
-            '-webkit-font-smoothing': 'var(--wg-font-smooth--webkit)',
-            '-moz-osx-font-smoothing': 'var(--wg-font-smooth--moz)',
+          '.antialiased': {
+            '-webkit-font-smoothing': 'var(--font-smooth--webkit)',
+            '-moz-osx-font-smoothing': 'var(--font-smooth--moz)',
           },
         },
         switchDefaults,
@@ -258,7 +256,7 @@ const corePlugin = (
 /**
  * The actual plugin function.
  */
-export const wedgesTW = (config: WedgesOptions = {}): ReturnType<typeof plugin> => {
+export const twui = (config: TwuiOptions = {}): ReturnType<typeof plugin> => {
   const { prefix: defaultPrefix = DEFAULT_PREFIX, fontSmooth = 'antialiased', themes: themeObject = {} } = config;
 
   const userColors = themeObject.variable?.colors ?? {};

@@ -4,7 +4,7 @@ import { type IconProps } from './types.js';
 
 export const TippyIcon = React.forwardRef<SVGSVGElement, IconProps>((props, ref) => {
   const { size = 24, title, ...rest } = props;
-  const titleId = title ? `wg-${Date.now()}-${Math.floor(Math.random() * 10000)}` : undefined;
+  const titleId = title ? `twui-${Date.now()}-${Math.floor(Math.random() * 10000)}` : undefined;
 
   return (
     <svg ref={ref} aria-labelledby={titleId} fill="currentColor" height="8" width={size} {...rest} viewBox="0 0 24 8">

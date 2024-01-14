@@ -1,1 +1,1 @@
-export { wedgesTW } from './plugin.js';
+export { twui } from './plugin.js';

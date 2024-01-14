@@ -23,7 +23,7 @@ export type LabelProps = React.ComponentPropsWithoutRef<typeof LabelPrimitive.Ro
 };
 
 /* -------------------------------- Component ------------------------------- */
-const LabelWedges = React.forwardRef<LabelElement, LabelProps>(
+const LabelComponent = React.forwardRef<LabelElement, LabelProps>(
   ({ asChild = false, children, className, description, disabled, required = false, tooltip, ...otherProps }, ref) => {
     const useAsChild = asChild && isReactElement(children);
 
@@ -63,13 +63,14 @@ const LabelWedges = React.forwardRef<LabelElement, LabelProps>(
     }
 
     return (
-      <div className="wg-label inline-flex items-center gap-1 wg-antialiased">
+      <div className="twui-label inline-flex items-center gap-1 antialiased">
         <LabelPrimitive.Root
+          data-component="Lable"
           ref={ref}
           asChild={useAsChild}
           className={cn(
-            'wg-label inline-flex cursor-pointer items-center gap-1 text-sm font-medium leading-6',
-            disabled && 'pointer-events-none text-surface-300',
+            'twui-label inline-flex cursor-pointer items-center gap-1 text-sm font-medium leading-6',
+            disabled && 'pointer-events-none text-paper-content/50',
             className,
           )}
           {...otherProps}
@@ -92,9 +93,10 @@ const HelperText = React.forwardRef<
 
   return children ? (
     <HelperTextComponent
+      data-component="HelperText"
       ref={ref}
       className={cn(
-        'wg-label__helper text-start text-sm leading-6 text-paper-content/70 wg-antialiased',
+        'twui-label__helper text-start text-sm leading-6 text-paper-content/70 antialiased',
         (ariaInvalid ?? error) && 'text-destructive',
         disabled && 'text-paper-content/50',
         className,
@@ -107,11 +109,9 @@ const HelperText = React.forwardRef<
   ) : null;
 });
 
-LabelWedges.displayName = 'Label';
+LabelComponent.displayName = 'Label';
 HelperText.displayName = 'HelperText';
 
-const Label = Object.assign(LabelWedges, {
+export const Label = Object.assign(LabelComponent, {
   Helper: HelperText,
 });
-
-export default Label;

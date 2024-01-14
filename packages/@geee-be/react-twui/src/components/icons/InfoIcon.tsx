@@ -4,7 +4,7 @@ import { type IconProps } from './types.js';
 
 export const InfoIcon = React.forwardRef<SVGSVGElement, IconProps>((props, ref) => {
   const { size = 24, title, ...rest } = props;
-  const titleId = title ? `wg-${Date.now()}-${Math.floor(Math.random() * 10000)}` : undefined;
+  const titleId = title ? `twui-${Date.now()}-${Math.floor(Math.random() * 10000)}` : undefined;
 
   return (
     <svg
