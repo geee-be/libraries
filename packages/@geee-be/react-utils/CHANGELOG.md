@@ -1,5 +1,11 @@
 # @geee-be/react-utils
 
+## 1.0.7
+
+### Patch Changes
+
+- 59874a9: if (typeof history === 'undefined')
+
 ## 1.0.6
 
 ### Patch Changes
