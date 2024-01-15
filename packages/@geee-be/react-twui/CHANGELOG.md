@@ -1,5 +1,11 @@
 # @geee-be/react-twui
 
+## 1.0.7
+
+### Patch Changes
+
+- 9658df3: Root card not transparent
+
 ## 1.0.6
 
 ### Patch Changes
