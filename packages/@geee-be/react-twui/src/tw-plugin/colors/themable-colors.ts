@@ -27,7 +27,7 @@ type ColorScale = {
   'content': string | [string, string];
   'icon': string | [string, string];
   'DEFAULT': string | [string, string];
-};
+} & Record<string, string | [string, string]>;
 
 export type ThemableColorScale = Partial<ColorScale> | string;
 
@@ -60,7 +60,8 @@ const themableColorsVariable: ThemableColors = {
   success,
   error,
   paper: {
-    DEFAULT: ['hsl(255, 0%, 100% / 0.5)', 'hsl(255 0% 20% / 0.35)'],
+    DEFAULT: ['hsl(255, 0%, 98%)', 'hsl(255 0% 15%)'],
+    nested: ['hsl(255, 0%, 90% / 0.35)', 'hsl(255 0% 10% / 0.35)'],
     border: ['hsl(255 0% 80% / 0.5)', 'hsl(255 0% 0% / 0.5)'],
     content: ['hsl(255 0% 28%)', 'hsl(255 0% 72%)'],
   },

@@ -24,10 +24,10 @@ const CardRoot = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
       <div
         data-component="Card"
         ref={ref}
-        className={cn(
-          'twui-card bg-paper rounded-xl text-paper-content border border-primary overflow-clip',
-          className,
-        )}
+        className={
+          cn('twui-card bg-paper rounded-xl text-paper-content border border-primary overflow-clip', className) +
+          ' [&_.twui-card]:bg-paper-nested'
+        }
         role="region"
         {...otherProps}
       >
