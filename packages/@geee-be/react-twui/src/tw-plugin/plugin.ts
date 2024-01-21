@@ -76,7 +76,7 @@ const corePlugin = (
   // );
 
   return plugin(
-    ({ addBase, addUtilities, addVariant, matchUtilities, theme }) => {
+    ({ addBase, addComponents, addUtilities, addVariant }) => {
       addBase([
         {
           ':root': {
@@ -92,7 +92,6 @@ const corePlugin = (
       ]);
 
       addUtilities([
-        resolved.utilities,
         {
           '.antialiased': {
             '-webkit-font-smoothing': 'var(--font-smooth--webkit)',
@@ -102,8 +101,17 @@ const corePlugin = (
         switchDefaults,
       ]);
 
+      addComponents(resolved.utilities);
+
       // // e.g. "[theme-name]:text-2xl"
       // resolved.variants.forEach(({ name, definition }) => addVariant(name, definition));
+      // console.log('---$#$#$#$#$#', resolved.variants);
+      // addVariant('foo', ['.foo&']);
+
+      // matchVariant('dark', (value, { modifier }) => {
+      //   console.log('$#$#$#$#$#', value, modifier);
+      //   return '';
+      // });
 
       // // Add 'wg-bg' utility
       // matchUtilities(
