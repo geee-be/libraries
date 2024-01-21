@@ -21,7 +21,7 @@ const TooltipTrigger = React.forwardRef<
       ref={ref}
       asChild={asChild}
       tabIndex={-1}
-      className="h-5 align-text-bottom cursor-default rounded-full"
+      className="Tooltip-trigger h-5 align-text-bottom cursor-default rounded-full"
       {...otherProps}
     >
       {children ? (

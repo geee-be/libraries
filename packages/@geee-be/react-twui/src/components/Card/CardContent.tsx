@@ -2,7 +2,7 @@ import { Slot } from '@radix-ui/react-slot';
 import * as React from 'react';
 
 import type { VariantProps } from 'cva';
-import { isReactElement } from '../../helpers/utils.js';
+import { cn, isReactElement } from '../../helpers/utils.js';
 import { cardContentVariants } from './variants.js';
 
 /* Content */
@@ -14,7 +14,7 @@ export const CardContent = React.forwardRef<
 
   return (
     <div data-component="CardContent" className={className}>
-      <Component ref={ref} className={cardContentVariants({ gutters })} {...props}>
+      <Component ref={ref} className={cn('Card-content', cardContentVariants({ gutters }))} {...props}>
         {children}
       </Component>
     </div>

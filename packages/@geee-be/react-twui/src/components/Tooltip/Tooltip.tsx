@@ -89,7 +89,7 @@ const TooltipContent = React.forwardRef<TooltipContentElement, TooltipContentPro
       ref={ref}
       alignOffset={alignOffset}
       arrowPadding={arrowPadding}
-      className={cn(tooltipVariant({ size }), animation && TOOLTIP_ANIMATION_CLASSES, className)}
+      className={cn('Tooltop-root', tooltipVariant({ size }), animation && TOOLTIP_ANIMATION_CLASSES, className)}
       collisionPadding={collisionPadding}
       sideOffset={sideOffset}
       {...otherProps}

@@ -124,10 +124,10 @@ export const Button = React.forwardRef<ButtonElement, ButtonProps>(
 
     return (
       <Component
-        data-component="Button"
+        // data-component="Button"
         ref={ref}
         className={cn(
-          'twui-button',
+          'Button-root',
           buttonVariants({ size, color, variant, shape, destructive }),
           variant === 'link' && children && 'focus-visible:outline-0',
           isIcon && iconOnlyPadding[size],

@@ -160,7 +160,13 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
 const AlertRoot = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, children, ...otherProps }, ref) => {
     return (
-      <div data-component="Alert" ref={ref} className={cn(defaultRootClasses, className)} role="alert" {...otherProps}>
+      <div
+        data-component="Alert"
+        ref={ref}
+        className={cn('Alert-root', defaultRootClasses, className)}
+        role="alert"
+        {...otherProps}
+      >
         {children}
       </div>
     );
@@ -206,12 +212,7 @@ const AlertTitle = React.forwardRef<
   const Component = isReactElement(children) ? Slot : 'p';
 
   return (
-    <Component
-      data-component="AlertTitle"
-      ref={ref}
-      className={cn(alertTitleVariants({ color }), className)}
-      {...props}
-    >
+    <Component ref={ref} className={cn('Alert-title', alertTitleVariants({ color }), className)} {...props}>
       {children}
     </Component>
   );
@@ -223,7 +224,7 @@ const AlertDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttrib
     const Component = isReactElement(children) ? Slot : 'p';
 
     return (
-      <Component data-component="AlertDescription" ref={ref} className={cn('text-start', className)} {...props}>
+      <Component ref={ref} className={cn('Alert-description', 'text-start', className)} {...props}>
         {children}
       </Component>
     );

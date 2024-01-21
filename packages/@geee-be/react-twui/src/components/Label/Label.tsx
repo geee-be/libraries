@@ -63,13 +63,13 @@ const LabelComponent = React.forwardRef<LabelElement, LabelProps>(
     }
 
     return (
-      <div className="twui-label inline-flex items-center gap-1 antialiased">
+      <div className="inline-flex items-center gap-1 antialiased">
         <LabelPrimitive.Root
-          data-component="Lable"
+          data-component="Label"
           ref={ref}
           asChild={useAsChild}
           className={cn(
-            'twui-label inline-flex cursor-pointer items-center gap-1 text-sm font-medium leading-6',
+            'Label-root inline-flex cursor-pointer items-center gap-1 text-sm font-medium leading-6',
             disabled && 'pointer-events-none text-paper-content/50',
             className,
           )}
@@ -96,7 +96,7 @@ const HelperText = React.forwardRef<
       data-component="HelperText"
       ref={ref}
       className={cn(
-        'twui-label__helper text-start text-sm leading-6 text-paper-content/70 antialiased',
+        'Label-helperText text-start text-sm leading-6 text-paper-content/70 antialiased',
         (ariaInvalid ?? error) && 'text-destructive',
         disabled && 'text-paper-content/50',
         className,
