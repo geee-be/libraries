@@ -1,5 +1,12 @@
 # @geee-be/react-twui
 
+## 1.0.8
+
+### Patch Changes
+
+- 6e46225: Set color-scheme
+- e5a5ea4: Component rool classNames
+
 ## 1.0.7
 
 ### Patch Changes
