@@ -38,7 +38,7 @@ const preview: Preview = {
     },
     layout: 'fullscreen',
     darkMode: {
-      classTarget: 'body',
+      classTarget: 'xx',
       darkClass: 'dark',
       lightClass: 'light',
       stylePreview: true,

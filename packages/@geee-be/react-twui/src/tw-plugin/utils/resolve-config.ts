@@ -231,13 +231,13 @@ export const resolveConfig = (themes: ConfigThemes = {}, prefix: string): Resolv
         },
       };
 
-      resolved.utilities[":root[data-theme='dark'], .dark"] = {
+      resolved.utilities["[data-theme='dark'], .dark"] = {
         ...darkVariables,
         ...switchDefaultColor,
         'color-scheme': 'dark',
         '--theme': 'dark',
       };
-      resolved.utilities[":root[data-theme='light'], .light"] = {
+      resolved.utilities["[data-theme='light'], .light"] = {
         ...lightVariables,
         ...switchDefaultColor,
         'color-scheme': 'light',
