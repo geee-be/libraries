@@ -1,5 +1,11 @@
 # @geee-be/react-twui
 
+## 1.0.9
+
+### Patch Changes
+
+- 4b835af: Alter dark detection
+
 ## 1.0.8
 
 ### Patch Changes
