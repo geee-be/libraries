@@ -1,5 +1,11 @@
 # @geee-be/react-twui
 
+## 1.0.11
+
+### Patch Changes
+
+- 6c25a33: Fix contro colors
+
 ## 1.0.10
 
 ### Patch Changes
