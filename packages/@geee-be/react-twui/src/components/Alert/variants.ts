@@ -26,7 +26,7 @@ export const alertTitleVariants = cva({
   base: 'text-start font-bold',
   variants: {
     color: {
-      default: 'text-default-soft-content',
+      default: 'text-default-soft-content dark:text-primary',
       primary: 'text-primary-soft-content',
       secondary: 'text-secondary-soft-content',
       info: 'text-info-soft-content',
