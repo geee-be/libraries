@@ -1,5 +1,11 @@
 # @geee-be/react-twui
 
+## 1.0.10
+
+### Patch Changes
+
+- e91988f: Add Input and Join controls
+
 ## 1.0.9
 
 ### Patch Changes
