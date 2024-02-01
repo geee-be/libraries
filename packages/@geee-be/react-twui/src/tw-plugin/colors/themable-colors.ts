@@ -66,10 +66,11 @@ const themableColorsVariable: ThemableColors = {
     content: ['hsl(255 0% 28%)', 'hsl(255 0% 72%)'],
   },
   control: {
-    DEFAULT: 'red', // TODO
-    // border: 'hsl(var(--color-control-border))',
-    // content: 'hsl(var(--color-control-content))',
-    // error: 'hsl(var(--color-control-error))',
+    DEFAULT: ['hsl(255, 0%, 98%)', 'hsl(255 0% 15%)'],
+    nested: ['hsl(255, 0%, 90% / 0.35)', 'hsl(255 0% 10% / 0.35)'],
+    border: ['hsl(255 0% 28% / 0.5)', 'hsl(255 0% 72% / 0.5)'],
+    content: ['hsl(255 0% 28%)', 'hsl(255 0% 72%)'],
+    placeholder: ['hsl(255 0% 28% / 0.5)', 'hsl(255 0% 72% / 0.5)'],
   },
 
   // primary: {
