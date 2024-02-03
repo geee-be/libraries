@@ -1,0 +1,3 @@
+.select-value[data-placeholder] {
+  @apply text-base-content/50;
+}

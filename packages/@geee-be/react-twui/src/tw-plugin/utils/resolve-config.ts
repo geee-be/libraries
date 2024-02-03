@@ -219,14 +219,12 @@ export const resolveConfig = (themes: ConfigThemes = {}, prefix: string): Resolv
         ...(resolved.utilities[':root'] as object),
         ...lightVariables,
         ...switchDefaultColor,
-        'color-scheme': 'light',
         '--theme': 'light',
       };
       resolved.utilities['@media (prefers-color-scheme: dark)'] = {
         ':root': {
           ...darkVariables,
           ...switchDefaultColor,
-          'color-scheme': 'dark',
           '--theme': 'dark',
         },
       };

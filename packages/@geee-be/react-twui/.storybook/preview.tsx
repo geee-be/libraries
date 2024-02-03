@@ -9,11 +9,12 @@ const preview: Preview = {
       const darkMode = useDarkMode();
       useEffect(() => {
         const html = document.getElementsByTagName('html')[0];
-        html.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+        // html.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+        html.setAttribute('style', `color-scheme: ${darkMode ? 'dark' : 'light'}`);
       }, [darkMode]);
       return (
         <div className={'m-0 flex-1'}>
-          <div className={'m-3'} style={{ fontFamily: 'Montserrat, sans-serif' }}>
+          <div className={'m-3'}>
             <Story />
           </div>
         </div>

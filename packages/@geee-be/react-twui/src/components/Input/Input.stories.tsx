@@ -14,6 +14,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    disabled: false,
+    placeholder: 'This is a placeholder',
     // color: 'default',
   },
 };
