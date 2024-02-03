@@ -30,7 +30,7 @@ const TooltipTrigger = React.forwardRef<
         <span
           className={cn(
             onClick ? 'cursor-pointer' : 'cursor-default',
-            'inline-flex items-center justify-center rounded-full transition-colors duration-100 focus:outline-none focus-visible:text-primary focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-control-focus data-[state=instant-open]:!transition-none',
+            'inline-flex items-center justify-center rounded-full transition-colors duration-100 focus:outline-none focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-control-focus data-[state=instant-open]:!transition-none',
             className,
           )}
           onClick={onClick}

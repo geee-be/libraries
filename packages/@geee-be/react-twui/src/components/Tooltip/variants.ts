@@ -2,7 +2,7 @@ import { cva } from 'cva';
 
 /* -------------------------------- Variants -------------------------------- */
 export const tooltipVariant = cva({
-  base: 'z-50 rounded-md text-start bg-paper/100 text-paper-content antialiased',
+  base: 'z-50 rounded-md text-start bg-paper/100 text-paper-content border border-control-border/30 antialiased',
   variants: {
     size: {
       sm: 'max-w-xs px-3 py-2 text-xs',

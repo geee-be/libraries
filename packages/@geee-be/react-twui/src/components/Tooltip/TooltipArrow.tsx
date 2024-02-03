@@ -29,7 +29,7 @@ const TooltipArrow = React.forwardRef<
         width={width}
         {...props}
       >
-        {children ? children : <TippyIcon className="text-paper/100" />}
+        {children ? children : <TippyIcon className="text-control-border/30" />}
       </PrimitiveArrow>
     );
   },

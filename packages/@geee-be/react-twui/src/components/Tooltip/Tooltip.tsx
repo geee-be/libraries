@@ -65,7 +65,7 @@ type TooltipContentProps = Omit<React.ComponentPropsWithRef<typeof TooltipPrimit
   content: React.ReactNode;
 } & VariantProps<typeof tooltipVariant>;
 
-const TooltipContent = React.forwardRef<TooltipContentElement, TooltipContentProps>((props, ref) => {
+export const TooltipContent = React.forwardRef<TooltipContentElement, TooltipContentProps>((props, ref) => {
   const {
     alignOffset = -12,
     animation = true,

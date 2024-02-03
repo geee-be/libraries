@@ -31,15 +31,13 @@ export const Default: Story = {
     asChild: false,
     content: 'Tooltip content here',
   },
-  decorators: [
-    (Story) => (
-      <span>
-        <p>Line one</p>
-        <p>Line two</p>
-        <p>
-          Line three <Story />
-        </p>
-      </span>
-    ),
-  ],
+  decorators: (Story) => (
+    <span>
+      <p>Line one</p>
+      <p>Line two</p>
+      <p>
+        Line three <Story />
+      </p>
+    </span>
+  ),
 };
