@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from '../Button/Button.js';
 import { Input } from '../Input/Input.js';
+import { Select } from '../Select/Select.js';
 import { Join } from './index.js';
 
 const meta = {
@@ -43,14 +44,26 @@ export const OutlineButton: Story = {
   },
 };
 
-export const MultiLine: Story = {
+export const Dropdown: Story = {
   args: {
     children: (
       <>
-        <Input className="join-item" />
-        <Button className="join-item" color="success">
-          Button
-        </Button>
+        <Input className="join-item" placeholder="Placeholder" />
+        <Select
+          className="join-item"
+          placeholder="Placeholder"
+          items={[
+            {
+              label: 'Group',
+              items: [
+                {
+                  key: 'four',
+                  label: 'Four',
+                },
+              ],
+            },
+          ]}
+        />
       </>
     ),
     shape: 'rounded',
