@@ -13,7 +13,7 @@ export const buttonVariants = cva({
       pill: 'rounded-full',
     },
     color: {
-      default: 'outline-primary',
+      default: 'outline-control-focus',
       primary: 'outline-primary',
       secondary: 'outline-secondary',
       info: 'outline-info',

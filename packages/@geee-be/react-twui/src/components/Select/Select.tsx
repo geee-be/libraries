@@ -67,7 +67,7 @@ export const Select = forwardRef<SelectElement, SelectProps>(
         name={id}
         className={cn(
           'antialiased inline-flex grow rounded-lg items-center border border-control-border bg-control px-4 py-2 text-sm leading-6 transition-colors duration-100 data-[placeholder]:text-control-placeholder',
-          'outline-primary focus:outline focus:outline-2 focus:outline-offset-2',
+          'outline-control-focus focus:outline focus:outline-2 focus:outline-offset-2',
           !disabled && 'text-control-content hover:border-control-border/50',
           disabled &&
             'cursor-not-allowed bg-control text-control-content/50 data-[placeholder]:text-control-content/50 border-transparent',
@@ -86,7 +86,7 @@ export const Select = forwardRef<SelectElement, SelectProps>(
         </BaseSelect.Icon>
       </BaseSelect.Trigger>
       <BaseSelect.Portal>
-        <BaseSelect.Content className="overflow-hidden bg-control rounded-xl border-2 border-primary shadow-xl outline-primary outline outline-2 outline-offset-2">
+        <BaseSelect.Content className="overflow-hidden bg-control rounded-xl border-2 border-control-focus shadow-xl">
           <BaseSelect.ScrollUpButton className="flex items-center justify-center h-6 bg-control text-base-content cursor-default">
             <ChevronUpIcon />
           </BaseSelect.ScrollUpButton>

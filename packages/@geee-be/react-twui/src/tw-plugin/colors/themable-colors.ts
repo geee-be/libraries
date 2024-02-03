@@ -20,13 +20,22 @@ type ColorScale = {
   '600': string | [string, string | [string, string]];
   '700': string | [string, string | [string, string]];
   '800': string | [string, string | [string, string]];
-  '900': string | [string, string];
+  '900': string | [string, string | [string, string]];
   'soft': string | [string, string];
   'soft-content': string | [string, string];
   'border': string | [string, string];
   'content': string | [string, string];
   'icon': string | [string, string];
   'DEFAULT': string | [string, string];
+} & Record<string, string | [string, string]>;
+
+type ControlColors = {
+  focus: string | [string, string];
+  border: string | [string, string];
+  content: string | [string, string];
+  nested: string | [string, string];
+  icon: string | [string, string];
+  DEFAULT: string | [string, string];
 } & Record<string, string | [string, string]>;
 
 export type ThemableColorScale = Partial<ColorScale> | string;
@@ -42,7 +51,7 @@ export type ThemableColors = {
   success: ThemableColorScale;
   error: ThemableColorScale;
   paper: ThemableColorScale;
-  control: ThemableColorScale;
+  control: ControlColors;
   surface: ThemableColorScale;
   destructive: ThemableColorScale;
 };
@@ -67,9 +76,11 @@ const themableColorsVariable: ThemableColors = {
   },
   control: {
     DEFAULT: ['hsl(255, 0%, 98%)', 'hsl(255 0% 15%)'],
+    focus: '#EC740C',
     nested: ['hsl(255, 0%, 90% / 0.35)', 'hsl(255 0% 10% / 0.35)'],
     border: ['hsl(255 0% 28% / 0.85)', 'hsl(255 0% 72% / 0.85)'],
     content: ['hsl(255 0% 28%)', 'hsl(255 0% 72%)'],
+    icon: ['hsl(255 0% 28%)', 'hsl(255 0% 72%)'],
     placeholder: ['hsl(255 0% 28% / 0.5)', 'hsl(255 0% 72% / 0.5)'],
   },
 

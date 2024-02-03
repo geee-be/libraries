@@ -19,7 +19,7 @@ export const Input = forwardRef<InputElement, InputProps>(
         aria-invalid={ariaInvalid}
         className={cn(
           'antialiased inline-flex grow rounded-lg border border-control-border bg-control px-4 py-2 text-sm leading-6 transition-colors duration-100 placeholder:text-control-placeholder',
-          'outline-primary focus:outline focus:outline-2 focus:outline-offset-2',
+          'outline-control-focus focus:outline focus:outline-2 focus:outline-offset-2',
           ariaInvalid &&
             'border-destructive outline-destructive hover:border-destructive dark:hover:border-destructive',
           !ariaInvalid && 'border-control-border',
