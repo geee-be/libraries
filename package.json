@@ -9,7 +9,7 @@
   "prettier": "./packages/@geee-be/prettier-config",
   "scripts": {
     "build": "pnpm --stream --parallel -r build",
-    "changeset": "changeset",
+    "changeset": "changeset && git add .changeset",
     "lint": "pnpm --stream -r lint",
     "start": "pnpm --stream -r start",
     "start:dev": "pnpm --stream --parallel -r start:dev"
