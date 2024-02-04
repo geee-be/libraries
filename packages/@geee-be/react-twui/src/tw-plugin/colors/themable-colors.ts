@@ -75,13 +75,14 @@ const themableColorsVariable: ThemableColors = {
     content: ['hsl(255 0% 28%)', 'hsl(255 0% 72%)'],
   },
   control: {
-    DEFAULT: ['hsl(255, 0%, 98%)', 'hsl(255 0% 15%)'],
-    focus: '#EC740C',
-    nested: ['hsl(255, 0%, 90% / 0.35)', 'hsl(255 0% 10% / 0.35)'],
-    border: ['hsl(255 0% 28% / 0.85)', 'hsl(255 0% 72% / 0.85)'],
-    content: ['hsl(255 0% 28%)', 'hsl(255 0% 72%)'],
-    icon: ['hsl(255 0% 28%)', 'hsl(255 0% 72%)'],
-    placeholder: ['hsl(255 0% 28% / 0.5)', 'hsl(255 0% 72% / 0.5)'],
+    'DEFAULT': ['hsl(255, 0%, 98%)', 'hsl(255 0% 15%)'],
+    'focus': '#EC740C',
+    'nested': ['hsl(255, 0%, 90% / 0.35)', 'hsl(255 0% 10% / 0.35)'],
+    'border': ['hsl(255 0% 28% / 0.85)', 'hsl(255 0% 72% / 0.85)'],
+    'solid-border': ['hsl(255 0% 72%)', 'hsl(255 0% 28%)'],
+    'content': ['hsl(255 0% 28%)', 'hsl(255 0% 72%)'],
+    'icon': ['hsl(255 0% 28%)', 'hsl(255 0% 72%)'],
+    'placeholder': ['hsl(255 0% 28% / 0.5)', 'hsl(255 0% 72% / 0.5)'],
   },
 
   // primary: {

@@ -23,13 +23,13 @@ const TooltipArrow = React.forwardRef<
       <PrimitiveArrow
         ref={ref}
         asChild={asChild}
-        className={cn(className)}
+        className={cn('text-control-solid-border', className)}
         height={height}
         viewBox="0 0 24 8"
         width={width}
         {...props}
       >
-        {children ? children : <TippyIcon className="text-control-border/30" />}
+        {children ? children : <TippyIcon />}
       </PrimitiveArrow>
     );
   },
