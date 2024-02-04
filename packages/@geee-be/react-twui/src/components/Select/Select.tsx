@@ -15,20 +15,6 @@ export type SelectProps = InputHTMLAttributes<HTMLButtonElement> & {
   value?: string;
 };
 
-// interface Props {
-//   'aria-label'?: string;
-//   'className'?: string;
-//   'disabled'?: boolean;
-//   'id'?: string;
-//   'items': SelectGroupProps[];
-//   'name'?: string;
-//   'onBlur'?: React.FocusEventHandler<HTMLButtonElement>;
-//   'onValueChange'?: (value: string) => void;
-//   'placeholder'?: ReactNode;
-//   'required'?: boolean;
-//   'value'?: string;
-// }
-
 export interface SelectGroupProps {
   label?: ReactNode;
   items: SelectItemProps[];
@@ -75,9 +61,9 @@ export const Select = forwardRef<SelectElement, SelectProps>(
           'antialiased inline-flex justify-between grow rounded-lg items-center border px-4 py-2 text-sm leading-6 transition-colors duration-100',
           disabled && 'cursor-not-allowed',
           // color
-          'bg-control text-control-content border-default-500 hover:border-default-300 data-[placeholder]:text-control-content/50',
+          'bg-control text-control-content border-default-500 hover:border-default-400 data-[placeholder]:text-control-content/50',
           disabled &&
-            'bg-control text-control-content/50 data-[placeholder]:text-control-content/50 border-transparent',
+            'bg-control text-control-content/50 data-[placeholder]:text-control-content/50 border-default-300 hover:border-default-300',
           // focus
           'outline-control-focus focus:outline focus:outline-2 focus:outline-offset-2',
           className,

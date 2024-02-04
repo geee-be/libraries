@@ -21,9 +21,10 @@ export const Input = forwardRef<InputElement, InputProps>(
           'antialiased inline-flex grow rounded-lg border px-4 py-2 text-sm leading-6 transition-colors duration-100',
           disabled && 'cursor-not-allowed',
           // color
-          'bg-control text-control-content border-default-500 hover:border-default-300 placeholder:text-control-content/50',
+          'bg-control text-control-content border-default-500 hover:border-default-400 placeholder:text-control-content/50',
           ariaInvalid && 'border-destructive outline-destructive hover:border-destructive',
-          disabled && 'bg-control text-control-content/50 placeholder:text-control-content/50 border-transparent',
+          disabled &&
+            'bg-control text-control-content/50 placeholder:text-control-content/50 border-default-300 hover:border-default-300',
           // focus
           'outline-control-focus focus:outline focus:outline-2 focus:outline-offset-2',
           className,
