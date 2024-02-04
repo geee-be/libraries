@@ -1,19 +1,19 @@
 import { forwardRef, useId } from 'react';
 import { Label, type LabelProps } from '../Label/index.js';
 import { type LabelHelperProps } from '../types.js';
-import type { InputElement, InputProps } from './Input.js';
-import { Input } from './Input.js';
+import type { SelectElement, SelectProps } from './Select.js';
+import { Select } from './Select.js';
 
 /* ---------------------------------- Types --------------------------------- */
-export type FormInputElement = InputElement;
-export type FormInputProps = InputProps &
+export type FormSelectElement = SelectElement;
+export type FormSelectProps = SelectProps &
   LabelProps &
   LabelHelperProps & {
     destructive?: boolean;
   };
 
 /* -------------------------------- Component ------------------------------- */
-export const FormInput = forwardRef<FormInputElement, FormInputProps>(
+export const FormSelect = forwardRef<FormSelectElement, FormSelectProps>(
   ({ className, description, destructive, disabled, helperText, id, label, required, tooltip, ...otherProps }, ref) => {
     const generatedId = useId();
     const elId = id ?? generatedId;
@@ -33,7 +33,7 @@ export const FormInput = forwardRef<FormInputElement, FormInputProps>(
         </Label>
 
         <div className="relative flex items-center">
-          <Input
+          <Select
             ref={ref}
             aria-describedby={helperText ? `${elId}__describer` : undefined}
             aria-invalid={ariaInvalid}
@@ -52,4 +52,4 @@ export const FormInput = forwardRef<FormInputElement, FormInputProps>(
   },
 );
 
-FormInput.displayName = 'FormInput';
+FormSelect.displayName = 'FormSelect';

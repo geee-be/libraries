@@ -53,6 +53,7 @@ export const Select = forwardRef<SelectElement, SelectProps>(
       onBlur,
       onValueChange,
       placeholder,
+      readOnly,
       required,
       value,
       type,
@@ -60,13 +61,19 @@ export const Select = forwardRef<SelectElement, SelectProps>(
     },
     ref,
   ) => (
-    <BaseSelect.Root name={name} value={value} disabled={disabled} onValueChange={onValueChange} required={required}>
+    <BaseSelect.Root
+      name={name}
+      value={value}
+      disabled={disabled || readOnly}
+      onValueChange={onValueChange}
+      required={required}
+    >
       <BaseSelect.Trigger
         {...props}
         id={id}
         name={id}
         className={cn(
-          'antialiased inline-flex grow rounded-lg items-center border border-control-border bg-control px-4 py-2 text-sm leading-6 transition-colors duration-100 data-[placeholder]:text-control-placeholder',
+          'antialiased inline-flex grow rounded-lg items-center border border-control-border bg-control px-4 py-2 text-sm leading-6 justify-between transition-colors duration-100 data-[placeholder]:text-control-placeholder',
           'outline-control-focus focus:outline focus:outline-2 focus:outline-offset-2',
           !disabled && 'text-control-content hover:border-control-border/50',
           disabled &&

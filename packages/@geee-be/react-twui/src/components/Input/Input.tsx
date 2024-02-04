@@ -10,7 +10,7 @@ export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
 
 /* -------------------------------- Component ------------------------------- */
 export const Input = forwardRef<InputElement, InputProps>(
-  ({ className, destructive, disabled, ...otherProps }, ref) => {
+  ({ className, destructive, disabled, readOnly, ...otherProps }, ref) => {
     const ariaInvalid = otherProps['aria-invalid'] ?? destructive;
 
     return (
@@ -28,7 +28,8 @@ export const Input = forwardRef<InputElement, InputProps>(
             'cursor-not-allowed bg-control text-control-content/50 placeholder:text-control-content/50 border-transparent',
           className,
         )}
-        disabled={disabled}
+        disabled={disabled || readOnly}
+        readOnly={readOnly}
         {...otherProps}
       />
     );
