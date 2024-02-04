@@ -1,5 +1,14 @@
 # @geee-be/react-twui
 
+## 1.0.12
+
+### Patch Changes
+
+- f771d58: FormInput control
+- 7555b5d: Added Select control
+- 9506cb9: Control focus color
+- fb1047b: Improved tooltip colors
+
 ## 1.0.11
 
 ### Patch Changes
