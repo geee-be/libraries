@@ -19,7 +19,13 @@ export const Default: Story = {
     label: 'Label',
     description: 'Description',
     helperText: 'Helper text',
-    tooltip: 'Tool tip',
+    tooltip: (
+      <div>
+        <div>Tool tip</div>
+        <div>goes</div>
+        <div>here</div>
+      </div>
+    ),
     required: true,
     readOnly: false,
   },

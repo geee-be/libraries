@@ -23,7 +23,7 @@ const TooltipArrow = React.forwardRef<
       <PrimitiveArrow
         ref={ref}
         asChild={asChild}
-        className={cn('text-control-solid-border', className)}
+        className={cn('text-default-300', className)}
         height={height}
         viewBox="0 0 24 8"
         width={width}

@@ -20,7 +20,7 @@ export const FormSelect = forwardRef<FormSelectElement, FormSelectProps>(
     const ariaInvalid = otherProps['aria-invalid'] ?? destructive;
 
     return (
-      <div className="flex flex-col gap-1 antialiased">
+      <div className="flex flex-col antialiased">
         <Label
           description={description}
           disabled={disabled}

@@ -14,7 +14,7 @@ const preview: Preview = {
       }, [darkMode]);
       return (
         <div className={'m-0 flex-1'}>
-          <div className={'m-3'}>
+          <div className={'m-4'}>
             <Story />
           </div>
         </div>

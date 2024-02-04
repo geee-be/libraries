@@ -11,7 +11,19 @@ import { warning } from './warning.js';
 /* -------------------------------------------------------------------------- */
 
 type ColorScale = {
-  // 50: string | [string, string];
+  // default
+  'DEFAULT': string | [string, string];
+  'content': string | [string, string];
+
+  // soft
+  'soft': string | [string, string];
+  'soft-content': string | [string, string];
+
+  // vivid
+  'vivid': string | [string, string];
+  'vivid-content': string | [string, string];
+
+  // general, lines
   '100': string | [string, string | [string, string]];
   '200': string | [string, string | [string, string]];
   '300': string | [string, string | [string, string]];
@@ -21,20 +33,10 @@ type ColorScale = {
   '700': string | [string, string | [string, string]];
   '800': string | [string, string | [string, string]];
   '900': string | [string, string | [string, string]];
-  'soft': string | [string, string];
-  'soft-content': string | [string, string];
-  'border': string | [string, string];
-  'content': string | [string, string];
-  'icon': string | [string, string];
-  'DEFAULT': string | [string, string];
 } & Record<string, string | [string, string]>;
 
 type ControlColors = {
   focus: string | [string, string];
-  border: string | [string, string];
-  content: string | [string, string];
-  nested: string | [string, string];
-  icon: string | [string, string];
   DEFAULT: string | [string, string];
 } & Record<string, string | [string, string]>;
 
@@ -75,65 +77,14 @@ const themableColorsVariable: ThemableColors = {
     content: ['hsl(255 0% 28%)', 'hsl(255 0% 72%)'],
   },
   control: {
-    'DEFAULT': ['hsl(255, 0%, 98%)', 'hsl(255 0% 15%)'],
-    'focus': '#EC740C',
-    'nested': ['hsl(255, 0%, 90% / 0.35)', 'hsl(255 0% 10% / 0.35)'],
-    'border': ['hsl(255 0% 28% / 0.85)', 'hsl(255 0% 72% / 0.85)'],
-    'solid-border': ['hsl(255 0% 72%)', 'hsl(255 0% 28%)'],
-    'content': ['hsl(255 0% 28%)', 'hsl(255 0% 72%)'],
-    'icon': ['hsl(255 0% 28%)', 'hsl(255 0% 72%)'],
-    'placeholder': ['hsl(255 0% 28% / 0.5)', 'hsl(255 0% 72% / 0.5)'],
+    DEFAULT: ['hsl(255, 0%, 98%)', 'hsl(255 0% 15%)'],
+    focus: '#EC740C',
   },
-
-  // primary: {
-  //   ...palette.purple,
-  //   DEFAULT: palette.purple[500],
-  // },
-
-  // secondary: {
-  //   ...palette.gray,
-  //   DEFAULT: palette.gray[900],
-  // },
 
   surface: success,
 
   destructive: error,
 };
-
-// export const themableColorsDark: ThemableColors = {
-//   background: palette.gray[900],
-//   foreground: '#FFFFFF',
-
-//   // primary: {
-//   //   ...palette.purple,
-//   //   DEFAULT: palette.purple[400],
-//   //   600: palette.purple[500],
-//   // },
-
-//   // secondary: {
-//   //   ...palette.white,
-//   //   900: palette.gray[900],
-//   //   DEFAULT: palette.white[900],
-//   // },
-
-//   surface: {
-//     // 50: 'rgba(255,255,255, 0.1)',
-//     100: 'rgba(255,255,255, 0.2)',
-//     200: 'rgba(255,255,255, 0.3)',
-//     300: 'rgba(255,255,255, 0.4)',
-//     400: 'rgba(255,255,255, 0.5)',
-//     500: 'rgba(255,255,255, 0.5)',
-//     600: 'rgba(255,255,255, 0.7)',
-//     700: 'rgba(255,255,255, 0.8)',
-//     800: 'rgba(255,255,255, 0.9)',
-//     900: '#FFFFFF',
-//     DEFAULT: 'rgba(255,255,255, 0.1)',
-//   },
-
-//   destructive: {
-//     ...palette.red,
-//   },
-// };
 
 export const themableColors = {
   variable: themableColorsVariable,

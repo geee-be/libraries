@@ -2,7 +2,6 @@
 
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons';
 import * as BaseSelect from '@radix-ui/react-select';
-import cx from 'clsx';
 import type { InputHTMLAttributes, PropsWithChildren, ReactNode } from 'react';
 import { Fragment, forwardRef } from 'react';
 import { cn } from '../../helpers/utils.js';
@@ -73,11 +72,13 @@ export const Select = forwardRef<SelectElement, SelectProps>(
         id={id}
         name={id}
         className={cn(
-          'antialiased inline-flex grow rounded-lg items-center border border-control-border bg-control px-4 py-2 text-sm leading-6 justify-between transition-colors duration-100 data-[placeholder]:text-control-placeholder',
+          'antialiased inline-flex justify-between grow rounded-lg items-center border px-4 py-2 text-sm leading-6 transition-colors duration-100',
+          disabled && 'cursor-not-allowed',
+          // color
+          'bg-control text-default-content border-default-500 hover:border-default-300 placeholder:text-default-content/50',
+          disabled && 'bg-control text-default-content/50 placeholder:text-default-content/50 border-transparent',
+          // focus
           'outline-control-focus focus:outline focus:outline-2 focus:outline-offset-2',
-          !disabled && 'text-control-content hover:border-control-border/50',
-          disabled &&
-            'cursor-not-allowed bg-control text-control-content/50 data-[placeholder]:text-control-content/50 border-transparent',
           className,
         )}
         aria-label={ariaLabel}
@@ -88,19 +89,19 @@ export const Select = forwardRef<SelectElement, SelectProps>(
         <div className="min-w-0 truncate">
           <BaseSelect.Value placeholder={placeholder} />
         </div>
-        <BaseSelect.Icon className={cn('text-control-content right-0 ml-4', disabled && 'text-transparent')}>
+        <BaseSelect.Icon className={cn('text-default-content right-0 ml-4', disabled && 'text-transparent')}>
           <ChevronDownIcon />
         </BaseSelect.Icon>
       </BaseSelect.Trigger>
       <BaseSelect.Portal>
         <BaseSelect.Content className="overflow-hidden bg-control rounded-xl border-2 border-control-focus shadow-xl">
-          <BaseSelect.ScrollUpButton className="flex items-center justify-center h-6 bg-control text-base-content cursor-default">
+          <BaseSelect.ScrollUpButton className="flex items-center justify-center h-6 bg-control text-default-content cursor-default">
             <ChevronUpIcon />
           </BaseSelect.ScrollUpButton>
           <BaseSelect.Viewport className="p-1">
             {items.map((group, groupIndex) => (
               <Fragment key={groupIndex}>
-                {groupIndex > 0 ? <BaseSelect.Separator className="h-[1px] bg-control-content/10 m-1" /> : null}
+                {groupIndex > 0 ? <BaseSelect.Separator className="h-[1px] bg-default-content/10 m-1" /> : null}
                 <BaseSelect.Group>
                   {group.label ? (
                     <BaseSelect.Label className="px-3 text-xs font-bold leading-6 bg-control/60 uppercase">
@@ -116,7 +117,7 @@ export const Select = forwardRef<SelectElement, SelectProps>(
               </Fragment>
             ))}
           </BaseSelect.Viewport>
-          <BaseSelect.ScrollDownButton className="flex items-center justify-center h-6 bg-control text-base-content cursor-default">
+          <BaseSelect.ScrollDownButton className="flex items-center justify-center h-6 bg-control text-default-content cursor-default">
             <ChevronDownIcon />
           </BaseSelect.ScrollDownButton>
         </BaseSelect.Content>
@@ -133,8 +134,10 @@ const SelectItem = forwardRef<
 >(({ children, className, ...props }, forwardedRef) => {
   return (
     <BaseSelect.Item
-      className={cx(
-        'cursor-pointer leading-none text-sm text-control-content rounded-lg flex items-center h-[45px] pr-[35px] pl-6 relative select-none data-[disabled]:text-control-content/50 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-control-content/30 data-[highlighted]:text-control-content',
+      className={cn(
+        'cursor-pointer leading-none text-sm rounded-lg flex items-center h-[45px] pr-[35px] pl-6 relative select-none data-[disabled]:pointer-events-none data-[highlighted]:outline-none',
+        // colors
+        'text-control-content data-[disabled]:text-default-content/50 data-[highlighted]:bg-default-content/10 data-[highlighted]:text-default-content',
         className,
       )}
       {...props}
