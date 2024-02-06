@@ -59,7 +59,7 @@ export type ThemableColors = {
 };
 
 /* -------------------------------------------------------------------------- */
-const themableColorsVariable: ThemableColors = {
+export const themableColors: ThemableColors = {
   background: ['hsl(255 0% 92%)', 'hsl(255 0% 10%)'],
   foreground: ['hsl(255 0% 10%)', 'hsl(255 0% 92%)'],
 
@@ -70,6 +70,7 @@ const themableColorsVariable: ThemableColors = {
   warning,
   success,
   error,
+
   paper: {
     DEFAULT: ['hsl(255, 0%, 98%)', 'hsl(255 0% 15%)'],
     nested: ['hsl(255, 0%, 90% / 0.35)', 'hsl(255 0% 10% / 0.35)'],
@@ -81,11 +82,7 @@ const themableColorsVariable: ThemableColors = {
     focus: '#EC740C',
   },
 
-  surface: success,
+  surface: error,
 
   destructive: error,
-};
-
-export const themableColors = {
-  variable: themableColorsVariable,
 } as const;

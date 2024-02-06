@@ -36,7 +36,7 @@ export type TwuiOptions = {
   /**
    * The theme definitions.
    */
-  themes?: ConfigThemes;
+  theme?: ThemableColors;
 
   /**
    * Specifies whether or not to apply font anti-aliasing to components.

@@ -15,7 +15,6 @@ import type { CSSRuleObject } from 'tailwindcss/types/config.js';
 import type { ThemableColors } from '../colors/themable-colors.js';
 import { getColorString } from './color.js';
 import { flattenThemeObject } from './object.js';
-import type { ConfigThemes } from './types.js';
 
 interface ResolvedConfig {
   variants: { name: string; definition: string[] }[];
@@ -58,63 +57,7 @@ const contentColor = (hsl: Hsl): Hsl => {
   return { h: h!, s: s!, l: l! };
 };
 
-const switchDefaultColorCss = (themeColors: ThemableColors): CSSRuleObject => {
-  // const flatColors = flattenThemeObject(themeColors);
-
-  const colors: (keyof Omit<ThemableColors, 'background' | 'foreground'>)[] = [
-    'primary',
-    'info',
-    'warning',
-    'success',
-    'error',
-  ];
-  // const variants: (keyof ColorScale)[] = ['DEFAULT', '100', '200', '300', '400', '500', '600', '700', '800', '900'];
-  // const suffixes = ['', '-content', '-opacity'];
-  return colors.reduce<CSSRuleObject>((colorsAcc, color) => {
-    const themeColor = themeColors[color];
-    const flatColors = flattenThemeObject(themeColor);
-
-    return {
-      ...colorsAcc,
-      [`.default-color-${color}`]: Object.entries(flatColors).reduce<CSSRuleObject>(
-        (variantAcc, [variant, colorValue]) => {
-          if (!colorValue) {
-            return variantAcc;
-          }
-
-          const [light, dark] = parseColorValue(colorValue);
-          if (!light || !dark) return variantAcc;
-
-          const lightContent = contentColor(light);
-          // const darkContent = contentColor(dark);
-
-          const colorVariable = `--color-default${variant !== 'DEFAULT' ? `-${variant}` : ''}`;
-          const colorContentVariable = `--color-default${variant !== 'DEFAULT' ? `-${variant}` : ''}-content`;
-          // const opacityVariable = `--color-default${variant !== 'DEFAULT' ? `-${variant}` : ''}-opacity`;
-
-          // return variantAcc;
-
-          return {
-            ...variantAcc,
-            [colorVariable]: `${light.h} ${light.s}% ${light.l}%`,
-            [colorContentVariable]: `${lightContent.h} ${lightContent.s}% ${lightContent.l}%`,
-            // [opacityVariable]: `${light.h} ${light.s}% ${light.l}%`,
-          };
-        },
-        // suffixes.reduce<CSSRuleObject>(
-        //   (suffixAcc, suffix) => ({
-        //     ...suffixAcc,
-        //     [`--color-default${variant}${suffix}`]: `var(--color-${color}${variant}${suffix})`,
-        //   }),
-        //   variantAcc,
-        // ),
-        {} as CSSRuleObject,
-      ),
-    };
-  }, {});
-};
-
-export const resolveConfig = (themes: ConfigThemes = {}, prefix: string): ResolvedConfig => {
+export const resolveConfig = (colors: ThemableColors): ResolvedConfig => {
   const resolved: ResolvedConfig = {
     variants: [],
     components: {},
@@ -125,87 +68,111 @@ export const resolveConfig = (themes: ConfigThemes = {}, prefix: string): Resolv
   const lightVariables: Record<string, string> = {};
   const darkVariables: Record<string, string> = {};
 
-  Object.keys(themes).forEach((themeName) => {
-    const themeConfig = themes[themeName] ?? {}; // fallback to {} if undefined or null
-    const { colors = {} } = themeConfig;
-    const baseColors = omit(colors, 'background', 'foreground', 'paper', 'control', 'surface', 'destructive');
-    const flatColors = flattenThemeObject(colors);
+  const baseColors = omit(colors, 'background', 'foreground', 'paper', 'control', 'surface', 'destructive');
+  const flatColors = flattenThemeObject(colors);
 
-    // console.log('*&*&*', baseColors, flattenThemeObject(baseColors.default));
+  /* --------------------------------- Colors --------------------------------- */
+  Object.keys(flatColors).forEach((colorName) => {
+    const colorValue = flatColors[colorName as keyof typeof flatColors] as string | [string, string];
 
-    // console.log('flatColors', flatColors);
+    if (!colorValue) {
+      return;
+    }
 
-    // let cssSelector = `.${themeName},[data-theme="${themeName}"]`;
+    try {
+      // const [h, s, l, defaultAlphaValue = 1] = Color(colorValue).hsl().round().array(); // fallback defaultAlphaValue to 1 if undefined
+      const [light, dark] = parseColorValue(colorValue);
+      if (!light || !dark) return;
 
-    // // if the theme is the default theme, add the selector to the root element
-    // if (themeName === 'variable') {
-    //   cssSelector = `:where(:root)`; // add :where to prevent specificity issues when theme is set on the html element
-    // }
+      const lightContent = contentColor(light);
+      const darkContent = contentColor(dark);
 
-    // resolved.utilities[cssSelector] = { 'color-scheme': 'variable' };
+      const colorVariable = `--color-${colorName}`;
+      const opacityVariable = `--color-${colorName}-opacity`;
 
-    // Set variants
-    // resolved.variants.push({
-    //   name: themeName,
-    //   definition: [
-    //     `.${themeName}&`,
-    //     `:is(.${themeName} > &:not([data-theme]))`,
-    //     `:is(.${themeName} &:not(.${themeName} [data-theme]:not(.${themeName}) * ))`,
-    //     `:is(.${themeName}:not(:has([data-theme])) &:not([data-theme]))`, // See the browser support: https://caniuse.com/css-has
-    //     `[data-theme='${themeName}']&`,
-    //     `:is([data-theme='${themeName}'] > &:not([data-theme]))`,
-    //     `:is([data-theme='${themeName}'] &:not([data-theme='${themeName}'] [data-theme]:not([data-theme='${themeName}']) * ))`,
-    //     `:is([data-theme='${themeName}']:not(:has([data-theme])) &:not([data-theme]))`, // See the browser support: https://caniuse.com/css-has
-    //   ],
-    // });
+      // Set the css variable in "@layer utilities"
+      lightVariables[colorVariable] = `${light.h} ${light.s}% ${light.l}%`;
+      darkVariables[colorVariable] = `${dark.h} ${dark.s}% ${dark.l}%`;
 
-    /* --------------------------------- Colors --------------------------------- */
-    Object.keys(flatColors).forEach((colorName) => {
-      const colorValue = flatColors[colorName as keyof typeof flatColors] as string | [string, string];
+      // Set the dynamic color in tailwind config theme.colors
+      resolved.colors[colorName] = ({ opacityVariable: twOpacityVariable, opacityValue: twOpacityValue }) =>
+        getColorString(colorVariable, opacityVariable, twOpacityValue, twOpacityVariable);
 
-      if (!colorValue) {
-        return;
+      if (!colorName.endsWith('content')) {
+        const colorContentVariable = `--color-${colorName}-content`;
+
+        lightVariables[colorContentVariable] = `${lightContent.h} ${lightContent.s}% ${lightContent.l}%`;
+        darkVariables[colorContentVariable] = `${darkContent.h} ${darkContent.s}% ${darkContent.l}%`;
+
+        // If an alpha value was provided in the color definition, store it in a css variable
+        if (typeof light.alpha === 'number') {
+          lightVariables[opacityVariable] = light.alpha.toFixed(2);
+        }
+        if (typeof dark.alpha === 'number') {
+          darkVariables[opacityVariable] = dark.alpha.toFixed(2);
+        }
+
+        // Set the dynamic color in tailwind config theme.colors
+        resolved.colors[`${colorName}-content`] = ({
+          opacityVariable: twOpacityVariable,
+          opacityValue: twOpacityValue,
+        }) => getColorString(colorContentVariable, opacityVariable, twOpacityValue, twOpacityVariable);
       }
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        // eslint-disable-next-line no-console
+        console.warn('tw-plugin-build-error:', error.message);
+      } else {
+        // eslint-disable-next-line no-console
+        console.warn('tw-plugin-build-error:', error);
+      }
+    }
+  });
 
+  resolved.components[':root'] = {
+    ...(resolved.components[':root'] as object),
+    ...lightVariables,
+    '--theme': 'light',
+  };
+  resolved.components['@media (prefers-color-scheme: dark)'] = {
+    ':root': {
+      ...darkVariables,
+      '--theme': 'dark',
+    },
+  };
+
+  Object.entries(baseColors).forEach(([colorName, definitions]) => {
+    const flattened = flattenThemeObject(definitions);
+    const overrideLightVariables: Record<string, string> = {};
+    const overrideDarkVariables: Record<string, string> = {};
+    Object.entries(flattened).forEach(([colorVariant, colorValue]) => {
       try {
-        // const [h, s, l, defaultAlphaValue = 1] = Color(colorValue).hsl().round().array(); // fallback defaultAlphaValue to 1 if undefined
         const [light, dark] = parseColorValue(colorValue);
         if (!light || !dark) return;
 
         const lightContent = contentColor(light);
         const darkContent = contentColor(dark);
 
-        const colorVariable = `--${prefix}-${colorName}`;
-        const opacityVariable = `--${prefix}-${colorName}-opacity`;
+        const colorVariable = `--color-default${colorVariant !== 'DEFAULT' ? `-${colorVariant}` : ''}`;
+        const opacityVariable = `--color-default${colorVariant !== 'DEFAULT' ? `-${colorVariant}` : ''}-opacity`;
 
         // Set the css variable in "@layer utilities"
-        lightVariables[colorVariable] = `${light.h} ${light.s}% ${light.l}%`;
-        darkVariables[colorVariable] = `${dark.h} ${dark.s}% ${dark.l}%`;
+        overrideLightVariables[colorVariable] = `${light.h} ${light.s}% ${light.l}%`;
+        overrideDarkVariables[colorVariable] = `${dark.h} ${dark.s}% ${dark.l}%`;
 
-        // Set the dynamic color in tailwind config theme.colors
-        resolved.colors[colorName] = ({ opacityVariable: twOpacityVariable, opacityValue: twOpacityValue }) =>
-          getColorString(colorVariable, opacityVariable, twOpacityValue, twOpacityVariable);
+        if (!colorVariant.endsWith('content')) {
+          const colorContentVariable = `--color-default${colorVariant !== 'DEFAULT' ? `-${colorVariant}` : ''}-content`;
 
-        if (!colorName.endsWith('content')) {
-          const colorContentVariable = `--${prefix}-${colorName}-content`;
-
-          lightVariables[colorContentVariable] = `${lightContent.h} ${lightContent.s}% ${lightContent.l}%`;
-          darkVariables[colorContentVariable] = `${darkContent.h} ${darkContent.s}% ${darkContent.l}%`;
+          overrideLightVariables[colorContentVariable] = `${lightContent.h} ${lightContent.s}% ${lightContent.l}%`;
+          overrideDarkVariables[colorContentVariable] = `${darkContent.h} ${darkContent.s}% ${darkContent.l}%`;
 
           // If an alpha value was provided in the color definition, store it in a css variable
           if (typeof light.alpha === 'number') {
-            lightVariables[opacityVariable] = light.alpha.toFixed(2);
-            // resolved.utilities[cssSelector]![opacityVariable] = defaultAlphaValue.toFixed(2);
+            overrideLightVariables[opacityVariable] = light.alpha.toFixed(2);
           }
           if (typeof dark.alpha === 'number') {
-            darkVariables[opacityVariable] = dark.alpha.toFixed(2);
+            overrideDarkVariables[opacityVariable] = dark.alpha.toFixed(2);
           }
-
-          // Set the dynamic color in tailwind config theme.colors
-          resolved.colors[`${colorName}-content`] = ({
-            opacityVariable: twOpacityVariable,
-            opacityValue: twOpacityValue,
-          }) => getColorString(colorContentVariable, opacityVariable, twOpacityValue, twOpacityVariable);
         }
       } catch (error: unknown) {
         if (error instanceof Error) {
@@ -218,109 +185,10 @@ export const resolveConfig = (themes: ConfigThemes = {}, prefix: string): Resolv
       }
     });
 
-    const switchDefaultColor = switchDefaultColorCss(colors as ThemableColors);
-
-    if (themeName === 'variable') {
-      const themeNameX = 'dark';
-      console.log(`${themeNameX} theme`);
-      resolved.variants.push({
-        name: themeNameX,
-        definition: [
-          `.${themeNameX}&`,
-          `:is(.${themeName} > &:not([data-theme]))`,
-          `:is(.${themeNameX} &:not(.${themeNameX} [data-theme]:not(.${themeNameX}) * ))`,
-          `:is(.${themeNameX}:not(:has([data-theme])) &:not([data-theme]))`, // See the browser support: https://caniuse.com/css-has
-          `[data-theme='${themeNameX}']&`,
-          `:is([data-theme='${themeNameX}'] > &:not([data-theme]))`,
-          `:is([data-theme='${themeNameX}'] &:not([data-theme='${themeNameX}'] [data-theme]:not([data-theme='${themeNameX}']) * ))`,
-          `:is([data-theme='${themeNameX}']:not(:has([data-theme])) &:not([data-theme]))`, // See the browser support: https://caniuse.com/css-has
-        ],
-      });
-
-      resolved.components[':root'] = {
-        ...(resolved.components[':root'] as object),
-        ...lightVariables,
-        ...switchDefaultColor,
-        '--theme': 'light',
-      };
-      resolved.components['@media (prefers-color-scheme: dark)'] = {
-        ':root': {
-          ...darkVariables,
-          ...switchDefaultColor,
-          '--theme': 'dark',
-        },
-      };
-
-      // resolved.utilities["[data-theme='dark'], .dark"] = {
-      //   ...darkVariables,
-      //   ...switchDefaultColor,
-      //   '--theme': 'dark',
-      // };
-      // resolved.utilities["[data-theme='light'], .light"] = {
-      //   ...lightVariables,
-      //   ...switchDefaultColor,
-      //   '--theme': 'light',
-      // };
-    } else {
-      // TODO: additional themes
-      // let cssSelector = `.${themeName}, [data-theme="${themeName}"]`;
-      // // if the theme is the default theme, add the selector to the root element
-      // if (themeName === 'variable') {
-      //   cssSelector = `:where(:root)`; // add :where to prevent specificity issues when theme is set on the html element
-      // }
-      // resolved.utilities[":root[data-mode='dark'], .dark"] = darkVariables;
-      // resolved.utilities[":root[data-mode='light'], .light"] = lightVariables;
-    }
-
-    Object.entries(baseColors).forEach(([colorName, definitions]) => {
-      const flattened = flattenThemeObject(definitions);
-      const overrideLightVariables: Record<string, string> = {};
-      const overrideDarkVariables: Record<string, string> = {};
-      Object.entries(flattened).forEach(([colorVariant, colorValue]) => {
-        try {
-          const [light, dark] = parseColorValue(colorValue);
-          if (!light || !dark) return;
-
-          const lightContent = contentColor(light);
-          const darkContent = contentColor(dark);
-
-          const colorVariable = `--color-default${colorVariant !== 'DEFAULT' ? `-${colorVariant}` : ''}`;
-          const opacityVariable = `--color-default${colorVariant !== 'DEFAULT' ? `-${colorVariant}` : ''}-opacity`;
-
-          // Set the css variable in "@layer utilities"
-          overrideLightVariables[colorVariable] = `${light.h} ${light.s}% ${light.l}%`;
-          overrideDarkVariables[colorVariable] = `${dark.h} ${dark.s}% ${dark.l}%`;
-
-          if (!colorVariant.endsWith('content')) {
-            const colorContentVariable = `--color-default${colorVariant !== 'DEFAULT' ? `-${colorVariant}` : ''}-content`;
-
-            overrideLightVariables[colorContentVariable] = `${lightContent.h} ${lightContent.s}% ${lightContent.l}%`;
-            overrideDarkVariables[colorContentVariable] = `${darkContent.h} ${darkContent.s}% ${darkContent.l}%`;
-
-            // If an alpha value was provided in the color definition, store it in a css variable
-            if (typeof light.alpha === 'number') {
-              overrideLightVariables[opacityVariable] = light.alpha.toFixed(2);
-            }
-            if (typeof dark.alpha === 'number') {
-              overrideDarkVariables[opacityVariable] = dark.alpha.toFixed(2);
-            }
-          }
-        } catch (error: unknown) {
-          if (error instanceof Error) {
-            // eslint-disable-next-line no-console
-            console.warn('tw-plugin-build-error:', error.message);
-          } else {
-            // eslint-disable-next-line no-console
-            console.warn('tw-plugin-build-error:', error);
-          }
-        }
-      });
-
-      resolved.utilities[`.default-${colorName}`] = overrideLightVariables;
-      resolved.utilities['@media (prefers-color-scheme: dark)'] = {
-        [`.default-${colorName}`]: overrideDarkVariables,
-      };
-    });
+    resolved.utilities[`.default-${colorName}`] = overrideLightVariables;
+    resolved.utilities['@media (prefers-color-scheme: dark)'] = {
+      [`.default-${colorName}`]: overrideDarkVariables,
+    };
   });
 
   return resolved;
