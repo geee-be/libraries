@@ -2,15 +2,17 @@
 
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons';
 import * as BaseSelect from '@radix-ui/react-select';
-import type { InputHTMLAttributes, PropsWithChildren, ReactNode } from 'react';
+import type { ButtonHTMLAttributes, PropsWithChildren, ReactNode } from 'react';
 import { Fragment, forwardRef } from 'react';
 import { cn } from '../../helpers/utils.js';
 
 export type SelectElement = HTMLButtonElement;
-export type SelectProps = InputHTMLAttributes<HTMLButtonElement> & {
+export type SelectProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  destructive?: boolean;
   items: SelectGroupProps[];
   onValueChange?: (value: string) => void;
   placeholder?: ReactNode;
+  readOnly?: boolean;
   required?: boolean;
   value?: string;
 };
@@ -31,6 +33,7 @@ export const Select = forwardRef<SelectElement, SelectProps>(
     {
       'aria-label': ariaLabel,
       className,
+      destructive,
       disabled,
       id,
       items,
@@ -60,12 +63,13 @@ export const Select = forwardRef<SelectElement, SelectProps>(
         className={cn(
           'antialiased inline-flex justify-between grow rounded-lg items-center border px-4 py-2 text-sm leading-6 transition-colors duration-100',
           disabled && 'cursor-not-allowed',
-          // color
-          'bg-control text-control-content border-default-500 hover:border-default-400 data-[placeholder]:text-control-content/50',
-          disabled &&
-            'bg-control text-control-content/50 data-[placeholder]:text-control-content/50 border-default-300 hover:border-default-300',
           // focus
           'outline-control-focus focus:outline focus:outline-2 focus:outline-offset-2',
+          // color
+          'bg-control text-control-content border-default-500 hover:border-default-400 data-[placeholder]:text-control-content/50',
+          (props['aria-invalid'] ?? destructive) && 'border-destructive hover:border-destructive',
+          disabled &&
+            'bg-control text-control-content/50 data-[placeholder]:text-control-content/50 border-default-300 hover:border-default-300',
           className,
         )}
         aria-label={ariaLabel}
