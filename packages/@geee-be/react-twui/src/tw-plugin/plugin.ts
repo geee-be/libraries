@@ -101,7 +101,8 @@ const corePlugin = (
         switchDefaults,
       ]);
 
-      addComponents(resolved.utilities);
+      addUtilities(resolved.utilities);
+      addComponents(resolved.components);
 
       // // e.g. "[theme-name]:text-2xl"
       // resolved.variants.forEach(({ name, definition }) => addVariant(name, definition));

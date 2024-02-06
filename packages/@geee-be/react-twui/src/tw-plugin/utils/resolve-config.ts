@@ -10,6 +10,7 @@
 
 import Color from 'color';
 
+import omit from 'lodash.omit';
 import type { CSSRuleObject } from 'tailwindcss/types/config.js';
 import type { ThemableColors } from '../colors/themable-colors.js';
 import { getColorString } from './color.js';
@@ -19,6 +20,7 @@ import type { ConfigThemes } from './types.js';
 interface ResolvedConfig {
   variants: { name: string; definition: string[] }[];
   utilities: CSSRuleObject;
+  components: CSSRuleObject;
   colors: Record<
     string,
     ({ opacityValue, opacityVariable }: { opacityValue: string; opacityVariable: string }) => string
@@ -115,6 +117,7 @@ const switchDefaultColorCss = (themeColors: ThemableColors): CSSRuleObject => {
 export const resolveConfig = (themes: ConfigThemes = {}, prefix: string): ResolvedConfig => {
   const resolved: ResolvedConfig = {
     variants: [],
+    components: {},
     utilities: {},
     colors: {},
   };
@@ -125,7 +128,10 @@ export const resolveConfig = (themes: ConfigThemes = {}, prefix: string): Resolv
   Object.keys(themes).forEach((themeName) => {
     const themeConfig = themes[themeName] ?? {}; // fallback to {} if undefined or null
     const { colors = {} } = themeConfig;
+    const baseColors = omit(colors, 'background', 'foreground', 'paper', 'control', 'surface', 'destructive');
     const flatColors = flattenThemeObject(colors);
+
+    // console.log('*&*&*', baseColors, flattenThemeObject(baseColors.default));
 
     // console.log('flatColors', flatColors);
 
@@ -139,19 +145,19 @@ export const resolveConfig = (themes: ConfigThemes = {}, prefix: string): Resolv
     // resolved.utilities[cssSelector] = { 'color-scheme': 'variable' };
 
     // Set variants
-    resolved.variants.push({
-      name: themeName,
-      definition: [
-        `.${themeName}&`,
-        `:is(.${themeName} > &:not([data-theme]))`,
-        `:is(.${themeName} &:not(.${themeName} [data-theme]:not(.${themeName}) * ))`,
-        `:is(.${themeName}:not(:has([data-theme])) &:not([data-theme]))`, // See the browser support: https://caniuse.com/css-has
-        `[data-theme='${themeName}']&`,
-        `:is([data-theme='${themeName}'] > &:not([data-theme]))`,
-        `:is([data-theme='${themeName}'] &:not([data-theme='${themeName}'] [data-theme]:not([data-theme='${themeName}']) * ))`,
-        `:is([data-theme='${themeName}']:not(:has([data-theme])) &:not([data-theme]))`, // See the browser support: https://caniuse.com/css-has
-      ],
-    });
+    // resolved.variants.push({
+    //   name: themeName,
+    //   definition: [
+    //     `.${themeName}&`,
+    //     `:is(.${themeName} > &:not([data-theme]))`,
+    //     `:is(.${themeName} &:not(.${themeName} [data-theme]:not(.${themeName}) * ))`,
+    //     `:is(.${themeName}:not(:has([data-theme])) &:not([data-theme]))`, // See the browser support: https://caniuse.com/css-has
+    //     `[data-theme='${themeName}']&`,
+    //     `:is([data-theme='${themeName}'] > &:not([data-theme]))`,
+    //     `:is([data-theme='${themeName}'] &:not([data-theme='${themeName}'] [data-theme]:not([data-theme='${themeName}']) * ))`,
+    //     `:is([data-theme='${themeName}']:not(:has([data-theme])) &:not([data-theme]))`, // See the browser support: https://caniuse.com/css-has
+    //   ],
+    // });
 
     /* --------------------------------- Colors --------------------------------- */
     Object.keys(flatColors).forEach((colorName) => {
@@ -215,13 +221,29 @@ export const resolveConfig = (themes: ConfigThemes = {}, prefix: string): Resolv
     const switchDefaultColor = switchDefaultColorCss(colors as ThemableColors);
 
     if (themeName === 'variable') {
-      resolved.utilities[':root'] = {
-        ...(resolved.utilities[':root'] as object),
+      const themeNameX = 'dark';
+      console.log(`${themeNameX} theme`);
+      resolved.variants.push({
+        name: themeNameX,
+        definition: [
+          `.${themeNameX}&`,
+          `:is(.${themeName} > &:not([data-theme]))`,
+          `:is(.${themeNameX} &:not(.${themeNameX} [data-theme]:not(.${themeNameX}) * ))`,
+          `:is(.${themeNameX}:not(:has([data-theme])) &:not([data-theme]))`, // See the browser support: https://caniuse.com/css-has
+          `[data-theme='${themeNameX}']&`,
+          `:is([data-theme='${themeNameX}'] > &:not([data-theme]))`,
+          `:is([data-theme='${themeNameX}'] &:not([data-theme='${themeNameX}'] [data-theme]:not([data-theme='${themeNameX}']) * ))`,
+          `:is([data-theme='${themeNameX}']:not(:has([data-theme])) &:not([data-theme]))`, // See the browser support: https://caniuse.com/css-has
+        ],
+      });
+
+      resolved.components[':root'] = {
+        ...(resolved.components[':root'] as object),
         ...lightVariables,
         ...switchDefaultColor,
         '--theme': 'light',
       };
-      resolved.utilities['@media (prefers-color-scheme: dark)'] = {
+      resolved.components['@media (prefers-color-scheme: dark)'] = {
         ':root': {
           ...darkVariables,
           ...switchDefaultColor,
@@ -229,18 +251,16 @@ export const resolveConfig = (themes: ConfigThemes = {}, prefix: string): Resolv
         },
       };
 
-      resolved.utilities["[data-theme='dark'], .dark"] = {
-        ...darkVariables,
-        ...switchDefaultColor,
-        'color-scheme': 'dark',
-        '--theme': 'dark',
-      };
-      resolved.utilities["[data-theme='light'], .light"] = {
-        ...lightVariables,
-        ...switchDefaultColor,
-        'color-scheme': 'light',
-        '--theme': 'light',
-      };
+      // resolved.utilities["[data-theme='dark'], .dark"] = {
+      //   ...darkVariables,
+      //   ...switchDefaultColor,
+      //   '--theme': 'dark',
+      // };
+      // resolved.utilities["[data-theme='light'], .light"] = {
+      //   ...lightVariables,
+      //   ...switchDefaultColor,
+      //   '--theme': 'light',
+      // };
     } else {
       // TODO: additional themes
       // let cssSelector = `.${themeName}, [data-theme="${themeName}"]`;
@@ -251,6 +271,56 @@ export const resolveConfig = (themes: ConfigThemes = {}, prefix: string): Resolv
       // resolved.utilities[":root[data-mode='dark'], .dark"] = darkVariables;
       // resolved.utilities[":root[data-mode='light'], .light"] = lightVariables;
     }
+
+    Object.entries(baseColors).forEach(([colorName, definitions]) => {
+      const flattened = flattenThemeObject(definitions);
+      const overrideLightVariables: Record<string, string> = {};
+      const overrideDarkVariables: Record<string, string> = {};
+      Object.entries(flattened).forEach(([colorVariant, colorValue]) => {
+        try {
+          const [light, dark] = parseColorValue(colorValue);
+          if (!light || !dark) return;
+
+          const lightContent = contentColor(light);
+          const darkContent = contentColor(dark);
+
+          const colorVariable = `--color-default${colorVariant !== 'DEFAULT' ? `-${colorVariant}` : ''}`;
+          const opacityVariable = `--color-default${colorVariant !== 'DEFAULT' ? `-${colorVariant}` : ''}-opacity`;
+
+          // Set the css variable in "@layer utilities"
+          overrideLightVariables[colorVariable] = `${light.h} ${light.s}% ${light.l}%`;
+          overrideDarkVariables[colorVariable] = `${dark.h} ${dark.s}% ${dark.l}%`;
+
+          if (!colorVariant.endsWith('content')) {
+            const colorContentVariable = `--color-default${colorVariant !== 'DEFAULT' ? `-${colorVariant}` : ''}-content`;
+
+            overrideLightVariables[colorContentVariable] = `${lightContent.h} ${lightContent.s}% ${lightContent.l}%`;
+            overrideDarkVariables[colorContentVariable] = `${darkContent.h} ${darkContent.s}% ${darkContent.l}%`;
+
+            // If an alpha value was provided in the color definition, store it in a css variable
+            if (typeof light.alpha === 'number') {
+              overrideLightVariables[opacityVariable] = light.alpha.toFixed(2);
+            }
+            if (typeof dark.alpha === 'number') {
+              overrideDarkVariables[opacityVariable] = dark.alpha.toFixed(2);
+            }
+          }
+        } catch (error: unknown) {
+          if (error instanceof Error) {
+            // eslint-disable-next-line no-console
+            console.warn('tw-plugin-build-error:', error.message);
+          } else {
+            // eslint-disable-next-line no-console
+            console.warn('tw-plugin-build-error:', error);
+          }
+        }
+      });
+
+      resolved.utilities[`.default-${colorName}`] = overrideLightVariables;
+      resolved.utilities['@media (prefers-color-scheme: dark)'] = {
+        [`.default-${colorName}`]: overrideDarkVariables,
+      };
+    });
   });
 
   return resolved;
