@@ -58,11 +58,12 @@ export const cardHeaderVariants = cva({
     },
     color: {
       none: '',
-      primary: 'bg-primary text-primary-content',
-      error: 'bg-error text-error-content',
-      info: 'bg-info text-info-content',
-      success: 'bg-success text-success-content',
-      warning: 'bg-warning text-warning-content',
+      primary: 'bg-primary text-primary-content default-primary',
+      secondary: 'bg-secondary text-secondary-content default-secondary',
+      info: 'bg-info text-info-content default-info',
+      warning: 'bg-warning text-warning-content default-warning',
+      success: 'bg-success text-success-content default-success',
+      error: 'bg-error text-error-content default-error',
     },
   },
   defaultVariants: {

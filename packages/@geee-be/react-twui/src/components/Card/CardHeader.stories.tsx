@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Card, CardContent, CardFooter, CardHeader } from './index.js';
 
-const meta = {
+const meta: Meta<typeof CardHeader> = {
   component: CardHeader,
   argTypes: {
     children: { control: 'object' },
