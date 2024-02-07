@@ -1,5 +1,12 @@
 # @geee-be/react-twui
 
+## 1.0.14
+
+### Patch Changes
+
+- 3cd4c0d: User react-hook-form for form controls
+- 32d738b: Override default color
+
 ## 1.0.13
 
 ### Patch Changes
