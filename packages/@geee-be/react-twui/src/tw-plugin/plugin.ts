@@ -14,13 +14,17 @@ import plugin from 'tailwindcss/plugin.js';
 import type { ThemableColors } from './colors/themable-colors.js';
 import { themableColors } from './colors/themable-colors.js';
 import { resolveConfig } from './utils/resolve-config.js';
-import type { TwuiOptions } from './utils/types.js';
+import type { DarkMode, TwuiOptions } from './utils/types.js';
 
 /**
  * The core plugin function.
  */
-const corePlugin = (theme: ThemableColors, fontSmooth: TwuiOptions['fontSmooth']): ReturnType<typeof plugin> => {
-  const resolved = resolveConfig(theme);
+const corePlugin = (
+  theme: ThemableColors,
+  darkMode: DarkMode,
+  fontSmooth: TwuiOptions['fontSmooth'],
+): ReturnType<typeof plugin> => {
+  const resolved = resolveConfig(theme, darkMode);
 
   return plugin(
     ({ addBase, addComponents, addUtilities, addVariant, e, config }) => {
@@ -67,9 +71,7 @@ const corePlugin = (theme: ThemableColors, fontSmooth: TwuiOptions['fontSmooth']
       //     `:is([data-theme='dark']:not(:has([data-theme])) &:not([data-theme]))`, // See the browser support: https://caniuse.com/css-has
       //   ],
       // ],
-      darkMode: 'media',
-      // darkMode: ['class', '[data-mode="dark"]'],
-      // darkMode: ['selector'],
+      darkMode: darkMode === 'data-theme' ? ['class', '[data-theme="dark"]'] : 'media',
       theme: {
         extend: {
           colors: {
@@ -86,9 +88,9 @@ const corePlugin = (theme: ThemableColors, fontSmooth: TwuiOptions['fontSmooth']
  * The actual plugin function.
  */
 export const twui = (config: TwuiOptions = {}): ReturnType<typeof plugin> => {
-  const { fontSmooth = 'antialiased', theme: userTheme } = config;
+  const { darkMode, fontSmooth = 'antialiased', theme: userTheme } = config;
 
   const theme = userTheme && typeof userTheme === 'object' ? deepMerge(themableColors, userTheme) : themableColors;
-  const tw = corePlugin(theme, fontSmooth);
+  const tw = corePlugin(theme, darkMode, fontSmooth);
   return tw;
 };

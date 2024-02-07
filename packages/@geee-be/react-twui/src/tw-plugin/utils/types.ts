@@ -26,12 +26,10 @@ type BaseThemes = 'variable';
 // export type DefaultThemeType = BaseThemes | (string & {});
 export type ConfigThemes = { [key in BaseThemes]?: ConfigTheme } & Record<string, ConfigTheme>;
 
+export type DarkMode = 'media' | 'data-theme' | undefined;
+
 export type TwuiOptions = {
-  /**
-   * The prefix for CSS variables.
-   * @default "color"
-   */
-  prefix?: string;
+  darkMode?: DarkMode;
 
   /**
    * The theme definitions.

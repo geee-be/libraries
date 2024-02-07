@@ -15,6 +15,7 @@ import type { CSSRuleObject } from 'tailwindcss/types/config.js';
 import type { ThemableColors } from '../colors/themable-colors.js';
 import { getColorString } from './color.js';
 import { flattenThemeObject } from './object.js';
+import type { DarkMode } from './types.js';
 
 interface ResolvedConfig {
   variants: { name: string; definition: string[] }[];
@@ -57,7 +58,7 @@ const contentColor = (hsl: Hsl): Hsl => {
   return { h: h!, s: s!, l: l! };
 };
 
-export const resolveConfig = (colors: ThemableColors): ResolvedConfig => {
+export const resolveConfig = (colors: ThemableColors, darkMode: DarkMode): ResolvedConfig => {
   const resolved: ResolvedConfig = {
     variants: [],
     components: {},
@@ -132,14 +133,14 @@ export const resolveConfig = (colors: ThemableColors): ResolvedConfig => {
   resolved.components[':root'] = {
     ...(resolved.components[':root'] as object),
     ...lightVariables,
-    '--theme': 'light',
   };
-  resolved.components['@media (prefers-color-scheme: dark)'] = {
-    ':root': {
-      ...darkVariables,
-      '--theme': 'dark',
-    },
-  };
+  if (darkMode === 'data-theme') {
+    resolved.components["[data-theme='dark']"] = darkVariables;
+  } else {
+    resolved.components[`@media (prefers-color-scheme: dark)`] = {
+      ':root': darkVariables,
+    };
+  }
 
   Object.entries(baseColors).forEach(([colorName, definitions]) => {
     const flattened = flattenThemeObject(definitions);
@@ -186,9 +187,11 @@ export const resolveConfig = (colors: ThemableColors): ResolvedConfig => {
     });
 
     resolved.utilities[`.default-${colorName}`] = overrideLightVariables;
-    resolved.utilities['@media (prefers-color-scheme: dark)'] = {
-      [`.default-${colorName}`]: overrideDarkVariables,
-    };
+    if (darkMode === 'data-theme') {
+      resolved.utilities[`[data-theme='dark'] .default-${colorName}`] = overrideDarkVariables;
+    } else {
+      resolved.utilities[`@media (prefers-color-scheme: dark) .default-${colorName}`] = overrideDarkVariables;
+    }
   });
 
   return resolved;

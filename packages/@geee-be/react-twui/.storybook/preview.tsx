@@ -9,7 +9,7 @@ const preview: Preview = {
       const darkMode = useDarkMode();
       useEffect(() => {
         const html = document.getElementsByTagName('html')[0];
-        // html.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+        html.setAttribute('data-theme', darkMode ? 'dark' : 'light');
         html.setAttribute('style', `color-scheme: ${darkMode ? 'dark' : 'light'}`);
       }, [darkMode]);
       return (
