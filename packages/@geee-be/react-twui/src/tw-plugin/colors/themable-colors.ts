@@ -85,4 +85,4 @@ export const themableColors: ThemableColors = {
   surface: error,
 
   destructive: error,
-} as const;
+};
