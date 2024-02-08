@@ -4,21 +4,23 @@ import { useDarkMode } from 'storybook-dark-mode';
 import '../src/globals.css';
 
 const preview: Preview = {
-  decorators: (Story) => {
-    const darkMode = useDarkMode();
-    useEffect(() => {
-      const html = document.getElementsByTagName('html')[0];
-      html.setAttribute('data-theme', darkMode ? 'dark' : 'light');
-      html.setAttribute('style', `color-scheme: ${darkMode ? 'dark' : 'light'}`);
-    }, [darkMode]);
-    return (
-      <div className={'m-0 flex-1'}>
-        <div className={'m-4'}>
-          <Story />
+  decorators: [
+    (Story) => {
+      const darkMode = useDarkMode();
+      useEffect(() => {
+        const html = document.getElementsByTagName('html')[0];
+        html.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+        html.setAttribute('style', `color-scheme: ${darkMode ? 'dark' : 'light'}`);
+      }, [darkMode]);
+      return (
+        <div className={'m-0 flex-1'}>
+          <div className={'m-4'}>
+            <Story />
+          </div>
         </div>
-      </div>
-    );
-  },
+      );
+    },
+  ],
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
     backgrounds: {
