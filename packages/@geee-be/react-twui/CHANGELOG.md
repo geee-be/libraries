@@ -1,5 +1,15 @@
 # @geee-be/react-twui
 
+## 1.1.0
+
+### Minor Changes
+
+- 58aa805: Tidy up theme building
+
+### Patch Changes
+
+- 3c90f87: Improve dark mode consistency
+
 ## 1.0.14
 
 ### Patch Changes
