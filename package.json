@@ -9,13 +9,14 @@
   "prettier": "./packages/@geee-be/prettier-config",
   "scripts": {
     "build": "pnpm --stream --parallel -r build",
-    "changeset": "changeset && git add .changeset",
+    "changes": "changeset && git add .changeset",
+    "changeset": "changeset",
     "lint": "pnpm --stream -r lint",
     "start": "pnpm --stream -r start",
     "start:dev": "pnpm --stream --parallel -r start:dev"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.26.1",
+    "@changesets/cli": "2.26.2",
     "@swc/cli": "^0.1.62",
     "@swc/core": "^1.3.56",
     "@types/node": "^20.1.0",
