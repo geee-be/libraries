@@ -1,5 +1,11 @@
 # @geee-be/react-twui
 
+## 1.1.1
+
+### Patch Changes
+
+- aada3ac: Fix build
+
 ## 1.1.0
 
 ### Minor Changes
