@@ -1,3 +1,4 @@
+import { SearchIcon } from '@iconicicons/react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from '../Button/Button.js';
 import { Input } from '../Input/Input.js';
@@ -38,6 +39,18 @@ export const OutlineButton: Story = {
         <Button className="join-item" variant="outline">
           Button
         </Button>
+      </>
+    ),
+    shape: 'pill',
+  },
+};
+
+export const IconButton: Story = {
+  args: {
+    children: (
+      <>
+        <Input className="join-item" />
+        <Button className="join-item" size="sm-icon" isIconOnly before={<SearchIcon />} />
       </>
     ),
     shape: 'pill',

@@ -5,6 +5,7 @@ export const buttonVariants = cva({
   variants: {
     size: {
       'xs-icon': 'gap-0 p-2',
+      'sm-icon': 'gap-0 px-[0.66rem] py-1',
       'sm': 'gap-1 px-[0.75rem] py-1',
       'md': 'gap-1 px-[1rem] py-2',
     },
@@ -36,7 +37,7 @@ export const buttonVariants = cva({
 
   compoundVariants: [
     {
-      size: 'xs-icon',
+      size: ['xs-icon', 'sm-icon'],
       class: 'rounded-full',
     },
     // default
@@ -173,6 +174,7 @@ export const iconVariants = cva({
     },
     size: {
       'xs-icon': 'h-5 w-5',
+      'sm-icon': 'h-6 w-6',
       'sm': 'h-5 w-5',
       'md': 'h-6 w-6',
     },
