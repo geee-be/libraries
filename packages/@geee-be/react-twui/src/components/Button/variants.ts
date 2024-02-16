@@ -6,8 +6,8 @@ export const buttonVariants = cva({
     size: {
       'xs-icon': 'gap-0 p-2',
       'sm-icon': 'gap-0 px-[0.66rem] py-1',
-      'sm': 'gap-1 px-[0.75rem] py-1',
-      'md': 'gap-1 px-[1rem] py-2',
+      'sm': 'gap-2 px-[0.75rem] py-1',
+      'md': 'gap-2 px-[1rem] py-2',
     },
     shape: {
       rounded: 'rounded-lg',
