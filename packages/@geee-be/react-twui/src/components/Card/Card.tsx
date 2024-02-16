@@ -2,12 +2,15 @@ import type { VariantProps } from 'cva';
 import * as React from 'react';
 
 import { cn } from '../../helpers/utils.js';
+import { CardContent } from './CardContent.js';
+import { CardFooter } from './CardFooter.js';
+import { CardHeader } from './CardHeader.js';
 import { cardVariants } from './variants.js';
 
 export type CardProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> & VariantProps<typeof cardVariants>;
 
 /* ------------------------------- Components ------------------------------- */
-export const Card = React.forwardRef<HTMLDivElement, CardProps>(
+const CardComponent = React.forwardRef<HTMLDivElement, CardProps>(
   ({ className, color, variant = 'rounded', children, ...otherProps }, ref) => {
     return (
       <CardRoot ref={ref} className={cn(cardVariants({ variant, color }), className)} {...otherProps}>
@@ -37,5 +40,11 @@ const CardRoot = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
   },
 );
 
-Card.displayName = 'Card';
+CardComponent.displayName = 'Card';
 CardRoot.displayName = 'CardRoot';
+
+export const Card = Object.assign(CardComponent, {
+  Header: CardHeader,
+  Content: CardContent,
+  Footer: CardFooter,
+});
