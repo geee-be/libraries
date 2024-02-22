@@ -34,7 +34,9 @@ export const getInitials = (name: string): string => {
 
   if (nameArray.length === 1) {
     return trimmedName.charAt(0).toUpperCase();
-  } else if (nameArray.length > 1) {
+  }
+
+  if (nameArray.length > 1) {
     const firstName = nameArray[0]?.charAt(0).toUpperCase() ?? '';
     const lastName = nameArray[nameArray.length - 1]?.charAt(0).toUpperCase() ?? '';
 

@@ -69,8 +69,7 @@ export const FormInput = <T extends FieldValues, Field extends FieldPath<T>>({
   return (
     <Controller
       control={control}
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      name={name as any}
+      name={name}
       rules={{
         max,
         maxLength,
