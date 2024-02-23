@@ -77,9 +77,8 @@ export class Migration<Props> {
         if (!instance.idempotent) {
           console.error(fileName, 'has changed but cannot be re-applied - skipping.', digest);
           continue;
-        } else {
-          console.error('Reapply', fileName, digest);
         }
+        console.error('Reapply', fileName, digest);
       } else {
         console.error('Apply', fileName, digest);
       }

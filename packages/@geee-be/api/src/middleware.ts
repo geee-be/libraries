@@ -147,14 +147,13 @@ export const observeMiddleware = (logger: Logger, options: ObserveMiddlewareOpti
         HrTime.toSeconds(duration),
       );
 
-      options.monitor &&
-        options.monitor({
-          duration: durationMs,
-          method: ctx.method,
-          path: ctx.path,
-          route: getRoute(ctx as MaybeWithRouterPath),
-          status: ctx.status,
-        });
+      options.monitor?.({
+        duration: durationMs,
+        method: ctx.method,
+        path: ctx.path,
+        route: getRoute(ctx as MaybeWithRouterPath),
+        status: ctx.status,
+      });
       if (options.useLogger !== false && !options.loggerIgnorePath?.test(ctx.request.url)) {
         requestLogger.verbose('tx', { duration: durationMs, route, status: ctx.status });
       }

@@ -73,7 +73,7 @@ export const formatError = (ctx: Context, err: unknown): void => {
  */
 export const onError =
   (port: number | string, log: Logger) =>
-  (error: Error): void | never => {
+  (error: Error): void => {
     log.error(error);
     if (getStringProperty(error, 'syscall') !== 'listen') {
       return;

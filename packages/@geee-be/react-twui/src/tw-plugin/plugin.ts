@@ -36,8 +36,8 @@ const corePlugin = (
           },
 
           'html, body': {
-            color: `hsl(var(--color-foreground))`,
-            backgroundColor: `hsl(var(--color-background))`,
+            color: 'hsl(var(--color-foreground))',
+            backgroundColor: 'hsl(var(--color-background))',
           },
         },
       ]);

@@ -19,11 +19,16 @@ export class ApiService<StateT = any, CustomT extends DefaultContext = ApiContex
     return new ApiService(apis, { logger, port, proxy: true });
   }
 
-  constructor(private readonly apis: Mountable[], options: ServiceOptions) {
+  constructor(
+    private readonly apis: Mountable[],
+    options: ServiceOptions,
+  ) {
     super(options);
   }
 
   protected mountApi(router: Router<StateT, CustomT>): void {
-    this.apis.forEach((api) => api.mount(router));
+    for (const api of this.apis) {
+      api.mount(router);
+    }
   }
 }

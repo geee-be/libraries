@@ -47,7 +47,7 @@ export namespace Jwt {
     const authorization = headers.authorization;
     if (!authorization) return undefined;
     const matches = TOKEN_EXTRACTOR.exec(Array.isArray(authorization) ? authorization[0] : authorization);
-    return (matches && matches[1]) || undefined;
+    return matches?.[1] || undefined;
   };
 
   export const decode = (
@@ -74,8 +74,6 @@ export namespace Jwt {
 }
 
 export class JwtDecoder {
-  constructor() {}
-
   public middleware(): Middleware<any, AuthorizationContext> & Router.Middleware<any, AuthorizationContext> {
     return async (ctx: AuthorizationContext, next: Next): Promise<void> => {
       const { headers } = ctx.request;
@@ -170,7 +168,10 @@ export abstract class BaseJwtAuthentication {
 }
 
 export class JwtAuthentication extends BaseJwtAuthentication {
-  constructor(private readonly secretOrPublicKey: string | Buffer, options?: Options) {
+  constructor(
+    private readonly secretOrPublicKey: string | Buffer,
+    options?: Options,
+  ) {
     super(options);
   }
 

@@ -39,10 +39,8 @@ export const parseSort = (items?: string[]): Record<string, SortDirection> =>
     ? items.reduce<Record<string, SortDirection>>((acc, item) => {
         const { key, value } = item.startsWith('-') ? { key: item.slice(1), value: -1 } : { key: item, value: 1 };
 
-        return {
-          ...acc,
-          [key]: value as SortDirection,
-        };
+        acc[key] = value as SortDirection;
+        return acc;
       }, {})
     : {};
 

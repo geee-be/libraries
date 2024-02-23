@@ -26,7 +26,7 @@ export const useHistoryState = <T, S = T>(
     } else {
       history.pushState({ ...history.state, [key]: serialize(value, options?.toSerializable) }, '');
     }
-  }, [key, value]);
+  }, [key, value, options?.toSerializable, replace]);
 
   return [value, setValue];
 };

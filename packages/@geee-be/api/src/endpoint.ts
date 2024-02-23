@@ -48,8 +48,8 @@ export type ActionWithBodyHandler<B, P = undefined, Q = undefined, H = undefined
   ctx: ApiContext,
 ) => Promise<unknown>;
 
-const getInsertEntity: InsertEntityFactory<any> = (ctx, check) => {
-  return body(ctx, check);
+const getInsertEntity = <T>(ctx: ApiContext, check: ValueProcessor<NoId<T>>): T => {
+  return body(ctx, check) as T;
 };
 
 const extractors: Record<string, (ctx: ApiContext, checker: ValueProcessor<Entity>) => Entity> = {
@@ -89,7 +89,9 @@ export namespace Endpoint {
 
       ctx.body = mutator ? { ...result, items: mutator(result.items as T[]) } : result;
       ctx.status = Statuses.OK;
-      extensions.forEach((extension) => extension(ctx));
+      for (const extension of extensions) {
+        extension(ctx);
+      }
     };
 
   export const findOne =
@@ -106,7 +108,9 @@ export namespace Endpoint {
 
       ctx.body = mutator ? mutator(item as T) : item;
       ctx.status = Statuses.OK;
-      extensions.forEach((extension) => extension(ctx));
+      for (const extension of extensions) {
+        extension(ctx);
+      }
     };
 
   export const insertOne =
@@ -196,6 +200,7 @@ export namespace Endpoint {
           return { [key]: value };
         }),
       );
+      // biome-ignore lint/performance/noAccumulatingSpread: <explanation>
       const handlerArgs = resolved.filter((item) => !!item).reduce((acc, item) => ({ ...acc, ...item }), {} as A);
 
       const result = await handler(

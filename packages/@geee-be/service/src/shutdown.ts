@@ -27,7 +27,7 @@ export const graceful = (
 
   // signal handlers
   const signals: NodeJS.Signals[] = ['SIGINT', 'SIGTERM', 'SIGQUIT'];
-  signals.forEach((signal: NodeJS.Signals) => {
+  for (const signal of signals) {
     process.once(signal, () => {
       console.info(`Signal ${signal} received - shutting down`);
       status.shuttingDown = true;
@@ -39,7 +39,7 @@ export const graceful = (
         }, grace);
       });
     });
-  });
+  }
 
   /**
    * Log and shutdown on uncaught exceptions

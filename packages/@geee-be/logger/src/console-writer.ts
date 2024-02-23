@@ -4,7 +4,7 @@ import { omit } from './omit.js';
 export interface ConsoleOptions {
   pretty: boolean;
   prettyOmit?: (keyof Log)[];
-  skip?: (log: any) => boolean;
+  skip?: (log: Log) => boolean;
 }
 
 export const OMIT_PRETTY: (keyof Log)[] = [
@@ -29,7 +29,7 @@ export class ConsoleWriter implements LogWriter {
   constructor(private readonly options = DEFAULT_OPTIONS) {}
 
   public write(log: Log): void {
-    if (this.options.skip && this.options.skip(log)) return;
+    if (this.options.skip?.(log)) return;
     if (this.options.pretty) {
       process.nextTick(() =>
         console.log(

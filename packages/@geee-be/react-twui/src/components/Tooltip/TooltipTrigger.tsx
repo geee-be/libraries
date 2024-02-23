@@ -39,7 +39,7 @@ const TooltipTrigger = React.forwardRef<
           onKeyDown={(e: React.KeyboardEvent) => {
             // Allow the action on "Enter" and "Space" key
             if (e.key === 'Enter' || e.key === 'Space') {
-              onClick && onClick(e as unknown as React.MouseEvent<HTMLButtonElement, MouseEvent>);
+              onClick?.(e as unknown as React.MouseEvent<HTMLButtonElement, MouseEvent>);
             }
           }}
         >

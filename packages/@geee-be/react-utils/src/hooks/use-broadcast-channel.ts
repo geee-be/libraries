@@ -30,7 +30,7 @@ export const useBroadcastChannel = <T = string>(
   const channel = useMemo(
     () =>
       typeof window !== 'undefined' && 'BroadcastChannel' in window
-        ? new BroadcastChannel(channelName + '-channel')
+        ? new BroadcastChannel(`${channelName}-channel`)
         : null,
     [channelName],
   );

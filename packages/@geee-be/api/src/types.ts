@@ -1,7 +1,7 @@
 import type { RouterContext } from '@koa/router';
 import type { DefaultContext, Request } from 'koa';
 
-export interface Entity {}
+export type Entity = object;
 
 export type ApiEndpoint = (ctx: ApiContext) => Promise<void>;
 
