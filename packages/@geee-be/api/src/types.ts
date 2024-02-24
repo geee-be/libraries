@@ -17,7 +17,7 @@ export interface FindManyResult<T> {
   matches: number;
 }
 
-export type ForeignKeyValidation<T = any> = Record<keyof T, (value: any) => Promise<boolean>>;
+export type ForeignKeyValidation<T = unknown> = Record<keyof T, (value: unknown) => Promise<boolean>>;
 
 interface WithRequestBody {
   request: Request & {
@@ -33,7 +33,7 @@ interface WithRequestHeaders {
 }
 
 export declare type ExtraContext = DefaultContext & WithRequestBody & WithRequestHeaders;
-export declare type ApiContext = RouterContext<any, ExtraContext>;
+export declare type ApiContext = RouterContext<unknown, ExtraContext>;
 
 export interface PaginatedList<T> {
   items: T[];

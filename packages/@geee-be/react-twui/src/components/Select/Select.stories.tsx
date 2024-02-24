@@ -30,6 +30,7 @@ type Story = StoryObj<typeof meta>;
 
 const items: SelectGroupProps[] = [
   {
+    key: 'numbers',
     label: 'Numbers',
     items: [
       {

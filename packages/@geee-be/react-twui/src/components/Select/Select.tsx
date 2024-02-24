@@ -18,6 +18,7 @@ export type SelectProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 export interface SelectGroupProps {
+  key: string;
   label?: ReactNode;
   items: SelectItemProps[];
 }
@@ -91,7 +92,7 @@ export const Select = forwardRef<SelectElement, SelectProps>(
           </BaseSelect.ScrollUpButton>
           <BaseSelect.Viewport className="p-1">
             {items.map((group, groupIndex) => (
-              <Fragment key={groupIndex}>
+              <Fragment key={group.key}>
                 {groupIndex > 0 ? <BaseSelect.Separator className="h-[1px] bg-control-content/10 m-1" /> : null}
                 <BaseSelect.Group>
                   {group.label ? (

@@ -1,11 +1,10 @@
-import type { TestAPI, TestFunction } from 'vitest';
+import type { Awaitable, TestAPI, TestFunction } from 'vitest';
 import { describe, it } from 'vitest';
 
 type WhenFunction<S> = (setup: S) => void;
 
 export interface When<S> {
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  (name: number | string | Function, fn: WhenFunction<S>): void;
+  (name: number | string | (() => string), fn: WhenFunction<S>): void;
   /** Only runs the tests inside this `describe` for the current file */
   only: When<S>;
   /** Skips running the tests inside this `describe` for the current file */
@@ -13,7 +12,7 @@ export interface When<S> {
   each: WhenEach<S>;
 }
 
-type ExtractEachCallbackArgs<T extends ReadonlyArray<any>> = {
+type ExtractEachCallbackArgs<T extends ReadonlyArray<unknown>> = {
   1: [T[0]];
   2: [T[0], T[1]];
   3: [T[0], T[1], T[2]];
@@ -24,53 +23,46 @@ type ExtractEachCallbackArgs<T extends ReadonlyArray<any>> = {
   8: [T[0], T[1], T[2], T[3], T[4], T[5], T[6], T[7]];
   9: [T[0], T[1], T[2], T[3], T[4], T[5], T[6], T[7], T[8]];
   10: [T[0], T[1], T[2], T[3], T[4], T[5], T[6], T[7], T[8], T[9]];
-  fallback: Array<T extends ReadonlyArray<infer U> ? U : any>;
-}[T extends Readonly<[any]>
+  fallback: Array<T extends ReadonlyArray<infer U> ? U : unknown>;
+}[T extends Readonly<[unknown]>
   ? 1
-  : T extends Readonly<[any, any]>
+  : T extends Readonly<[unknown, unknown]>
   ? 2
-  : T extends Readonly<[any, any, any]>
+  : T extends Readonly<[unknown, unknown, unknown]>
   ? 3
-  : T extends Readonly<[any, any, any, any]>
+  : T extends Readonly<[unknown, unknown, unknown, unknown]>
   ? 4
-  : T extends Readonly<[any, any, any, any, any]>
+  : T extends Readonly<[unknown, unknown, unknown, unknown, unknown]>
   ? 5
-  : T extends Readonly<[any, any, any, any, any, any]>
+  : T extends Readonly<[unknown, unknown, unknown, unknown, unknown, unknown]>
   ? 6
-  : T extends Readonly<[any, any, any, any, any, any, any]>
+  : T extends Readonly<[unknown, unknown, unknown, unknown, unknown, unknown, unknown]>
   ? 7
-  : T extends Readonly<[any, any, any, any, any, any, any, any]>
+  : T extends Readonly<[unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown]>
   ? 8
-  : T extends Readonly<[any, any, any, any, any, any, any, any, any]>
+  : T extends Readonly<[unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown]>
   ? 9
-  : T extends Readonly<[any, any, any, any, any, any, any, any, any, any]>
+  : T extends Readonly<[unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown]>
   ? 10
   : 'fallback'];
 
 export interface WhenEach<S> {
   // Exclusively arrays.
-  <T extends any[] | [any]>(cases: ReadonlyArray<T>): (
-    name: string,
-    fn: (setup: S, ...args: T) => any,
-    timeout?: number,
-  ) => void;
-  <T extends ReadonlyArray<any>>(cases: ReadonlyArray<T>): (
-    name: string,
-    fn: (setup: S, ...args: ExtractEachCallbackArgs<T>) => any,
-    timeout?: number,
-  ) => void;
+  <T extends unknown[] | [unknown]>(
+    cases: ReadonlyArray<T>,
+  ): (name: string, fn: (setup: S, ...args: T) => unknown, timeout?: number) => void;
+  <T1 extends ReadonlyArray<unknown>>(
+    cases: ReadonlyArray<T1>,
+  ): (name: string, fn: (setup: S, ...args: ExtractEachCallbackArgs<T1>) => unknown, timeout?: number) => void;
   // Not arrays.
-  <T>(cases: ReadonlyArray<T>): (name: string, fn: (setup: S, ...args: T[]) => any, timeout?: number) => void;
-  (cases: ReadonlyArray<ReadonlyArray<any>>): (
-    name: string,
-    fn: (setup: S, ...args: any[]) => any,
-    timeout?: number,
-  ) => void;
-  (strings: TemplateStringsArray, ...placeholders: any[]): (
-    name: string,
-    fn: (setup: S, arg: any) => any,
-    timeout?: number,
-  ) => void;
+  <T2>(cases: ReadonlyArray<T2>): (name: string, fn: (setup: S, ...args: T2[]) => unknown, timeout?: number) => void;
+  (
+    cases: ReadonlyArray<ReadonlyArray<unknown>>,
+  ): (name: string, fn: (setup: S, ...args: unknown[]) => unknown, timeout?: number) => void;
+  (
+    strings: TemplateStringsArray,
+    ...placeholders: unknown[]
+  ): (name: string, fn: (setup: S, arg: unknown) => unknown, timeout?: number) => void;
 }
 
 export const describeGiven = (name: string, fn: () => void): void => {
@@ -87,7 +79,7 @@ const then = (name: string, thenFn: TestFunction): void => {
 
 then.each =
   <T>(cases: ReadonlyArray<T>) =>
-  (name: string, thenFn: (...args: T[]) => any) => {
+  (name: string, thenFn: (...args: T[]) => Awaitable<void>) => {
     it.each(cases)(`THEN ${name}`, thenFn);
   };
 
@@ -112,7 +104,7 @@ export const given = <S>(name: string, setup: () => S, fn: (when: When<S>, then:
     };
 
     whenImpl.each =
-      <T extends any[] | [any]>(cases: ReadonlyArray<T>) =>
+      <T extends unknown[] | [unknown]>(cases: ReadonlyArray<T>) =>
       (name: string, whenFn: (state: S, ...args: T) => void) => {
         describe.each(cases)(`WHEN ${name}`, (...passedArgs) => {
           whenFn(setup(), ...passedArgs);
@@ -135,10 +127,10 @@ export const given = <S>(name: string, setup: () => S, fn: (when: When<S>, then:
   });
 };
 
-given.only = (name: string, _setup: () => any, _fn: (when: When<any>, then: TestAPI) => void) => {
+given.only = (name: string, _setup: () => unknown, _fn: (when: When<unknown>, then: TestAPI) => void) => {
   describe.only(`GIVEN ${name}`, () => {});
 };
 
-given.skip = (name: string, _setup: () => any, _fn: (when: When<any>, then: TestAPI) => void) => {
+given.skip = (name: string, _setup: () => unknown, _fn: (when: When<unknown>, then: TestAPI) => void) => {
   describe.skip(`GIVEN ${name}`, () => {});
 };
