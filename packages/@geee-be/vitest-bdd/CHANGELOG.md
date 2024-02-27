@@ -1,5 +1,11 @@
 # @geee-be/vitest-bdd
 
+## 1.2.0
+
+### Minor Changes
+
+- f3bfc8c: migrate from eslint & prettier to biome
+
 ## 1.1.1
 
 ### Patch Changes

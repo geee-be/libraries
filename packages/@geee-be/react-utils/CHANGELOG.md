@@ -1,5 +1,11 @@
 # @geee-be/react-utils
 
+## 1.1.0
+
+### Minor Changes
+
+- f3bfc8c: migrate from eslint & prettier to biome
+
 ## 1.0.7
 
 ### Patch Changes

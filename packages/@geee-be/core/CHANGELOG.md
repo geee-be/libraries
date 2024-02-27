@@ -1,5 +1,11 @@
 # @geee-be/core
 
+## 1.3.0
+
+### Minor Changes
+
+- f3bfc8c: migrate from eslint & prettier to biome
+
 ## 1.2.1
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # @geee-be/api
 
+## 1.4.0
+
+### Minor Changes
+
+- f3bfc8c: migrate from eslint & prettier to biome
+
+### Patch Changes
+
+- Updated dependencies [f3bfc8c]
+  - @geee-be/service@1.1.0
+  - @geee-be/logger@1.2.0
+  - @geee-be/core@1.3.0
+
 ## 1.3.2
 
 ### Patch Changes
