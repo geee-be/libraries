@@ -1,5 +1,20 @@
 # @geee-be/react-twui
 
+## 1.2.0
+
+### Minor Changes
+
+- 110c629: Refactor card
+- f3bfc8c: migrate from eslint & prettier to biome
+
+### Patch Changes
+
+- 96fafb1: increase gap between icon and text in button
+- 388e5dd: Tweaks
+- Updated dependencies [f3bfc8c]
+  - @geee-be/react-utils@1.1.0
+  - @geee-be/core@1.3.0
+
 ## 1.1.1
 
 ### Patch Changes
