@@ -23,7 +23,10 @@ export type FormInputElement = InputElement;
 //   LabelHelperProps & {
 //     destructive?: boolean;
 //   };
-export type FormInputProps<T extends FieldValues, Field extends FieldPath<T>> = Omit<
+export type FormInputProps<
+  T extends FieldValues,
+  Field extends FieldPath<T>,
+> = Omit<
   InputProps & LabelProps & LabelHelperProps,
   'required' | 'min' | 'max' | 'maxLength' | 'minLength' | 'pattern'
 > & {
@@ -107,8 +110,14 @@ export const FormInput = <T extends FieldValues, Field extends FieldPath<T>>({
             />
           </div>
 
-          <Label.Helper aria-invalid={ariaInvalid} disabled={disabled} id={`${elId}__describer`}>
-            {error && <span className="text-error mr-2">{fieldError(error)}</span>}
+          <Label.Helper
+            aria-invalid={ariaInvalid}
+            disabled={disabled}
+            id={`${elId}__describer`}
+          >
+            {error && (
+              <span className="text-error mr-2">{fieldError(error)}</span>
+            )}
             <span className="">{helperText}</span>
           </Label.Helper>
         </div>

@@ -23,7 +23,10 @@ type PrefixKeys<T extends Record<string, any>, P extends string> = {
  * const result = addPrefixToObjKey(obj, 'xx');
  * // result: { 'xx-a': 1, 'xx-b': 2 }
  */
-export const addPrefix = <T extends Record<string, any>, P extends string>(obj: T, prefix: P): PrefixKeys<T, P> => {
+export const addPrefix = <T extends Record<string, any>, P extends string>(
+  obj: T,
+  prefix: P,
+): PrefixKeys<T, P> => {
   const result = {} as PrefixKeys<T, P>;
 
   for (const key of Object.keys(obj)) {

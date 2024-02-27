@@ -1,12 +1,12 @@
 import type { ThemableColorScale } from './themable-colors.js';
 
 export const info: ThemableColorScale = {
-  'DEFAULT': '#1485FF',
-  'soft': ['#A1DBFF66', '#06359344'],
+  DEFAULT: '#1485FF',
+  soft: ['#A1DBFF66', '#06359344'],
   'soft-content': '#1485FF',
-  'border': '#1485FF',
+  border: '#1485FF',
   // 'content': '#1485FF',
-  'icon': '#1485FF',
+  icon: '#1485FF',
   '100': '#D0EFFF',
   '200': '#A1DBFF',
   '300': '#72C3FF',

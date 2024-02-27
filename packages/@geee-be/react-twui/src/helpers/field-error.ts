@@ -1,7 +1,15 @@
-import type { DeepRequired, FieldError, FieldErrorsImpl, Merge } from 'react-hook-form';
+import type {
+  DeepRequired,
+  FieldError,
+  FieldErrorsImpl,
+  Merge,
+} from 'react-hook-form';
 
 export const fieldError = (
-  error: FieldError | Merge<FieldError, FieldErrorsImpl<DeepRequired<any>[string]>> | undefined,
+  error:
+    | FieldError
+    | Merge<FieldError, FieldErrorsImpl<DeepRequired<any>[string]>>
+    | undefined,
 ): string | null => {
   if (!error) return null;
 

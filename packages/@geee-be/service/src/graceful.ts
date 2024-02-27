@@ -4,7 +4,10 @@ import { promiseReduceBoolean } from './service.js';
 import { graceful } from './shutdown.js';
 
 export class Graceful implements Service {
-  public static service(grace: Duration, factory: ServiceFactory): Promise<unknown> {
+  public static service(
+    grace: Duration,
+    factory: ServiceFactory,
+  ): Promise<unknown> {
     const service = new Graceful(grace, factory);
     return service.start();
   }

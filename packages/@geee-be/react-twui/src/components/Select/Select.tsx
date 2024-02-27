@@ -1,6 +1,10 @@
 'use client';
 
-import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons';
+import {
+  CheckIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+} from '@radix-ui/react-icons';
 import * as BaseSelect from '@radix-ui/react-select';
 import type { ButtonHTMLAttributes, PropsWithChildren, ReactNode } from 'react';
 import { Fragment, forwardRef } from 'react';
@@ -68,7 +72,8 @@ export const Select = forwardRef<SelectElement, SelectProps>(
           'outline-control-focus focus:outline focus:outline-2 focus:outline-offset-2',
           // color
           'bg-control text-control-content border-default-500 hover:border-default-400 data-[placeholder]:text-control-content/50',
-          (props['aria-invalid'] ?? destructive) && 'border-destructive hover:border-destructive',
+          (props['aria-invalid'] ?? destructive) &&
+            'border-destructive hover:border-destructive',
           disabled &&
             'bg-control text-control-content/50 data-[placeholder]:text-control-content/50 border-default-300 hover:border-default-300',
           className,
@@ -81,7 +86,12 @@ export const Select = forwardRef<SelectElement, SelectProps>(
         <div className="min-w-0 truncate">
           <BaseSelect.Value placeholder={placeholder} />
         </div>
-        <BaseSelect.Icon className={cn('text-control-content right-0 ml-4', disabled && 'text-transparent')}>
+        <BaseSelect.Icon
+          className={cn(
+            'text-control-content right-0 ml-4',
+            disabled && 'text-transparent',
+          )}
+        >
           <ChevronDownIcon />
         </BaseSelect.Icon>
       </BaseSelect.Trigger>
@@ -93,7 +103,9 @@ export const Select = forwardRef<SelectElement, SelectProps>(
           <BaseSelect.Viewport className="p-1">
             {items.map((group, groupIndex) => (
               <Fragment key={group.key}>
-                {groupIndex > 0 ? <BaseSelect.Separator className="h-[1px] bg-control-content/10 m-1" /> : null}
+                {groupIndex > 0 ? (
+                  <BaseSelect.Separator className="h-[1px] bg-control-content/10 m-1" />
+                ) : null}
                 <BaseSelect.Group>
                   {group.label ? (
                     <BaseSelect.Label className="px-3 text-xs font-bold leading-6 bg-control/60 uppercase">
@@ -101,7 +113,11 @@ export const Select = forwardRef<SelectElement, SelectProps>(
                     </BaseSelect.Label>
                   ) : null}
                   {group.items.map((item) => (
-                    <SelectItem key={item.key} value={item.key} disabled={item.disabled}>
+                    <SelectItem
+                      key={item.key}
+                      value={item.key}
+                      disabled={item.disabled}
+                    >
                       {item.label}
                     </SelectItem>
                   ))}

@@ -3,12 +3,13 @@ import { cva } from 'cva';
 export const cardVariants = cva({
   variants: {
     variant: {
-      'rounded': 'rounded-xl',
+      rounded: 'rounded-xl',
       'square-top': 'rounded-t-none rounded-b-xl',
     },
     color: {
       none: 'border-paper-border text-paper-content',
-      primary: 'border-paper-border text-paper-content border-t-[6px] border-t-primary',
+      primary:
+        'border-paper-border text-paper-content border-t-[6px] border-t-primary',
     },
   },
   defaultVariants: {
@@ -24,7 +25,7 @@ export const cardContentVariants = cva({
       'collapse-none': 'm-6',
       'collapse-x': 'my-6 mx-0',
       'collapse-y': 'mx-6 my-0',
-      'collapse': 'm-0',
+      collapse: 'm-0',
     },
   },
   defaultVariants: {
@@ -39,7 +40,7 @@ export const cardFooterVariants = cva({
       'collapse-none': 'p-6',
       'collapse-x': 'py-6 px-0',
       'collapse-y': 'px-6 py-0',
-      'collapse': 'p-0',
+      collapse: 'p-0',
     },
   },
   defaultVariants: {
@@ -54,7 +55,7 @@ export const cardHeaderVariants = cva({
       'collapse-none': 'p-6',
       'collapse-x': 'py-6 px-0',
       'collapse-y': 'px-6 py-0',
-      'collapse': 'p-0',
+      collapse: 'p-0',
     },
     color: {
       none: '',

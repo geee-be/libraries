@@ -8,10 +8,13 @@ import { JwtAuthentication, JwtDecoder } from './authorization.js';
 
 describe('JwtAuthentication', () => {
   describe('middleware()', () => {
-    const decoder = new JwtAuthentication('dont-tell-dont-tell-dont-tell-anyone', {
-      verifyOptions: { algorithms: ['HS256'] },
-      check: (auth, _) => Promise.resolve(auth?.sub === '1234567890'),
-    });
+    const decoder = new JwtAuthentication(
+      'dont-tell-dont-tell-dont-tell-anyone',
+      {
+        verifyOptions: { algorithms: ['HS256'] },
+        check: (auth, _) => Promise.resolve(auth?.sub === '1234567890'),
+      },
+    );
     const app = new Koa();
     app.use(decoder.middleware());
     app.use((ctx: AuthorizationContext) => {
@@ -36,11 +39,17 @@ describe('JwtAuthentication', () => {
     });
 
     it('must fail malformed Authorization header', async () => {
-      await request(server).post('/').set('Authorization', 'TEST').expect(Statuses.UNAUTHORIZED);
+      await request(server)
+        .post('/')
+        .set('Authorization', 'TEST')
+        .expect(Statuses.UNAUTHORIZED);
     });
 
     it('must fail malformed Authorization header Bearer token', async () => {
-      await request(server).post('/').set('Authorization', 'Bearer TOKEN').expect(Statuses.FORBIDDEN);
+      await request(server)
+        .post('/')
+        .set('Authorization', 'Bearer TOKEN')
+        .expect(Statuses.FORBIDDEN);
     });
 
     it('must fail jwt signed by incorrect secret', async () => {
@@ -109,13 +118,17 @@ describe('JwtDecoder', () => {
     });
 
     it('must ignore malformed Authorization header', async () => {
-      const response = await request(server).post('/').set('Authorization', 'TEST');
+      const response = await request(server)
+        .post('/')
+        .set('Authorization', 'TEST');
       const { authorization } = response.body as { authorization: JWTPayload };
       expect(authorization).toBeUndefined();
     });
 
     it('must ignore malformed Authorization header Bearer token', async () => {
-      const response = await request(server).post('/').set('Authorization', 'Bearer TOKEN');
+      const response = await request(server)
+        .post('/')
+        .set('Authorization', 'Bearer TOKEN');
       const { authorization } = response.body as { authorization: JWTPayload };
       expect(authorization).toBeUndefined();
     });

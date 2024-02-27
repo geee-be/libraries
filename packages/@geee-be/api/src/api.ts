@@ -1,7 +1,10 @@
 import Router from '@koa/router';
 import type { ApiContext } from './types.js';
 
-export abstract class Api<StateT = any, CustomT = ApiContext> extends Router<StateT, CustomT> {
+export abstract class Api<StateT = any, CustomT = ApiContext> extends Router<
+  StateT,
+  CustomT
+> {
   /**
    * Create API
    * @param path - Path to mount this API inside the router

@@ -12,7 +12,10 @@ export const CardFooter = React.forwardRef<
   const Component = isReactElement(children) ? Slot : 'div';
 
   return (
-    <div data-component="CardFooter" className={cn('Card-footer', cardFooterVariants({ gutters }), className)}>
+    <div
+      data-component="CardFooter"
+      className={cn('Card-footer', cardFooterVariants({ gutters }), className)}
+    >
       <Component ref={ref} {...props}>
         {children}
       </Component>

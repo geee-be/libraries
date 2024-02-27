@@ -57,7 +57,11 @@ export const createLogger = (
   const actualOptions = { ...DEFAULT_OPTIONS, ...options };
   const baseMeta = { ...meta };
 
-  const write = (level: string, message: string, meta?: Record<string, unknown>): void => {
+  const write = (
+    level: string,
+    message: string,
+    meta?: Record<string, unknown>,
+  ): void => {
     const log = { message, timestamp: new Date() } as Log;
     if (actualOptions.addStackInfo) {
       try {
@@ -84,12 +88,21 @@ export const createLogger = (
     });
   };
 
-  const clz = ((message: string, meta?: Record<string, unknown>): void => write('info', message, meta)) as Logger;
-  clz.verbose = (message: string, meta?: Record<string, unknown>): void => write('verbose', message, meta);
-  clz.debug = (message: string, meta?: DebugMeta): void => write('debug', message, meta as Record<string, unknown>);
-  clz.info = (message: string, meta?: DebugMeta): void => write('info', message, meta as Record<string, unknown>);
-  clz.notice = (message: string, meta?: Record<string, unknown>): void => write('notice', message, meta);
-  clz.warn = (message: string, error?: Error, meta?: Record<string, unknown>): void =>
+  const clz = ((message: string, meta?: Record<string, unknown>): void =>
+    write('info', message, meta)) as Logger;
+  clz.verbose = (message: string, meta?: Record<string, unknown>): void =>
+    write('verbose', message, meta);
+  clz.debug = (message: string, meta?: DebugMeta): void =>
+    write('debug', message, meta as Record<string, unknown>);
+  clz.info = (message: string, meta?: DebugMeta): void =>
+    write('info', message, meta as Record<string, unknown>);
+  clz.notice = (message: string, meta?: Record<string, unknown>): void =>
+    write('notice', message, meta);
+  clz.warn = (
+    message: string,
+    error?: Error,
+    meta?: Record<string, unknown>,
+  ): void =>
     write('warn', message, {
       ...(error ? { error: `${error.name}: ${error.message}` } : undefined),
       ...error,
@@ -127,7 +140,8 @@ export const createLogger = (
   };
   clz.critical = <T extends CriticalMeta>(message: string, meta: T): void =>
     write('warn', message, meta as Record<string, unknown>);
-  clz.audit = (message: string, meta?: Record<string, unknown>): void => write('warn', message, meta);
+  clz.audit = (message: string, meta?: Record<string, unknown>): void =>
+    write('warn', message, meta);
   clz.child = (meta: Record<string, unknown>): Logger => {
     const combinedMeta = { ...baseMeta, ...meta };
     return createLogger(writer, combinedMeta);
@@ -148,4 +162,7 @@ export const loggerOptions: {
   meta?: Record<string, unknown>;
 } = {};
 const consoleWriter = new ConsoleWriter({ pretty: true });
-export const logger: Logger = createLogger(() => loggerOptions.writer || consoleWriter, loggerOptions.meta);
+export const logger: Logger = createLogger(
+  () => loggerOptions.writer || consoleWriter,
+  loggerOptions.meta,
+);

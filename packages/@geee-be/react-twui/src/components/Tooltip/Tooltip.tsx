@@ -19,36 +19,54 @@ const TOOLTIP_ANIMATION_CLASSES = [
 ];
 
 /* ---------------------------- Tooltip Provider ---------------------------- */
-type TooltipProviderElement = React.ElementRef<typeof TooltipPrimitive.Provider>;
-type TooltipProviderProps = React.ComponentPropsWithRef<typeof TooltipPrimitive.Provider>;
+type TooltipProviderElement = React.ElementRef<
+  typeof TooltipPrimitive.Provider
+>;
+type TooltipProviderProps = React.ComponentPropsWithRef<
+  typeof TooltipPrimitive.Provider
+>;
 
-const TooltipProvider = React.forwardRef<TooltipProviderElement, TooltipProviderProps>(
+const TooltipProvider = React.forwardRef<
+  TooltipProviderElement,
+  TooltipProviderProps
+>(
   // This component does not expect ref.
   (props, _ref) => {
     const { delayDuration = 200, skipDelayDuration = 0, ...otherProps } = props;
 
     return (
-      <TooltipPrimitive.Provider delayDuration={delayDuration} skipDelayDuration={skipDelayDuration} {...otherProps} />
+      <TooltipPrimitive.Provider
+        delayDuration={delayDuration}
+        skipDelayDuration={skipDelayDuration}
+        {...otherProps}
+      />
     );
   },
 );
 
 /* ------------------------------ Tooltip Root ------------------------------ */
 type TooltipRootElement = React.ElementRef<typeof TooltipPrimitive.Root>;
-type TooltipRootProps = React.ComponentPropsWithRef<typeof TooltipPrimitive.Root>;
+type TooltipRootProps = React.ComponentPropsWithRef<
+  typeof TooltipPrimitive.Root
+>;
 
 const TooltipRoot = React.forwardRef<TooltipRootElement, TooltipRootProps>(
   // This component does not expect ref.
   (props, _ref) => {
     const { delayDuration = 200, ...otherProps } = props;
 
-    return <TooltipPrimitive.Root delayDuration={delayDuration} {...otherProps} />;
+    return (
+      <TooltipPrimitive.Root delayDuration={delayDuration} {...otherProps} />
+    );
   },
 );
 
 /* ----------------------------- Tooltip Content ---------------------------- */
 type TooltipContentElement = React.ElementRef<typeof TooltipPrimitive.Content>;
-type TooltipContentProps = Omit<React.ComponentPropsWithRef<typeof TooltipPrimitive.Content>, 'content'> & {
+type TooltipContentProps = Omit<
+  React.ComponentPropsWithRef<typeof TooltipPrimitive.Content>,
+  'content'
+> & {
   /**
    * Whether to animate the tooltip when it opens/closes
    */
@@ -65,7 +83,10 @@ type TooltipContentProps = Omit<React.ComponentPropsWithRef<typeof TooltipPrimit
   content: React.ReactNode;
 } & VariantProps<typeof tooltipVariant>;
 
-export const TooltipContent = React.forwardRef<TooltipContentElement, TooltipContentProps>((props, ref) => {
+export const TooltipContent = React.forwardRef<
+  TooltipContentElement,
+  TooltipContentProps
+>((props, ref) => {
   const {
     alignOffset = -12,
     animation = true,
@@ -89,7 +110,12 @@ export const TooltipContent = React.forwardRef<TooltipContentElement, TooltipCon
       ref={ref}
       alignOffset={alignOffset}
       arrowPadding={arrowPadding}
-      className={cn('Tooltop-root', tooltipVariant({ size }), animation && TOOLTIP_ANIMATION_CLASSES, className)}
+      className={cn(
+        'Tooltop-root',
+        tooltipVariant({ size }),
+        animation && TOOLTIP_ANIMATION_CLASSES,
+        className,
+      )}
       collisionPadding={collisionPadding}
       sideOffset={sideOffset}
       {...otherProps}
@@ -102,53 +128,59 @@ export const TooltipContent = React.forwardRef<TooltipContentElement, TooltipCon
 
 /* ----------------------------- Tooltip Component ----------------------------- */
 type TooltipElement = TooltipContentElement;
-type TooltipProps = React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Root> &
+type TooltipProps = React.ComponentPropsWithoutRef<
+  typeof TooltipPrimitive.Root
+> &
   TooltipContentProps &
   VariantProps<typeof tooltipTriggerVariant>;
 
-const TooltipComponent = React.forwardRef<TooltipElement, TooltipProps>((props, ref) => {
-  const {
-    // root props
-    defaultOpen,
-    delayDuration = 200,
-    disableHoverableContent,
-    onOpenChange,
-    open,
+const TooltipComponent = React.forwardRef<TooltipElement, TooltipProps>(
+  (props, ref) => {
+    const {
+      // root props
+      defaultOpen,
+      delayDuration = 200,
+      disableHoverableContent,
+      onOpenChange,
+      open,
 
-    // variants
-    color,
+      // variants
+      color,
 
-    // trigger
-    asChild,
-    children,
-    onClick,
+      // trigger
+      asChild,
+      children,
+      onClick,
 
-    // content
-    ...otherProps
-  } = props;
+      // content
+      ...otherProps
+    } = props;
 
-  return (
-    <TooltipProvider>
-      <TooltipRoot
-        defaultOpen={defaultOpen}
-        delayDuration={delayDuration}
-        disableHoverableContent={disableHoverableContent}
-        onOpenChange={onOpenChange}
-        open={open}
-      >
-        <TooltipContent ref={ref} {...otherProps} />
-
-        <TooltipTrigger
-          asChild={asChild}
-          onClick={onClick as React.MouseEventHandler<HTMLButtonElement> | undefined}
-          className={cn(tooltipTriggerVariant({ color }))}
+    return (
+      <TooltipProvider>
+        <TooltipRoot
+          defaultOpen={defaultOpen}
+          delayDuration={delayDuration}
+          disableHoverableContent={disableHoverableContent}
+          onOpenChange={onOpenChange}
+          open={open}
         >
-          {children}
-        </TooltipTrigger>
-      </TooltipRoot>
-    </TooltipProvider>
-  );
-});
+          <TooltipContent ref={ref} {...otherProps} />
+
+          <TooltipTrigger
+            asChild={asChild}
+            onClick={
+              onClick as React.MouseEventHandler<HTMLButtonElement> | undefined
+            }
+            className={cn(tooltipTriggerVariant({ color }))}
+          >
+            {children}
+          </TooltipTrigger>
+        </TooltipRoot>
+      </TooltipProvider>
+    );
+  },
+);
 
 /* --------------------------------- Exports -------------------------------- */
 export const Tooltip = Object.assign(TooltipComponent, {

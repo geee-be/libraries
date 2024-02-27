@@ -7,19 +7,14 @@
   },
   "overrides": [
     {
-      "files": [
-        "vite-env.d.ts",
-        "reset.d.ts"
-      ],
+      "files": ["vite-env.d.ts", "reset.d.ts"],
       "rules": {
         "spaced-comment": [
           "error",
           "always",
           {
             "line": {
-              "markers": [
-                "/"
-              ]
+              "markers": ["/"]
             }
           }
         ]

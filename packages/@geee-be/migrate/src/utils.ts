@@ -11,10 +11,13 @@ export const fileDigest = async (filePath: string): Promise<string> => {
   return hash.digest('base64');
 };
 
-export const isMigration = <Props>(value: unknown): value is MigrationDef<Props> => {
+export const isMigration = <Props>(
+  value: unknown,
+): value is MigrationDef<Props> => {
   if (!(typeof value === 'object') || !value) return false;
   const hasUp = 'up' in value && !!value.up && typeof value.up === 'function';
-  const validDown = !('down' in value) || (!!value.down && typeof value.down === 'function');
+  const validDown =
+    !('down' in value) || (!!value.down && typeof value.down === 'function');
   return hasUp && validDown;
 };
 

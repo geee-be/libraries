@@ -12,7 +12,14 @@ export const CardHeader = React.forwardRef<
   const Component = isReactElement(children) ? Slot : 'div';
 
   return (
-    <div data-component="CardHeader" className={cn('Card-header', cardHeaderVariants({ color, gutters }), className)}>
+    <div
+      data-component="CardHeader"
+      className={cn(
+        'Card-header',
+        cardHeaderVariants({ color, gutters }),
+        className,
+      )}
+    >
       <Component ref={ref} {...props}>
         {children}
       </Component>

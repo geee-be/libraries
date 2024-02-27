@@ -11,7 +11,9 @@ export class Migration<Props> {
     pattern: string,
     private readonly storage: Storage,
   ) {
-    this.migrations = glob(pattern, { absolute: true }).then<string[]>((migrations) => migrations.toSorted());
+    this.migrations = glob(pattern, { absolute: true }).then<string[]>(
+      (migrations) => migrations.toSorted(),
+    );
   }
 
   public async run(props: Props): Promise<void> {
@@ -33,7 +35,9 @@ export class Migration<Props> {
     // find migration gaps
     const migrationApplications = await Promise.all(
       migrations.map(async (migration) => {
-        const isApplied = (await this.storage.check(migration.fileName, migration.digest)).applied;
+        const isApplied = (
+          await this.storage.check(migration.fileName, migration.digest)
+        ).applied;
         return {
           ...migration,
           isApplied,
@@ -43,15 +47,25 @@ export class Migration<Props> {
 
     const anyMigrations = !!migrationApplications.length;
     if (anyMigrations) {
-      const firstNotApplied = migrationApplications.findIndex((migration) => !migration.isApplied);
+      const firstNotApplied = migrationApplications.findIndex(
+        (migration) => !migration.isApplied,
+      );
       if (firstNotApplied >= 0) {
         // look for applied migrations after that
-        const needsToRollBack = migrationApplications.slice(firstNotApplied).filter((migration) => migration.isApplied);
+        const needsToRollBack = migrationApplications
+          .slice(firstNotApplied)
+          .filter((migration) => migration.isApplied);
         if (needsToRollBack.length) {
-          for (const { migrationPath, fileName } of needsToRollBack.toReversed()) {
+          for (const {
+            migrationPath,
+            fileName,
+          } of needsToRollBack.toReversed()) {
             const instance = (await import(migrationPath)) as unknown;
             if (!isMigration<Props>(instance)) {
-              console.error(fileName, 'does not correctly export migration functions.');
+              console.error(
+                fileName,
+                'does not correctly export migration functions.',
+              );
               return;
             }
             console.error('Roll back', fileName);
@@ -66,7 +80,10 @@ export class Migration<Props> {
     for (const { migrationPath, fileName, digest } of migrations) {
       const instance = (await import(migrationPath)) as unknown;
       if (!isMigration<Props>(instance)) {
-        console.error(fileName, 'does not correctly export migration functions.');
+        console.error(
+          fileName,
+          'does not correctly export migration functions.',
+        );
         return;
       }
 
@@ -75,7 +92,11 @@ export class Migration<Props> {
         if (check.current) continue;
 
         if (!instance.idempotent) {
-          console.error(fileName, 'has changed but cannot be re-applied - skipping.', digest);
+          console.error(
+            fileName,
+            'has changed but cannot be re-applied - skipping.',
+            digest,
+          );
           continue;
         }
         console.error('Reapply', fileName, digest);

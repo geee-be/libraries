@@ -5,7 +5,10 @@ const meta: Meta<typeof Card.Header> = {
   component: Card.Header,
   argTypes: {
     children: { control: 'object' },
-    color: { control: 'select', options: ['none', 'primary', 'info', 'success', 'warning', 'error'] },
+    color: {
+      control: 'select',
+      options: ['none', 'primary', 'info', 'success', 'warning', 'error'],
+    },
   },
   decorators: [
     (Story) => (

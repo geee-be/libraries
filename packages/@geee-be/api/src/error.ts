@@ -9,7 +9,10 @@ const getErrorStatus = (err: Error): number | undefined => {
   return typeof status === 'number' && status ? status : undefined;
 };
 
-const getStringProperty = (err: unknown, property: string): string | undefined => {
+const getStringProperty = (
+  err: unknown,
+  property: string,
+): string | undefined => {
   const record = err as Record<string, unknown>;
   const value = record[property];
   return typeof value === 'string' && value ? value : undefined;
@@ -83,12 +86,14 @@ export const onError =
 
     // handle specific listen errors with friendly messages
     switch (getStringProperty(error, 'code')) {
+      // biome-ignore lint/suspicious/noFallthroughSwitchClause: <explanation>
       case 'EACCES':
         console.error(`${bind} requires elevated privileges`);
-        process.exit(EXIT_ERROR); // eslint-disable-line no-process-exit
+        process.exit(EXIT_ERROR);
+      // biome-ignore lint/suspicious/noFallthroughSwitchClause: <explanation>
       case 'EADDRINUSE':
         console.error(`${bind} is already in use`);
-        process.exit(EXIT_ERROR); // eslint-disable-line no-process-exit
+        process.exit(EXIT_ERROR);
       default:
         throw error;
     }

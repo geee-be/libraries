@@ -9,11 +9,27 @@ const meta = {
     before: { table: { disable: true } },
     asChild: { table: { disable: true } },
     isIconOnly: { control: 'boolean', defaultValue: { summary: false } },
-    shape: { control: 'select', options: ['rounded', 'pill'], defaultValue: { summary: 'rounded' } },
-    size: { control: 'select', options: ['xs-icon', 'sm', 'md'], defaultValue: { summary: 'md' } },
+    shape: {
+      control: 'select',
+      options: ['rounded', 'pill'],
+      defaultValue: { summary: 'rounded' },
+    },
+    size: {
+      control: 'select',
+      options: ['xs-icon', 'sm', 'md'],
+      defaultValue: { summary: 'md' },
+    },
     color: {
       control: 'select',
-      options: ['default', 'primary', 'secondary', 'info', 'warning', 'success', 'error'],
+      options: [
+        'default',
+        'primary',
+        'secondary',
+        'info',
+        'warning',
+        'success',
+        'error',
+      ],
       defaultValue: { summary: 'default' },
     },
     variant: {

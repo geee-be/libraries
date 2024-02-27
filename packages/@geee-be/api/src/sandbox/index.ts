@@ -16,7 +16,12 @@ class MyApi extends Api {
   }
 
   protected mountRoutes(): void {
-    this.get('/test/:id', Endpoint.action(undefined, this.testHandler(), { params: { contract: idContract } }));
+    this.get(
+      '/test/:id',
+      Endpoint.action(undefined, this.testHandler(), {
+        params: { contract: idContract },
+      }),
+    );
   }
 
   private testHandler =

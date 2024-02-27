@@ -31,8 +31,10 @@ const corePlugin = (
       addBase([
         {
           ':root': {
-            '--font-smooth--webkit': fontSmooth === 'antialiased' ? 'antialiased' : 'unset',
-            '--font-smooth--moz': fontSmooth === 'antialiased' ? 'grayscale' : 'unset',
+            '--font-smooth--webkit':
+              fontSmooth === 'antialiased' ? 'antialiased' : 'unset',
+            '--font-smooth--moz':
+              fontSmooth === 'antialiased' ? 'grayscale' : 'unset',
           },
 
           'html, body': {
@@ -71,7 +73,8 @@ const corePlugin = (
       //     `:is([data-theme='dark']:not(:has([data-theme])) &:not([data-theme]))`, // See the browser support: https://caniuse.com/css-has
       //   ],
       // ],
-      darkMode: darkMode === 'data-theme' ? ['class', '[data-theme="dark"]'] : 'media',
+      darkMode:
+        darkMode === 'data-theme' ? ['class', '[data-theme="dark"]'] : 'media',
       theme: {
         extend: {
           colors: {
@@ -90,7 +93,10 @@ const corePlugin = (
 export const twui = (config: TwuiOptions = {}): ReturnType<typeof plugin> => {
   const { darkMode, fontSmooth = 'antialiased', theme: userTheme } = config;
 
-  const theme = userTheme && typeof userTheme === 'object' ? deepMerge(themableColors, userTheme) : themableColors;
+  const theme =
+    userTheme && typeof userTheme === 'object'
+      ? deepMerge(themableColors, userTheme)
+      : themableColors;
   const tw = corePlugin(theme, darkMode, fontSmooth);
   return tw;
 };

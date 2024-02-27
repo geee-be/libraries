@@ -9,7 +9,18 @@ const meta = {
     before: { table: { disable: true } },
     onClose: { table: { disable: true } },
     variant: { control: 'radio', options: ['inline', 'expanded'] },
-    color: { control: 'select', options: ['default', 'primary', 'secondary', 'info', 'warning', 'success', 'error'] },
+    color: {
+      control: 'select',
+      options: [
+        'default',
+        'primary',
+        'secondary',
+        'info',
+        'warning',
+        'success',
+        'error',
+      ],
+    },
   },
   tags: ['autodocs'],
 } satisfies Meta<typeof Alert>;

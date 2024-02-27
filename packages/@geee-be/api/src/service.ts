@@ -10,12 +10,15 @@ export interface Mountable {
   mount(parent: Router<any, any>): void;
 }
 
-export class ApiService<StateT = any, CustomT extends DefaultContext = ApiContext> extends KoaService<
-  ServiceOptions,
-  StateT,
-  CustomT
-> {
-  public static create(port: number | string, logger: Logger, ...apis: Mountable[]): Service {
+export class ApiService<
+  StateT = any,
+  CustomT extends DefaultContext = ApiContext,
+> extends KoaService<ServiceOptions, StateT, CustomT> {
+  public static create(
+    port: number | string,
+    logger: Logger,
+    ...apis: Mountable[]
+  ): Service {
     return new ApiService(apis, { logger, port, proxy: true });
   }
 

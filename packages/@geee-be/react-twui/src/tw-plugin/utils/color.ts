@@ -13,7 +13,11 @@ export const getColorString = (
   twOpacityValue?: number | string,
   twOpacityVariable?: string,
 ): string => {
-  if (twOpacityValue !== null && twOpacityValue !== undefined && !Number.isNaN(+twOpacityValue)) {
+  if (
+    twOpacityValue !== null &&
+    twOpacityValue !== undefined &&
+    !Number.isNaN(+twOpacityValue)
+  ) {
     return `hsl(var(${colorVariable}) / ${twOpacityValue})`;
   }
 

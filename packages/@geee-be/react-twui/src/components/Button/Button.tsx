@@ -3,7 +3,11 @@ import { Slot } from '@radix-ui/react-slot';
 import { type VariantProps } from 'cva';
 import * as React from 'react';
 
-import { cn, isElementWithChildren, isReactElement } from '../../helpers/utils.js';
+import {
+  cn,
+  isElementWithChildren,
+  isReactElement,
+} from '../../helpers/utils.js';
 import { buttonVariants, iconVariants } from './variants.js';
 
 /* ---------------------------------- Types --------------------------------- */
@@ -41,8 +45,8 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
 export type ButtonElement = HTMLButtonElement;
 
 const iconOnlyPadding = {
-  'md': 'p-8px',
-  'sm': 'p-6px',
+  md: 'p-8px',
+  sm: 'p-6px',
   'xs-icon': 'p-2px',
   'sm-icon': 'p-6px',
 };
@@ -86,10 +90,16 @@ export const Button = React.forwardRef<ButtonElement, ButtonProps>(
     );
 
     // Render an icon with size, variant, and destructive properties applied.
-    const renderIcon = (icon: React.ReactElement<HTMLElement>): React.ReactNode => {
+    const renderIcon = (
+      icon: React.ReactElement<HTMLElement>,
+    ): React.ReactNode => {
       const Component = React.isValidElement(icon) ? Slot : 'span';
 
-      const isNonDestructiveIconOnly = variant && isVariantLinkOutlineTertiaryTransparent && isIcon && !destructive;
+      const isNonDestructiveIconOnly =
+        variant &&
+        isVariantLinkOutlineTertiaryTransparent &&
+        isIcon &&
+        !destructive;
 
       const iconClasses = cn(
         iconVariants({ size, destructive }),
@@ -108,8 +118,12 @@ export const Button = React.forwardRef<ButtonElement, ButtonProps>(
             {before ? renderIcon(before) : null}
             {isElementWithChildren(children) &&
               isIconOnly &&
-              renderIcon(children.props.children as React.ReactElement<HTMLElement>)}
-            {isElementWithChildren(children) && !isIconOnly && <>{children.props.children}</>}
+              renderIcon(
+                children.props.children as React.ReactElement<HTMLElement>,
+              )}
+            {isElementWithChildren(children) &&
+              !isIconOnly &&
+              children.props.children}
             {after ? renderIcon(after) : null}
           </>
         ),
@@ -117,7 +131,9 @@ export const Button = React.forwardRef<ButtonElement, ButtonProps>(
     ) : (
       <>
         {before ? renderIcon(before) : null}
-        {React.isValidElement(children) && isIconOnly && renderIcon(children as React.ReactElement<HTMLElement>)}
+        {React.isValidElement(children) &&
+          isIconOnly &&
+          renderIcon(children as React.ReactElement<HTMLElement>)}
         {children && !isIconOnly && <span>{children}</span>}
         {after ? renderIcon(after) : null}
       </>
@@ -138,7 +154,9 @@ export const Button = React.forwardRef<ButtonElement, ButtonProps>(
         {...otherProps}
         onMouseUp={(e) => {
           createRipple(e);
-          otherProps.onMouseUp?.(e as React.MouseEvent<HTMLButtonElement, MouseEvent>);
+          otherProps.onMouseUp?.(
+            e as React.MouseEvent<HTMLButtonElement, MouseEvent>,
+          );
         }}
       >
         {innerContent}

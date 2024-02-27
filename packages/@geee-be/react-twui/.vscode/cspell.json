@@ -1,14 +1,14 @@
 {
-    "words": [
-        "autodocs",
-        "capslock",
-        "clsx",
-        "deepmerge",
-        "pagedown",
-        "pageup",
-        "renderable",
-        "tailwindcss",
-        "themable",
-        "typeguard"
-    ]
+  "words": [
+    "autodocs",
+    "capslock",
+    "clsx",
+    "deepmerge",
+    "pagedown",
+    "pageup",
+    "renderable",
+    "tailwindcss",
+    "themable",
+    "typeguard"
+  ]
 }

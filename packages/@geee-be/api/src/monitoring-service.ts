@@ -5,7 +5,11 @@ import Koa from 'koa';
 import type { Server } from 'net';
 import 'reflect-metadata';
 import { onError } from './error.js';
-import { errorMiddleware, livenessEndpoint, readinessEndpoint } from './middleware.js';
+import {
+  errorMiddleware,
+  livenessEndpoint,
+  readinessEndpoint,
+} from './middleware.js';
 import { prometheusMetricsEndpoint } from './prometheus.js';
 
 export interface MonitoringServiceOptions {
@@ -15,7 +19,9 @@ export interface MonitoringServiceOptions {
   port: number | string; // server port
 }
 
-export class MonitoringService<TOptions extends MonitoringServiceOptions = MonitoringServiceOptions>
+export class MonitoringService<
+    TOptions extends MonitoringServiceOptions = MonitoringServiceOptions,
+  >
   extends Koa
   implements Service
 {
@@ -64,7 +70,9 @@ export class MonitoringService<TOptions extends MonitoringServiceOptions = Monit
         return;
       }
       this.server = this.listen(this.options.port, () => {
-        this.logger(`Monitoring started on http://localhost:${this.options.port}/`);
+        this.logger(
+          `Monitoring started on http://localhost:${this.options.port}/`,
+        );
         resolve();
       });
     });

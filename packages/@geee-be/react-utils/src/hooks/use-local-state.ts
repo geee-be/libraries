@@ -16,7 +16,10 @@ export const useLocalState = <T, S = T>(
 ): [T, SetValue<T>] => {
   const readValue = useCallback((): T => {
     const item = localStorage.getItem(key);
-    return deserialize<T, S>(item, options?.fromSerializable) ?? getInitialValue(initialValue);
+    return (
+      deserialize<T, S>(item, options?.fromSerializable) ??
+      getInitialValue(initialValue)
+    );
   }, [key, options?.fromSerializable, initialValue]);
 
   const [storedValue, setStoredValue] = useState<T>(readValue);
@@ -25,7 +28,10 @@ export const useLocalState = <T, S = T>(
     (value) => {
       const newValue = value instanceof Function ? value(storedValue) : value;
       setStoredValue(newValue);
-      localStorage.setItem(key, serialize<T, S>(newValue, options?.toSerializable));
+      localStorage.setItem(
+        key,
+        serialize<T, S>(newValue, options?.toSerializable),
+      );
     },
     [key, options?.toSerializable, storedValue],
   );
@@ -33,7 +39,10 @@ export const useLocalState = <T, S = T>(
   const storageValueChanged = useCallback(
     (ev: StorageEvent) => {
       if (ev.storageArea !== localStorage || ev.key !== key) return;
-      setStoredValue(deserialize<T, S>(ev.newValue, options?.fromSerializable) ?? getInitialValue(initialValue));
+      setStoredValue(
+        deserialize<T, S>(ev.newValue, options?.fromSerializable) ??
+          getInitialValue(initialValue),
+      );
     },
     [key, options?.fromSerializable, initialValue],
   );

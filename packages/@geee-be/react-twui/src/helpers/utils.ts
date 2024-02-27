@@ -26,7 +26,11 @@ export const getInitials = (name: string): string => {
   const trimmedName = name.trim();
 
   // If the name is empty, a single character, or two characters (already initials)
-  if (trimmedName.length === 0 || trimmedName.length === 1 || trimmedName.length === 2) {
+  if (
+    trimmedName.length === 0 ||
+    trimmedName.length === 1 ||
+    trimmedName.length === 2
+  ) {
     return trimmedName.toUpperCase();
   }
 
@@ -38,7 +42,8 @@ export const getInitials = (name: string): string => {
 
   if (nameArray.length > 1) {
     const firstName = nameArray[0]?.charAt(0).toUpperCase() ?? '';
-    const lastName = nameArray[nameArray.length - 1]?.charAt(0).toUpperCase() ?? '';
+    const lastName =
+      nameArray[nameArray.length - 1]?.charAt(0).toUpperCase() ?? '';
 
     return firstName + lastName;
   }
@@ -74,7 +79,10 @@ export const stringToHash = (str: string): number => {
  * @param strings - The array of strings to choose from.
  * @returns The color string generated from the hash.
  */
-export const getElementFromHash = (hash: number, strings: string[]): string | undefined => {
+export const getElementFromHash = (
+  hash: number,
+  strings: string[],
+): string | undefined => {
   const index = Math.abs(hash) % strings.length;
 
   return strings[index];
@@ -86,7 +94,9 @@ export const getElementFromHash = (hash: number, strings: string[]): string | un
  * @param element - The element to check.
  * @returns Whether the element is a React element.
  */
-export const isReactElement = (element: React.ReactNode): element is React.ReactElement => {
+export const isReactElement = (
+  element: React.ReactNode,
+): element is React.ReactElement => {
   return React.isValidElement(element);
 };
 
@@ -102,7 +112,8 @@ export const isElementWithClassName = (
 ): element is React.ReactElement<{ className?: string }> => {
   return (
     React.isValidElement(element) &&
-    typeof (element as React.ReactElement<{ className?: string }>).props.className === 'string'
+    typeof (element as React.ReactElement<{ className?: string }>).props
+      .className === 'string'
   );
 };
 
@@ -118,6 +129,7 @@ export const isElementWithChildren = (
 ): element is React.ReactElement<{ children?: React.ReactNode }> => {
   return (
     React.isValidElement(element) &&
-    typeof (element as React.ReactElement<{ children?: React.ReactNode }>).props.children !== 'undefined'
+    typeof (element as React.ReactElement<{ children?: React.ReactNode }>).props
+      .children !== 'undefined'
   );
 };

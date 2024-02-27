@@ -6,7 +6,15 @@ const meta = {
   argTypes: {
     color: {
       control: 'select',
-      options: ['default', 'primary', 'secondary', 'info', 'warning', 'success', 'error'],
+      options: [
+        'default',
+        'primary',
+        'secondary',
+        'info',
+        'warning',
+        'success',
+        'error',
+      ],
       defaultValue: { summary: 'default' },
     },
   },

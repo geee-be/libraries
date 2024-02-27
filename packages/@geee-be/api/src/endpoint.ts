@@ -7,7 +7,12 @@ import type { AuthorizationContext } from './authorization.js';
 import { ForbiddenError, UnauthorizedError } from './error.js';
 import { filterAnd } from './mongo.js';
 import { requestContext } from './request-context.js';
-import type { ApiContext, Entity, ForeignKeyValidation, PaginatedList } from './types.js';
+import type {
+  ApiContext,
+  Entity,
+  ForeignKeyValidation,
+  PaginatedList,
+} from './types.js';
 import { asPromise, findManyQuery, validateForeignKeys } from './util.js';
 
 export interface Input<T> {
@@ -28,7 +33,10 @@ export interface ActionWithBodyArgs<B, P, Q, H> extends ActionArgs<P, Q, H> {
 }
 
 export type NoId<T> = { [K in keyof Omit<T, '_id'>]: T[K] | never };
-export type InsertEntityFactory<T extends Entity> = (ctx: ApiContext, check: ValueProcessor<NoId<T>>) => T;
+export type InsertEntityFactory<T extends Entity> = (
+  ctx: ApiContext,
+  check: ValueProcessor<NoId<T>>,
+) => T;
 
 export type FindManyHandler<T> = (
   filter: Filter<T> | Promise<Filter<T>>,
@@ -36,32 +44,48 @@ export type FindManyHandler<T> = (
   limit: number | undefined,
   skip: number,
 ) => Promise<PaginatedList<unknown>>;
-export type FindOneHandler<T> = (filter: Filter<T> | Promise<Filter<T>>) => Promise<unknown | undefined | null>;
-export type InsertOneHandler<T extends Entity> = (entity: T) => Promise<unknown>;
+export type FindOneHandler<T> = (
+  filter: Filter<T> | Promise<Filter<T>>,
+) => Promise<unknown | undefined | null>;
+export type InsertOneHandler<T extends Entity> = (
+  entity: T,
+) => Promise<unknown>;
 export type PatchOneHandler<T extends Entity> = (
   filter: Filter<T> | Promise<Filter<T>>,
   patch: Partial<T>,
 ) => Promise<unknown>;
 export type ActionHandler<A> = (args: A, ctx: ApiContext) => Promise<unknown>;
-export type ActionWithBodyHandler<B, P = undefined, Q = undefined, H = undefined> = (
-  args: ActionWithBodyArgs<B, P, Q, H>,
-  ctx: ApiContext,
-) => Promise<unknown>;
+export type ActionWithBodyHandler<
+  B,
+  P = undefined,
+  Q = undefined,
+  H = undefined,
+> = (args: ActionWithBodyArgs<B, P, Q, H>, ctx: ApiContext) => Promise<unknown>;
 
-const getInsertEntity = <T>(ctx: ApiContext, check: ValueProcessor<NoId<T>>): T => {
+const getInsertEntity = <T>(
+  ctx: ApiContext,
+  check: ValueProcessor<NoId<T>>,
+): T => {
   return body(ctx, check) as T;
 };
 
-const extractors: Record<string, (ctx: ApiContext, checker: ValueProcessor<Entity>) => Entity> = {
+const extractors: Record<
+  string,
+  (ctx: ApiContext, checker: ValueProcessor<Entity>) => Entity
+> = {
   body,
   params,
   query,
   headers,
 };
 
-export type AuthCheck<User extends RequestUser = RequestUser> = (request: RequestContext<User>) => boolean;
+export type AuthCheck<User extends RequestUser = RequestUser> = (
+  request: RequestContext<User>,
+) => boolean;
 
-const checkAuth = <User extends RequestUser = RequestUser>(authCheck?: AuthCheck<User>): void => {
+const checkAuth = <User extends RequestUser = RequestUser>(
+  authCheck?: AuthCheck<User>,
+): void => {
   if (authCheck === undefined) return;
 
   const request = requestContext<User>();
@@ -85,9 +109,16 @@ export namespace Endpoint {
       const { filter: queryFilter, limit, skip, sort } = findManyQuery(ctx);
       const contextFilter = await asPromise(filter(ctx));
       const combinedFilter = filterAnd([queryFilter, contextFilter]) ?? {};
-      const result = await handler(combinedFilter as Filter<T>, sort, limit, skip);
+      const result = await handler(
+        combinedFilter as Filter<T>,
+        sort,
+        limit,
+        skip,
+      );
 
-      ctx.body = mutator ? { ...result, items: mutator(result.items as T[]) } : result;
+      ctx.body = mutator
+        ? { ...result, items: mutator(result.items as T[]) }
+        : result;
       ctx.status = Statuses.OK;
       for (const extension of extensions) {
         extension(ctx);
@@ -118,7 +149,7 @@ export namespace Endpoint {
       authCheck: AuthCheck | undefined,
       handler: InsertOneHandler<T>,
       check: ValueProcessor<T>,
-      foreignKeys: ForeignKeyValidation,
+      foreignKeys: ForeignKeyValidation<T>,
       getInsert: InsertEntityFactory<T> = getInsertEntity,
     ) =>
     async (ctx: AuthorizationContext): Promise<void> => {
@@ -139,7 +170,7 @@ export namespace Endpoint {
       authCheck: AuthCheck | undefined,
       handler: PatchOneHandler<T>,
       check: ValueProcessor<Partial<T>>,
-      foreignKeys: ForeignKeyValidation,
+      foreignKeys: ForeignKeyValidation<T>,
       filter: (ctx: ApiContext) => Filter<T> | Promise<Filter<T>>,
     ) =>
     async (ctx: AuthorizationContext): Promise<void> => {
@@ -155,10 +186,17 @@ export namespace Endpoint {
       ctx.status = Statuses.OK;
     };
 
-  type ContractOrUndefined<T extends NotPrimitive | undefined> = T extends never ? undefined : Contract<Required<T>>;
+  type ContractOrUndefined<T extends NotPrimitive | undefined> = T extends never
+    ? undefined
+    : Contract<Required<T>>;
 
   export const actionWithBody =
-    <B, P extends NotPrimitive | undefined, Q extends NotPrimitive | undefined, H extends NotPrimitive | undefined>(
+    <
+      B,
+      P extends NotPrimitive | undefined,
+      Q extends NotPrimitive | undefined,
+      H extends NotPrimitive | undefined,
+    >(
       authCheck: AuthCheck | undefined,
       handler: ActionWithBodyHandler<B, P, Q, H>,
       bodyValidata: ValueProcessor<B>,
@@ -171,10 +209,19 @@ export namespace Endpoint {
       checkAuth(authCheck);
 
       const b = body(ctx, bodyValidata);
-      const p = paramContract ? params(ctx, isObject(paramContract, { stripExtraProperties: true })) : undefined;
-      const q = queryContract ? query(ctx, isObject(queryContract, { stripExtraProperties: true })) : undefined;
-      const h = headerContract ? headers(ctx, isObject(headerContract, { stripExtraProperties: true })) : undefined;
-      const result = await handler({ body: b, params: p as P, query: q as Q, headers: h as H }, ctx);
+      const p = paramContract
+        ? params(ctx, isObject(paramContract, { stripExtraProperties: true }))
+        : undefined;
+      const q = queryContract
+        ? query(ctx, isObject(queryContract, { stripExtraProperties: true }))
+        : undefined;
+      const h = headerContract
+        ? headers(ctx, isObject(headerContract, { stripExtraProperties: true }))
+        : undefined;
+      const result = await handler(
+        { body: b, params: p as P, query: q as Q, headers: h as H },
+        ctx,
+      );
       if (result === undefined) return;
 
       ctx.body = result;
@@ -183,7 +230,11 @@ export namespace Endpoint {
     };
 
   export const action =
-    <A>(authCheck: AuthCheck | undefined, handler: ActionHandler<A>, inputs: ActionInputs<A>) =>
+    <A extends object>(
+      authCheck: AuthCheck | undefined,
+      handler: ActionHandler<A>,
+      inputs: ActionInputs<A>,
+    ) =>
     async (ctx: AuthorizationContext): Promise<void> => {
       checkAuth(authCheck);
 
@@ -193,18 +244,25 @@ export namespace Endpoint {
           const extractor = extractors[key];
           if (!extractor) return undefined;
 
-          const value = extractor(ctx, isObject(input.contract, { stripExtraProperties: true }));
+          const value = extractor(
+            ctx,
+            isObject(input.contract, { stripExtraProperties: true }),
+          );
           if (input.foreignKeys) {
             await validateForeignKeys(input.foreignKeys, value, ':');
           }
           return { [key]: value };
         }),
       );
-      // biome-ignore lint/performance/noAccumulatingSpread: <explanation>
-      const handlerArgs = resolved.filter((item) => !!item).reduce((acc, item) => ({ ...acc, ...item }), {} as A);
+      const handlerArgs = resolved
+        .filter((item) => !!item)
+        .reduce((acc, item) => Object.assign(acc, item), {} as A);
 
       const result = await handler(
-        { ...handlerArgs, referrer: (ctx.request as unknown as { referrer: unknown }).referrer },
+        {
+          ...handlerArgs,
+          referrer: (ctx.request as unknown as { referrer: unknown }).referrer,
+        },
         ctx as ApiContext,
       );
       if (result === undefined) return;

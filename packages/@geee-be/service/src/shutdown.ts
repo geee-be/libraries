@@ -1,7 +1,10 @@
 import type { Callback, Duration } from '@geee-be/core';
 import { promiseToCallback } from '@geee-be/core';
 
-const run = (fn: (() => unknown | Promise<unknown>) | undefined, done: Callback<void>): void => {
+const run = (
+  fn: (() => unknown | Promise<unknown>) | undefined,
+  done: Callback<void>,
+): void => {
   if (!fn) {
     done(undefined, undefined);
     return;

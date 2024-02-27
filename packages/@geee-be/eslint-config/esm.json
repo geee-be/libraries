@@ -8,10 +8,7 @@
     "ecmaVersion": "latest"
   },
   "rules": {
-    "import/extensions": [
-      "error",
-      "always"
-    ],
+    "import/extensions": ["error", "always"],
     "import/no-amd": "error",
     "import/no-commonjs": "error"
   }

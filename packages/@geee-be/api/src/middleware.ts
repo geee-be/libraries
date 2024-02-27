@@ -48,7 +48,10 @@ export const errorMiddleware = (): Middleware => async (ctx, next) => {
  * @param paths
  * @param middleware
  */
-export const ignorePaths = (paths: string[], middleware: Middleware): Middleware => {
+export const ignorePaths = (
+  paths: string[],
+  middleware: Middleware,
+): Middleware => {
   // tslint:disable-next-line: space-before-function-paren
   return async function (this: any, ctx, next) {
     if (paths.includes(ctx.path)) {
@@ -117,8 +120,14 @@ export const readinessEndpoint =
     }
   };
 
-export const observeMiddleware = (logger: Logger, options: ObserveMiddlewareOptions): Middleware => {
-  const middleware = async (ctx: RouterContext, next: () => Promise<unknown>): Promise<void> => {
+export const observeMiddleware = (
+  logger: Logger,
+  options: ObserveMiddlewareOptions,
+): Middleware => {
+  const middleware = async (
+    ctx: RouterContext,
+    next: () => Promise<unknown>,
+  ): Promise<void> => {
     const started = process.hrtime();
 
     const requestLogger = logger.child({
@@ -129,7 +138,10 @@ export const observeMiddleware = (logger: Logger, options: ObserveMiddlewareOpti
     });
     ctx.logger = requestLogger;
 
-    if (options.useLogger !== false && !options.loggerIgnorePath?.test(ctx.request.url)) {
+    if (
+      options.useLogger !== false &&
+      !options.loggerIgnorePath?.test(ctx.request.url)
+    ) {
       requestLogger.verbose('rx');
     }
     await next();
@@ -154,8 +166,15 @@ export const observeMiddleware = (logger: Logger, options: ObserveMiddlewareOpti
         route: getRoute(ctx as MaybeWithRouterPath),
         status: ctx.status,
       });
-      if (options.useLogger !== false && !options.loggerIgnorePath?.test(ctx.request.url)) {
-        requestLogger.verbose('tx', { duration: durationMs, route, status: ctx.status });
+      if (
+        options.useLogger !== false &&
+        !options.loggerIgnorePath?.test(ctx.request.url)
+      ) {
+        requestLogger.verbose('tx', {
+          duration: durationMs,
+          route,
+          status: ctx.status,
+        });
       }
     } catch (err) {
       requestLogger.error(err as Error);

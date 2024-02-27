@@ -6,8 +6,10 @@ export namespace Time {
   export const HOUR = 60 * Time.MINUTE;
   export const DAY = 24 * Time.HOUR;
 
-  export const past = (interval: Duration): Date => new Date(Date.now() - toMs(interval));
-  export const future = (interval: Duration): Date => new Date(Date.now() + toMs(interval));
+  export const past = (interval: Duration): Date =>
+    new Date(Date.now() - toMs(interval));
+  export const future = (interval: Duration): Date =>
+    new Date(Date.now() + toMs(interval));
 
   export const ms = (milliSeconds: number): Duration => milliSeconds;
   export const seconds = (s: number): Duration => s * Time.SECOND;
@@ -16,10 +18,14 @@ export namespace Time {
   export const days = (d: number): Duration => d * Time.DAY;
 
   export const wholeMs = (d: Duration): number => Math.round(toMs(d));
-  export const wholeSeconds = (d: Duration): number => Math.round(toMs(d) / Time.SECOND);
-  export const wholeMinutes = (d: Duration): number => Math.round(toMs(d) / Time.MINUTE);
-  export const wholeHours = (d: Duration): number => Math.round(toMs(d) / Time.HOUR);
-  export const wholeDays = (d: Duration): number => Math.round(toMs(d) / Time.DAY);
+  export const wholeSeconds = (d: Duration): number =>
+    Math.round(toMs(d) / Time.SECOND);
+  export const wholeMinutes = (d: Duration): number =>
+    Math.round(toMs(d) / Time.MINUTE);
+  export const wholeHours = (d: Duration): number =>
+    Math.round(toMs(d) / Time.HOUR);
+  export const wholeDays = (d: Duration): number =>
+    Math.round(toMs(d) / Time.DAY);
 
   export const toMs = (d: Duration): number => d;
   export const toSeconds = (d: Duration): number => toMs(d) / Time.SECOND;

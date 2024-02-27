@@ -2,22 +2,34 @@ import { jsonDateParser } from 'json-date-parser';
 import get from 'lodash.get';
 import type { SortDirection } from 'mongodb';
 import type { Path } from 'validata';
-import { Issue, ValidationError, asNumber, isObject, isString, maybeAsArray, maybeAsObject } from 'validata';
+import {
+  Issue,
+  ValidationError,
+  asNumber,
+  isObject,
+  isString,
+  maybeAsArray,
+  maybeAsObject,
+} from 'validata';
 import { query } from 'validata-koa';
-import type { ApiContext, Entity, FindManyQuery, ForeignKeyValidation } from './types.js';
+import type {
+  ApiContext,
+  Entity,
+  FindManyQuery,
+  ForeignKeyValidation,
+} from './types.js';
 
-export const validateForeignKeys = async (
-  foreignKeys: ForeignKeyValidation,
-  data: Entity,
+export const validateForeignKeys = async <T extends Entity>(
+  foreignKeys: ForeignKeyValidation<T>,
+  data: T,
   basePath?: Path,
 ): Promise<void> => {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
   const failedForeignKeys = (
     await Promise.all(
-      Object.keys(foreignKeys).map(async (key) => {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      Object.entries(foreignKeys).map(async ([key, validate]) => {
         const value = get(data, key);
-        const ok = await foreignKeys[key](value);
+        const ok =
+          typeof validate === 'function' ? await validate(value) : false;
         return ok ? null : key;
       }),
     )
@@ -25,7 +37,6 @@ export const validateForeignKeys = async (
 
   if (failedForeignKeys.length) {
     const issues = failedForeignKeys.map((key) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const value = get(data, key);
       const path = basePath ? [basePath, ...key.split('.')] : key.split('.');
       return Issue.forPath(path, value, 'foreign-key-mismatch');
@@ -37,7 +48,9 @@ export const validateForeignKeys = async (
 export const parseSort = (items?: string[]): Record<string, SortDirection> =>
   items
     ? items.reduce<Record<string, SortDirection>>((acc, item) => {
-        const { key, value } = item.startsWith('-') ? { key: item.slice(1), value: -1 } : { key: item, value: 1 };
+        const { key, value } = item.startsWith('-')
+          ? { key: item.slice(1), value: -1 }
+          : { key: item, value: 1 };
 
         acc[key] = value as SortDirection;
         return acc;
@@ -59,4 +72,6 @@ export const findManyQuery = (ctx: ApiContext): FindManyQuery =>
   );
 
 export const asPromise = async <T>(input: T | Promise<T>): Promise<T> =>
-  (input as Promise<T>).then && typeof (input as Promise<T>).then === 'function' ? await input : Promise.resolve(input);
+  (input as Promise<T>).then && typeof (input as Promise<T>).then === 'function'
+    ? await input
+    : Promise.resolve(input);

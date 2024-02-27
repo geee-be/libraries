@@ -12,15 +12,15 @@ import { warning } from './warning.js';
 
 type ColorScale = {
   // default
-  'DEFAULT': string | [string, string];
-  'content': string | [string, string];
+  DEFAULT: string | [string, string];
+  content: string | [string, string];
 
   // soft
-  'soft': string | [string, string];
+  soft: string | [string, string];
   'soft-content': string | [string, string];
 
   // vivid
-  'vivid': string | [string, string];
+  vivid: string | [string, string];
   'vivid-content': string | [string, string];
 
   // general, lines

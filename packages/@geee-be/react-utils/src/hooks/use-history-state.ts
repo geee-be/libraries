@@ -17,14 +17,22 @@ export const useHistoryState = <T, S = T>(
   }
   const [value, setValue] = useState<T>(
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    () => deserialize(history.state?.[key], options?.fromSerializable) ?? getInitialValue(initialValue),
+    () =>
+      deserialize(history.state?.[key], options?.fromSerializable) ??
+      getInitialValue(initialValue),
   );
 
   useEffect(() => {
     if (replace) {
-      history.replaceState({ ...history.state, [key]: serialize(value, options?.toSerializable) }, '');
+      history.replaceState(
+        { ...history.state, [key]: serialize(value, options?.toSerializable) },
+        '',
+      );
     } else {
-      history.pushState({ ...history.state, [key]: serialize(value, options?.toSerializable) }, '');
+      history.pushState(
+        { ...history.state, [key]: serialize(value, options?.toSerializable) },
+        '',
+      );
     }
   }, [key, value, options?.toSerializable, replace]);
 

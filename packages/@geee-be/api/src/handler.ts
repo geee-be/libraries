@@ -1,7 +1,17 @@
-import type { Collection, Filter, MatchKeysAndValues, OptionalUnlessRequiredId } from 'mongodb';
+import type {
+  Collection,
+  Filter,
+  MatchKeysAndValues,
+  OptionalUnlessRequiredId,
+} from 'mongodb';
 import { MongoError } from 'mongodb';
 import { ulid } from 'ulid';
-import type { FindManyHandler, FindOneHandler, InsertOneHandler, PatchOneHandler } from './endpoint.js';
+import type {
+  FindManyHandler,
+  FindOneHandler,
+  InsertOneHandler,
+  PatchOneHandler,
+} from './endpoint.js';
 import type { Entity } from './types.js';
 import { asPromise, parseSort } from './util.js';
 
@@ -28,17 +38,23 @@ export class Handler<
     protected readonly options: MutationOptions<T, TInsert, TPatch> = {},
   ) {}
 
-  public findMany(additionalAggregateStates: () => Record<string, unknown>[] = () => []): FindManyHandler<T> {
+  public findMany(
+    additionalAggregateStates: () => Record<string, unknown>[] = () => [],
+  ): FindManyHandler<T> {
     return async (filter, sort, limit, skip) => {
       const $sort = parseSort(sort);
-      const stages: Record<string, unknown>[] = [{ $match: await asPromise(filter) }];
+      const stages: Record<string, unknown>[] = [
+        { $match: await asPromise(filter) },
+      ];
       stages.push(...additionalAggregateStates());
       if (Object.keys($sort).length) {
         stages.push({ $sort });
       }
       const paginated = [...stages, { $skip: skip }, { $limit: limit }];
       const items = await this.collection.aggregate(paginated).toArray();
-      const matches = await this.collection.aggregate<{ count: number }>([...stages, { $count: 'count' }]).toArray();
+      const matches = await this.collection
+        .aggregate<{ count: number }>([...stages, { $count: 'count' }])
+        .toArray();
       return {
         items: await this.mutateResult(items as T[]),
         matches: (matches.length && matches[0] && matches[0].count) || 0,
@@ -46,9 +62,13 @@ export class Handler<
     };
   }
 
-  public findOne(additionalAggregateStates: () => Record<string, unknown>[] = () => []): FindOneHandler<T> {
+  public findOne(
+    additionalAggregateStates: () => Record<string, unknown>[] = () => [],
+  ): FindOneHandler<T> {
     return async (filter) => {
-      const stages: Record<string, unknown>[] = [{ $match: await asPromise(filter) }];
+      const stages: Record<string, unknown>[] = [
+        { $match: await asPromise(filter) },
+      ];
       stages.push(...additionalAggregateStates());
       stages.push({ $limit: 1 });
 
@@ -86,7 +106,9 @@ export class Handler<
 
   protected mutateInsert(input: TInsert & WithId): T {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return this.options.mutateInsert ? this.options.mutateInsert(input) : (input as any);
+    return this.options.mutateInsert
+      ? this.options.mutateInsert(input)
+      : (input as any);
   }
 
   protected mutatePatch(patch: TPatch): TPatch {
@@ -94,6 +116,8 @@ export class Handler<
   }
 
   protected mutateResult(results: T[]): Promise<unknown[]> {
-    return this.options.mutateResult ? this.options.mutateResult(results) : Promise.resolve(results);
+    return this.options.mutateResult
+      ? this.options.mutateResult(results)
+      : Promise.resolve(results);
   }
 }

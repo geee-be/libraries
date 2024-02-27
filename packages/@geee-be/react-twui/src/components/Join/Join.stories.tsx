@@ -9,7 +9,11 @@ const meta = {
   component: Join,
   argTypes: {
     children: { table: { disable: true } },
-    shape: { control: 'select', options: ['rounded', 'pill'], defaultValue: { summary: 'rounded' } },
+    shape: {
+      control: 'select',
+      options: ['rounded', 'pill'],
+      defaultValue: { summary: 'rounded' },
+    },
   },
   tags: ['autodocs'],
 } satisfies Meta<typeof Join>;
@@ -50,7 +54,12 @@ export const IconButton: Story = {
     children: (
       <>
         <Input className="join-item" />
-        <Button className="join-item" size="sm-icon" isIconOnly before={<SearchIcon />} />
+        <Button
+          className="join-item"
+          size="sm-icon"
+          isIconOnly
+          before={<SearchIcon />}
+        />
       </>
     ),
     shape: 'pill',
@@ -67,6 +76,7 @@ export const Dropdown: Story = {
           placeholder="Placeholder"
           items={[
             {
+              key: 'group',
               label: 'Group',
               items: [
                 {

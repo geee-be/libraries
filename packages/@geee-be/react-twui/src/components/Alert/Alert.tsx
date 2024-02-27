@@ -5,9 +5,14 @@ import * as React from 'react';
 import { cn, isReactElement } from '../../helpers/utils.js';
 import { Button } from '../Button/index.js';
 import { CloseIcon, InfoIcon } from '../icons/index.js';
-import { alertIconVariants, alertTitleVariants, alertVariants } from './variants.js';
+import {
+  alertIconVariants,
+  alertTitleVariants,
+  alertVariants,
+} from './variants.js';
 
-const defaultRootClasses = 'antialiased flex text-sm leading-6 bg-surface items-start';
+const defaultRootClasses =
+  'antialiased flex text-sm leading-6 bg-surface items-start';
 
 /* ---------------------------------- Types --------------------------------- */
 type ClosableProps = {
@@ -117,8 +122,15 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
     }
 
     return (
-      <AlertRoot ref={ref} className={cn(alertVariants({ variant, color }), className)} {...otherProps}>
-        <AlertBefore className={cn(variant === 'inline' && 'pl-1')} color={color}>
+      <AlertRoot
+        ref={ref}
+        className={cn(alertVariants({ variant, color }), className)}
+        {...otherProps}
+      >
+        <AlertBefore
+          className={cn(variant === 'inline' && 'pl-1')}
+          color={color}
+        >
           {before}
         </AlertBefore>
 
@@ -142,14 +154,19 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
           </div>
 
           {after && (
-            <div className={cn(variant === 'inline' && 'mt-3 sm:ml-auto sm:mt-0')}>
+            <div
+              className={cn(variant === 'inline' && 'mt-3 sm:ml-auto sm:mt-0')}
+            >
               <AlertAfter>{after}</AlertAfter>
             </div>
           )}
         </div>
 
         {closable && (
-          <AlertCloseButton className={cn(variant === 'inline' && 'pr-1', 'text-inherit')} onClick={handleClose} />
+          <AlertCloseButton
+            className={cn(variant === 'inline' && 'pr-1', 'text-inherit')}
+            onClick={handleClose}
+          />
         )}
       </AlertRoot>
     );
@@ -157,21 +174,22 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
 );
 
 /* Root */
-const AlertRoot = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, children, ...otherProps }, ref) => {
-    return (
-      <div
-        data-component="Alert"
-        ref={ref}
-        className={cn('Alert-root', defaultRootClasses, className)}
-        role="alert"
-        {...otherProps}
-      >
-        {children}
-      </div>
-    );
-  },
-);
+const AlertRoot = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, children, ...otherProps }, ref) => {
+  return (
+    <div
+      data-component="Alert"
+      ref={ref}
+      className={cn('Alert-root', defaultRootClasses, className)}
+      role="alert"
+      {...otherProps}
+    >
+      {children}
+    </div>
+  );
+});
 
 /* Before */
 const AlertBefore = React.forwardRef<
@@ -181,67 +199,103 @@ const AlertBefore = React.forwardRef<
   const Component = isReactElement(children) ? Slot : 'span';
 
   if (!children) {
-    return <InfoIcon className={cn('h-6 w-6 shrink-0', alertIconVariants({ color }), className)} />;
+    return (
+      <InfoIcon
+        className={cn(
+          'h-6 w-6 shrink-0',
+          alertIconVariants({ color }),
+          className,
+        )}
+      />
+    );
   }
 
   return (
-    <Component ref={ref} className={cn(alertIconVariants({ color }), className)} {...props}>
+    <Component
+      ref={ref}
+      className={cn(alertIconVariants({ color }), className)}
+      {...props}
+    >
       {children}
     </Component>
   );
 });
 
 /* After */
-const AlertAfter = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(
-  ({ className, children, ...props }, ref) => {
-    const Component = isReactElement(children) ? Slot : 'span';
+const AlertAfter = React.forwardRef<
+  HTMLElement,
+  React.HTMLAttributes<HTMLElement>
+>(({ className, children, ...props }, ref) => {
+  const Component = isReactElement(children) ? Slot : 'span';
 
-    return (
-      <Component ref={ref} className={className} {...props}>
-        {children}
-      </Component>
-    );
-  },
-);
+  return (
+    <Component ref={ref} className={className} {...props}>
+      {children}
+    </Component>
+  );
+});
 
 /* Title */
 const AlertTitle = React.forwardRef<
   HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement> & VariantProps<typeof alertTitleVariants>
+  React.HTMLAttributes<HTMLParagraphElement> &
+    VariantProps<typeof alertTitleVariants>
 >(({ className, color, children, ...props }, ref) => {
   const Component = isReactElement(children) ? Slot : 'p';
 
   return (
-    <Component ref={ref} className={cn('Alert-title', alertTitleVariants({ color }), className)} {...props}>
+    <Component
+      ref={ref}
+      className={cn('Alert-title', alertTitleVariants({ color }), className)}
+      {...props}
+    >
       {children}
     </Component>
   );
 });
 
 /* Description */
-const AlertDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
-  ({ className, children, ...props }, ref) => {
-    const Component = isReactElement(children) ? Slot : 'p';
+const AlertDescription = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, children, ...props }, ref) => {
+  const Component = isReactElement(children) ? Slot : 'p';
 
-    return (
-      <Component ref={ref} className={cn('Alert-description', 'text-start', className)} {...props}>
-        {children}
-      </Component>
-    );
-  },
-);
+  return (
+    <Component
+      ref={ref}
+      className={cn('Alert-description', 'text-start', className)}
+      {...props}
+    >
+      {children}
+    </Component>
+  );
+});
 
 /* CloseButton */
 const AlertCloseButton = React.forwardRef<
   React.ElementRef<typeof Button>,
   React.ComponentPropsWithoutRef<typeof Button>
 >(({ children, ...otherProps }, ref) => {
-  const renderCloseIcon = (children: React.ReactNode): React.ReactElement<HTMLElement> => {
-    return isReactElement(children) ? children : <CloseIcon aria-label="Close" />;
+  const renderCloseIcon = (
+    children: React.ReactNode,
+  ): React.ReactElement<HTMLElement> => {
+    return isReactElement(children) ? (
+      children
+    ) : (
+      <CloseIcon aria-label="Close" />
+    );
   };
 
   return (
-    <Button ref={ref} after={renderCloseIcon(children)} shape="rounded" size="xs-icon" variant="link" {...otherProps} />
+    <Button
+      ref={ref}
+      after={renderCloseIcon(children)}
+      shape="rounded"
+      size="xs-icon"
+      variant="link"
+      {...otherProps}
+    />
   );
 });
 

@@ -18,6 +18,7 @@ export default meta;
 
 const items: SelectGroupProps[] = [
   {
+    key: 'numbers',
     label: 'Numbers',
     items: [
       {
@@ -55,14 +56,17 @@ export const Default: FC = () => {
   } = useForm<FormData>({ mode: 'all' });
 
   useEffect(() => {
-    const subscription = watch((value, { name, type }) => console.log(value, name, type));
+    const subscription = watch((value, { name, type }) =>
+      console.log(value, name, type),
+    );
     return () => subscription.unsubscribe();
   }, [watch]);
 
   useEffect(() => console.log('errors changed', errors), [errors]);
 
   const onSubmit = (data: FormData): void => console.log(data);
-  const onInvalid: SubmitErrorHandler<FormData> = (error) => console.log('submit invalid', error);
+  const onInvalid: SubmitErrorHandler<FormData> = (error) =>
+    console.log('submit invalid', error);
 
   return (
     <form

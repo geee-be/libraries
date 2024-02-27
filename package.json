@@ -12,6 +12,7 @@
     "changes": "changeset && git add .changeset",
     "changeset": "changeset",
     "lint": "pnpm --stream -r lint",
+    "lint:biome": "pnpm --stream -r lint:biome",
     "start": "pnpm --stream -r start",
     "start:dev": "pnpm --stream --parallel -r start:dev"
   },

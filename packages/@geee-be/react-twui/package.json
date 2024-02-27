@@ -22,10 +22,7 @@
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/esm/index.js",
   "types": "./dist/cjs/index.d.cts",
-  "files": [
-    "dist",
-    "README.md"
-  ],
+  "files": ["dist", "README.md"],
   "scripts": {
     "build": "concurrently \"npm run build:cjs\" \"npm run build:esm\"",
     "build:cjs": "tsup --format cjs --external react",
@@ -35,9 +32,8 @@
     "build:watch:esm": "npm run build:esm -- --watch",
     "clean": "rimraf .turbo node_modules dist",
     "dev": "npm run build:watch",
-    "lint": "npm run lint:eslint && npm run lint:types && npm run lint:unused-exports",
-    "lint:eslint": "eslint src/ --ext .ts,.tsx",
-    "lint:eslint:fix": "eslint 'src/**/*.{js,jsx,ts,tsx}' --fix",
+    "lint": "npm run lint:biome && npm run lint:types && npm run lint:unused-exports",
+    "lint:biome": "biome ci src/",
     "lint:types": "tsc --noEmit",
     "lint:unused-exports": "ts-unused-exports tsconfig.unused-exports.json --excludePathsFromReport=src/index.ts",
     "storybook": "storybook dev -p 6006 --ci"

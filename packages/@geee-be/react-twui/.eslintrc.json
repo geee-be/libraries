@@ -5,9 +5,7 @@
     "plugin:storybook/recommended",
     "plugin:require-extensions/recommended"
   ],
-  "plugins": [
-      "require-extensions"
-  ],
+  "plugins": ["require-extensions"],
   "rules": {
     "filenames/match-regex": "off"
   }

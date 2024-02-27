@@ -11,7 +11,10 @@ export interface MigrationDef<Props> {
 }
 
 export interface Storage {
-  check: (fileName: string, digest: string) => Promise<{ applied: boolean; current: boolean }>;
+  check: (
+    fileName: string,
+    digest: string,
+  ) => Promise<{ applied: boolean; current: boolean }>;
   applied: (fileName: string, digest: string) => Promise<void>;
   unapplied: (fileName: string) => Promise<void>;
 }

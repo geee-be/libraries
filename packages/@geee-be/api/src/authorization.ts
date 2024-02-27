@@ -3,9 +3,21 @@ import type { Logger, MaybeWithLogger } from '@geee-be/logger';
 import { logger } from '@geee-be/logger';
 import type * as Router from '@koa/router';
 import { createSecretKey } from 'crypto';
-import type { JWSHeaderParameters, JWTPayload, JWTVerifyOptions, KeyLike } from 'jose';
+import type {
+  JWSHeaderParameters,
+  JWTPayload,
+  JWTVerifyOptions,
+  KeyLike,
+} from 'jose';
 import { jwtVerify } from 'jose';
-import type { Context, DefaultState, ExtendableContext, Middleware, Next, ParameterizedContext } from 'koa';
+import type {
+  Context,
+  DefaultState,
+  ExtendableContext,
+  Middleware,
+  Next,
+  ParameterizedContext,
+} from 'koa';
 import type { UserResolver } from './request-context.js';
 import { requestContextMiddleware } from './request-context.js';
 import type { ApiContext, RequestHeaders } from './types.js';
@@ -17,12 +29,18 @@ export interface MaybeWithAuthorization {
   authorization?: JWTPayload;
 }
 
-export type AuthorizationContext = ParameterizedContext<DefaultState, ApiContext> &
+export type AuthorizationContext = ParameterizedContext<
+  DefaultState,
+  ApiContext
+> &
   Router.RouterParamContext<DefaultState, ApiContext> &
   ExtendableContext &
   MaybeWithAuthorization;
 
-export type CheckToken = (authorization: JWTPayload | undefined, ctx: Context) => Promise<boolean>;
+export type CheckToken = (
+  authorization: JWTPayload | undefined,
+  ctx: Context,
+) => Promise<boolean>;
 
 export interface Options {
   verifyOptions?: JWTVerifyOptions;
@@ -43,10 +61,14 @@ export interface AuthorizationFailure {
 }
 
 export namespace Jwt {
-  export const getBearerToken = (headers: RequestHeaders): string | undefined => {
+  export const getBearerToken = (
+    headers: RequestHeaders,
+  ): string | undefined => {
     const authorization = headers.authorization;
     if (!authorization) return undefined;
-    const matches = TOKEN_EXTRACTOR.exec(Array.isArray(authorization) ? authorization[0] : authorization);
+    const matches = TOKEN_EXTRACTOR.exec(
+      Array.isArray(authorization) ? authorization[0] : authorization,
+    );
     return matches?.[1] || undefined;
   };
 
@@ -64,8 +86,12 @@ export namespace Jwt {
       throw new Error('Invalid JWT');
     }
     try {
-      const header = JSON.parse(Buffer.from(encodedHeader, 'base64').toString('utf8')) as JWSHeaderParameters;
-      const payload = JSON.parse(Buffer.from(encodedPayload, 'base64').toString('utf8')) as JWTPayload;
+      const header = JSON.parse(
+        Buffer.from(encodedHeader, 'base64').toString('utf8'),
+      ) as JWSHeaderParameters;
+      const payload = JSON.parse(
+        Buffer.from(encodedPayload, 'base64').toString('utf8'),
+      ) as JWTPayload;
       return { payload, header };
     } catch (err) {
       throw new Error('Invalid JWT - Error Parsing JSON');
@@ -74,7 +100,8 @@ export namespace Jwt {
 }
 
 export class JwtDecoder {
-  public middleware(): Middleware<unknown, AuthorizationContext> & Router.Middleware<unknown, AuthorizationContext> {
+  public middleware(): Middleware<unknown, AuthorizationContext> &
+    Router.Middleware<unknown, AuthorizationContext> {
     return async (ctx: AuthorizationContext, next: Next): Promise<void> => {
       const { headers } = ctx.request;
       ctx.authorization = JwtDecoder.getAuthorization(headers);
@@ -84,7 +111,9 @@ export class JwtDecoder {
 }
 
 export namespace JwtDecoder {
-  export const getAuthorization = (headers: RequestHeaders): JWTPayload | undefined => {
+  export const getAuthorization = (
+    headers: RequestHeaders,
+  ): JWTPayload | undefined => {
     try {
       // decode token
       const token = Jwt.getBearerToken(headers);
@@ -101,12 +130,19 @@ export namespace JwtDecoder {
 export abstract class BaseJwtAuthentication {
   constructor(protected readonly options?: Options) {}
 
-  public async getAuthorization(ctx: ApiContext, log: Logger): Promise<AuthorizationSuccess | AuthorizationFailure> {
+  public async getAuthorization(
+    ctx: ApiContext,
+    log: Logger,
+  ): Promise<AuthorizationSuccess | AuthorizationFailure> {
     try {
       // decode token
       const token = this.getToken(ctx);
       if (token) {
-        const result = await jwtVerify(token, await this.getSecretOrPublicKey(token), this.options?.verifyOptions);
+        const result = await jwtVerify(
+          token,
+          await this.getSecretOrPublicKey(token),
+          this.options?.verifyOptions,
+        );
         return {
           authorization: result.payload,
           status: undefined,
@@ -143,14 +179,21 @@ export abstract class BaseJwtAuthentication {
     }
   }
 
-  public middleware(): Middleware<unknown, AuthorizationContext> & Router.Middleware<unknown, AuthorizationContext> {
+  public middleware(): Middleware<unknown, AuthorizationContext> &
+    Router.Middleware<unknown, AuthorizationContext> {
     return async (ctx: AuthorizationContext, next: Next): Promise<void> => {
-      const { status, authorization } = await this.getAuthorization(ctx, (ctx as MaybeWithLogger).logger || debug);
+      const { status, authorization } = await this.getAuthorization(
+        ctx,
+        (ctx as MaybeWithLogger).logger || debug,
+      );
       if (status) {
         ctx.status = status;
         if (!this.options?.continueOnUnauthorized) return;
       }
-      if (this.options?.check && !(await this.options.check(authorization, ctx))) {
+      if (
+        this.options?.check &&
+        !(await this.options.check(authorization, ctx))
+      ) {
         ctx.status = Statuses.FORBIDDEN;
         return;
       }
@@ -160,7 +203,9 @@ export abstract class BaseJwtAuthentication {
     };
   }
 
-  protected abstract getSecretOrPublicKey(token: string): Promise<Uint8Array | KeyLike>;
+  protected abstract getSecretOrPublicKey(
+    token: string,
+  ): Promise<Uint8Array | KeyLike>;
 
   protected getToken(ctx: ApiContext): string | undefined {
     return Jwt.getBearerToken(ctx.request.headers);
@@ -176,6 +221,8 @@ export class JwtAuthentication extends BaseJwtAuthentication {
   }
 
   protected getSecretOrPublicKey(): Promise<Uint8Array | KeyLike> {
-    return Promise.resolve(createSecretKey(Buffer.from(this.secretOrPublicKey)));
+    return Promise.resolve(
+      createSecretKey(Buffer.from(this.secretOrPublicKey)),
+    );
   }
 }

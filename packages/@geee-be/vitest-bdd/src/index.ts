@@ -27,42 +27,112 @@ type ExtractEachCallbackArgs<T extends ReadonlyArray<unknown>> = {
 }[T extends Readonly<[unknown]>
   ? 1
   : T extends Readonly<[unknown, unknown]>
-  ? 2
-  : T extends Readonly<[unknown, unknown, unknown]>
-  ? 3
-  : T extends Readonly<[unknown, unknown, unknown, unknown]>
-  ? 4
-  : T extends Readonly<[unknown, unknown, unknown, unknown, unknown]>
-  ? 5
-  : T extends Readonly<[unknown, unknown, unknown, unknown, unknown, unknown]>
-  ? 6
-  : T extends Readonly<[unknown, unknown, unknown, unknown, unknown, unknown, unknown]>
-  ? 7
-  : T extends Readonly<[unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown]>
-  ? 8
-  : T extends Readonly<[unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown]>
-  ? 9
-  : T extends Readonly<[unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown]>
-  ? 10
-  : 'fallback'];
+    ? 2
+    : T extends Readonly<[unknown, unknown, unknown]>
+      ? 3
+      : T extends Readonly<[unknown, unknown, unknown, unknown]>
+        ? 4
+        : T extends Readonly<[unknown, unknown, unknown, unknown, unknown]>
+          ? 5
+          : T extends Readonly<
+                [unknown, unknown, unknown, unknown, unknown, unknown]
+              >
+            ? 6
+            : T extends Readonly<
+                  [
+                    unknown,
+                    unknown,
+                    unknown,
+                    unknown,
+                    unknown,
+                    unknown,
+                    unknown,
+                  ]
+                >
+              ? 7
+              : T extends Readonly<
+                    [
+                      unknown,
+                      unknown,
+                      unknown,
+                      unknown,
+                      unknown,
+                      unknown,
+                      unknown,
+                      unknown,
+                    ]
+                  >
+                ? 8
+                : T extends Readonly<
+                      [
+                        unknown,
+                        unknown,
+                        unknown,
+                        unknown,
+                        unknown,
+                        unknown,
+                        unknown,
+                        unknown,
+                        unknown,
+                      ]
+                    >
+                  ? 9
+                  : T extends Readonly<
+                        [
+                          unknown,
+                          unknown,
+                          unknown,
+                          unknown,
+                          unknown,
+                          unknown,
+                          unknown,
+                          unknown,
+                          unknown,
+                          unknown,
+                        ]
+                      >
+                    ? 10
+                    : 'fallback'];
 
 export interface WhenEach<S> {
   // Exclusively arrays.
   <T extends unknown[] | [unknown]>(
     cases: ReadonlyArray<T>,
-  ): (name: string, fn: (setup: S, ...args: T) => unknown, timeout?: number) => void;
+  ): (
+    name: string,
+    fn: (setup: S, ...args: T) => unknown,
+    timeout?: number,
+  ) => void;
   <T1 extends ReadonlyArray<unknown>>(
     cases: ReadonlyArray<T1>,
-  ): (name: string, fn: (setup: S, ...args: ExtractEachCallbackArgs<T1>) => unknown, timeout?: number) => void;
+  ): (
+    name: string,
+    fn: (setup: S, ...args: ExtractEachCallbackArgs<T1>) => unknown,
+    timeout?: number,
+  ) => void;
   // Not arrays.
-  <T2>(cases: ReadonlyArray<T2>): (name: string, fn: (setup: S, ...args: T2[]) => unknown, timeout?: number) => void;
+  <T2>(
+    cases: ReadonlyArray<T2>,
+  ): (
+    name: string,
+    fn: (setup: S, ...args: T2[]) => unknown,
+    timeout?: number,
+  ) => void;
   (
     cases: ReadonlyArray<ReadonlyArray<unknown>>,
-  ): (name: string, fn: (setup: S, ...args: unknown[]) => unknown, timeout?: number) => void;
+  ): (
+    name: string,
+    fn: (setup: S, ...args: unknown[]) => unknown,
+    timeout?: number,
+  ) => void;
   (
     strings: TemplateStringsArray,
     ...placeholders: unknown[]
-  ): (name: string, fn: (setup: S, arg: unknown) => unknown, timeout?: number) => void;
+  ): (
+    name: string,
+    fn: (setup: S, arg: unknown) => unknown,
+    timeout?: number,
+  ) => void;
 }
 
 export const describeGiven = (name: string, fn: () => void): void => {
@@ -95,7 +165,11 @@ then.todo = (name: string) => {
   it.todo(`THEN ${name}`);
 };
 
-export const given = <S>(name: string, setup: () => S, fn: (when: When<S>, then: TestAPI) => void): void => {
+export const given = <S>(
+  name: string,
+  setup: () => S,
+  fn: (when: When<S>, then: TestAPI) => void,
+): void => {
   describe(`GIVEN ${name}`, () => {
     const whenImpl = (name: string, whenFn: (state: S) => void): void => {
       describe(`WHEN ${name}`, () => {
@@ -127,10 +201,18 @@ export const given = <S>(name: string, setup: () => S, fn: (when: When<S>, then:
   });
 };
 
-given.only = (name: string, _setup: () => unknown, _fn: (when: When<unknown>, then: TestAPI) => void) => {
+given.only = (
+  name: string,
+  _setup: () => unknown,
+  _fn: (when: When<unknown>, then: TestAPI) => void,
+) => {
   describe.only(`GIVEN ${name}`, () => {});
 };
 
-given.skip = (name: string, _setup: () => unknown, _fn: (when: When<unknown>, then: TestAPI) => void) => {
+given.skip = (
+  name: string,
+  _setup: () => unknown,
+  _fn: (when: When<unknown>, then: TestAPI) => void,
+) => {
   describe.skip(`GIVEN ${name}`, () => {});
 };

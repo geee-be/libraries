@@ -2,7 +2,13 @@
 
 import type { ReactElement, ReactNode } from 'react';
 import { useId } from 'react';
-import type { Control, FieldPath, FieldValues, Message, ValidationRule } from 'react-hook-form';
+import type {
+  Control,
+  FieldPath,
+  FieldValues,
+  Message,
+  ValidationRule,
+} from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 import { fieldError } from '../../helpers/field-error.js';
 import { Label, type LabelProps } from '../Label/index.js';
@@ -13,7 +19,10 @@ import { Select } from './Select.js';
 /* ---------------------------------- Types --------------------------------- */
 export type FormSelectElement = SelectElement;
 
-export type FormSelectProps<T extends FieldValues, Field extends FieldPath<T>> = Omit<
+export type FormSelectProps<
+  T extends FieldValues,
+  Field extends FieldPath<T>,
+> = Omit<
   SelectProps & LabelProps & LabelHelperProps,
   'required' | 'min' | 'max' | 'maxLength' | 'minLength' | 'pattern'
 > & {
@@ -76,14 +85,22 @@ export const FormSelect = <T extends FieldValues, Field extends FieldPath<T>>({
               disabled={disabled || field.disabled}
               name={name}
               onBlur={field.onBlur}
-              onValueChange={(value) => field.onChange({ target: { name, value } })}
+              onValueChange={(value) =>
+                field.onChange({ target: { name, value } })
+              }
               value={field.value as string}
               {...otherProps}
             />
           </div>
 
-          <Label.Helper aria-invalid={ariaInvalid} disabled={disabled} id={`${elId}__describer`}>
-            {error && <span className="text-error mr-2">{fieldError(error)}</span>}
+          <Label.Helper
+            aria-invalid={ariaInvalid}
+            disabled={disabled}
+            id={`${elId}__describer`}
+          >
+            {error && (
+              <span className="text-error mr-2">{fieldError(error)}</span>
+            )}
             <span className="">{helperText}</span>
           </Label.Helper>
         </div>

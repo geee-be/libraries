@@ -2,7 +2,9 @@ import { defineConfig } from 'tsup';
 
 export default defineConfig((options) => {
   // Convert format to string
-  const formatString = Array.isArray(options.format) ? options.format.join('-') : options.format ?? 'esm';
+  const formatString = Array.isArray(options.format)
+    ? options.format.join('-')
+    : options.format ?? 'esm';
 
   return {
     entry: ['src/index.ts'],

@@ -7,7 +7,10 @@ import { isIssue, isObject, isString, maybeString } from 'validata';
 import type { AuthorizationContext } from './authorization.js';
 import type { ApiContext } from './types.js';
 
-export type UserResolver = (iss: string, sub: string) => Promise<RequestUser | undefined>;
+export type UserResolver = (
+  iss: string,
+  sub: string,
+) => Promise<RequestUser | undefined>;
 
 const checkAuthorization = isObject(
   {
@@ -20,13 +23,17 @@ const checkAuthorization = isObject(
 
 const localStorage = new AsyncLocalStorage<RequestContext>();
 
-export const requestContext = <T extends RequestUser = RequestUser>(): RequestContext<T> => {
+export const requestContext = <
+  T extends RequestUser = RequestUser,
+>(): RequestContext<T> => {
   const request = localStorage.getStore();
   if (!request) throw Error('Context failure');
   return request as RequestContext<T>;
 };
 
-export const requestContextMiddleware = (userResolver?: UserResolver): Middleware<any, ApiContext> => {
+export const requestContextMiddleware = (
+  userResolver?: UserResolver,
+): Middleware<any, ApiContext> => {
   return async (ctx, next) => {
     const request = await makeRequestContext(ctx, userResolver);
     return localStorage.run(request, () => {
@@ -46,7 +53,9 @@ export const makeRequestContext = async (
   ctx: AuthorizationContext,
   userResolver?: UserResolver,
 ): Promise<RequestContext> => {
-  const traceId = Array.isArray(ctx.header['trace-id']) ? ctx.header['trace-id'][0] : ctx.header['trace-id'];
+  const traceId = Array.isArray(ctx.header['trace-id'])
+    ? ctx.header['trace-id'][0]
+    : ctx.header['trace-id'];
   if (!ctx.authorization) {
     return {
       client: getClient(ctx),

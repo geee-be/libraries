@@ -23,7 +23,10 @@ interface ResolvedConfig {
   components: CSSRuleObject;
   colors: Record<
     string,
-    ({ opacityValue, opacityVariable }: { opacityValue: string; opacityVariable: string }) => string
+    ({
+      opacityValue,
+      opacityVariable,
+    }: { opacityValue: string; opacityVariable: string }) => string
   >;
 }
 
@@ -37,10 +40,13 @@ interface Hsla extends Hsl {
   alpha?: number;
 }
 
-const parseColorValue = (value: string | [string, string]): [Hsla, Hsla] | [undefined, undefined] => {
+const parseColorValue = (
+  value: string | [string, string],
+): [Hsla, Hsla] | [undefined, undefined] => {
   if (!value) return [undefined, undefined];
 
-  const tuple: [string, string] = typeof value === 'string' ? [value, value] : value;
+  const tuple: [string, string] =
+    typeof value === 'string' ? [value, value] : value;
   return tuple.map((v) => {
     const [h, s, l, alpha = 1] = Color(v).hsl().round().array();
     return { h, s, l, alpha };
@@ -54,11 +60,14 @@ const contentColor = (hsl: Hsl): Hsl => {
     .hsl()
     .round()
     .array();
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  // biome-ignore lint/style/noNonNullAssertion: <explanation>
   return { h: h!, s: s!, l: l! };
 };
 
-export const resolveConfig = (colors: ThemableColors, darkMode: DarkMode): ResolvedConfig => {
+export const resolveConfig = (
+  colors: ThemableColors,
+  darkMode: DarkMode,
+): ResolvedConfig => {
   const resolved: ResolvedConfig = {
     variants: [],
     components: {},
@@ -69,21 +78,31 @@ export const resolveConfig = (colors: ThemableColors, darkMode: DarkMode): Resol
   const lightVariables: Record<string, string> = {};
   const darkVariables: Record<string, string> = {};
 
-  const baseColors = omit(colors, 'background', 'foreground', 'paper', 'control', 'surface', 'destructive');
+  const baseColors = omit(
+    colors,
+    'background',
+    'foreground',
+    'paper',
+    'control',
+    'surface',
+    'destructive',
+  );
   const flatColors = flattenThemeObject(colors);
 
   /* --------------------------------- Colors --------------------------------- */
-  Object.keys(flatColors).forEach((colorName) => {
-    const colorValue = flatColors[colorName as keyof typeof flatColors] as string | [string, string];
+  for (const colorName of Object.keys(flatColors)) {
+    const colorValue = flatColors[colorName as keyof typeof flatColors] as
+      | string
+      | [string, string];
 
     if (!colorValue) {
-      return;
+      break;
     }
 
     try {
       // const [h, s, l, defaultAlphaValue = 1] = Color(colorValue).hsl().round().array(); // fallback defaultAlphaValue to 1 if undefined
       const [light, dark] = parseColorValue(colorValue);
-      if (!light || !dark) return;
+      if (!light || !dark) break;
 
       const lightContent = contentColor(light);
       const darkContent = contentColor(dark);
@@ -96,14 +115,24 @@ export const resolveConfig = (colors: ThemableColors, darkMode: DarkMode): Resol
       darkVariables[colorVariable] = `${dark.h} ${dark.s}% ${dark.l}%`;
 
       // Set the dynamic color in tailwind config theme.colors
-      resolved.colors[colorName] = ({ opacityVariable: twOpacityVariable, opacityValue: twOpacityValue }) =>
-        getColorString(colorVariable, opacityVariable, twOpacityValue, twOpacityVariable);
+      resolved.colors[colorName] = ({
+        opacityVariable: twOpacityVariable,
+        opacityValue: twOpacityValue,
+      }) =>
+        getColorString(
+          colorVariable,
+          opacityVariable,
+          twOpacityValue,
+          twOpacityVariable,
+        );
 
       if (!colorName.endsWith('content')) {
         const colorContentVariable = `--color-${colorName}-content`;
 
-        lightVariables[colorContentVariable] = `${lightContent.h} ${lightContent.s}% ${lightContent.l}%`;
-        darkVariables[colorContentVariable] = `${darkContent.h} ${darkContent.s}% ${darkContent.l}%`;
+        lightVariables[colorContentVariable] =
+          `${lightContent.h} ${lightContent.s}% ${lightContent.l}%`;
+        darkVariables[colorContentVariable] =
+          `${darkContent.h} ${darkContent.s}% ${darkContent.l}%`;
 
         // If an alpha value was provided in the color definition, store it in a css variable
         if (typeof light.alpha === 'number') {
@@ -117,7 +146,13 @@ export const resolveConfig = (colors: ThemableColors, darkMode: DarkMode): Resol
         resolved.colors[`${colorName}-content`] = ({
           opacityVariable: twOpacityVariable,
           opacityValue: twOpacityValue,
-        }) => getColorString(colorContentVariable, opacityVariable, twOpacityValue, twOpacityVariable);
+        }) =>
+          getColorString(
+            colorContentVariable,
+            opacityVariable,
+            twOpacityValue,
+            twOpacityVariable,
+          );
       }
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -128,7 +163,7 @@ export const resolveConfig = (colors: ThemableColors, darkMode: DarkMode): Resol
         console.warn('tw-plugin-build-error:', error);
       }
     }
-  });
+  }
 
   resolved.components[':root'] = {
     ...(resolved.components[':root'] as object),
@@ -137,35 +172,45 @@ export const resolveConfig = (colors: ThemableColors, darkMode: DarkMode): Resol
   if (darkMode === 'data-theme') {
     resolved.components["[data-theme='dark']"] = darkVariables;
   } else {
-    resolved.components[`@media (prefers-color-scheme: dark)`] = {
+    resolved.components['@media (prefers-color-scheme: dark)'] = {
       ':root': darkVariables,
     };
   }
 
-  Object.entries(baseColors).forEach(([colorName, definitions]) => {
+  for (const [colorName, definitions] of Object.entries(baseColors)) {
     const flattened = flattenThemeObject(definitions);
     const overrideLightVariables: Record<string, string> = {};
     const overrideDarkVariables: Record<string, string> = {};
-    Object.entries(flattened).forEach(([colorVariant, colorValue]) => {
+    for (const [colorVariant, colorValue] of Object.entries(flattened)) {
       try {
         const [light, dark] = parseColorValue(colorValue);
-        if (!light || !dark) return;
+        if (!light || !dark) break;
 
         const lightContent = contentColor(light);
         const darkContent = contentColor(dark);
 
-        const colorVariable = `--color-default${colorVariant !== 'DEFAULT' ? `-${colorVariant}` : ''}`;
-        const opacityVariable = `--color-default${colorVariant !== 'DEFAULT' ? `-${colorVariant}` : ''}-opacity`;
+        const colorVariable = `--color-default${
+          colorVariant !== 'DEFAULT' ? `-${colorVariant}` : ''
+        }`;
+        const opacityVariable = `--color-default${
+          colorVariant !== 'DEFAULT' ? `-${colorVariant}` : ''
+        }-opacity`;
 
         // Set the css variable in "@layer utilities"
-        overrideLightVariables[colorVariable] = `${light.h} ${light.s}% ${light.l}%`;
-        overrideDarkVariables[colorVariable] = `${dark.h} ${dark.s}% ${dark.l}%`;
+        overrideLightVariables[colorVariable] =
+          `${light.h} ${light.s}% ${light.l}%`;
+        overrideDarkVariables[colorVariable] =
+          `${dark.h} ${dark.s}% ${dark.l}%`;
 
         if (!colorVariant.endsWith('content')) {
-          const colorContentVariable = `--color-default${colorVariant !== 'DEFAULT' ? `-${colorVariant}` : ''}-content`;
+          const colorContentVariable = `--color-default${
+            colorVariant !== 'DEFAULT' ? `-${colorVariant}` : ''
+          }-content`;
 
-          overrideLightVariables[colorContentVariable] = `${lightContent.h} ${lightContent.s}% ${lightContent.l}%`;
-          overrideDarkVariables[colorContentVariable] = `${darkContent.h} ${darkContent.s}% ${darkContent.l}%`;
+          overrideLightVariables[colorContentVariable] =
+            `${lightContent.h} ${lightContent.s}% ${lightContent.l}%`;
+          overrideDarkVariables[colorContentVariable] =
+            `${darkContent.h} ${darkContent.s}% ${darkContent.l}%`;
 
           // If an alpha value was provided in the color definition, store it in a css variable
           if (typeof light.alpha === 'number') {
@@ -184,15 +229,18 @@ export const resolveConfig = (colors: ThemableColors, darkMode: DarkMode): Resol
           console.warn('tw-plugin-build-error:', error);
         }
       }
-    });
+    }
 
     resolved.utilities[`.default-${colorName}`] = overrideLightVariables;
     if (darkMode === 'data-theme') {
-      resolved.utilities[`[data-theme='dark'] .default-${colorName}`] = overrideDarkVariables;
+      resolved.utilities[`[data-theme='dark'] .default-${colorName}`] =
+        overrideDarkVariables;
     } else {
-      resolved.utilities[`@media (prefers-color-scheme: dark) .default-${colorName}`] = overrideDarkVariables;
+      resolved.utilities[
+        `@media (prefers-color-scheme: dark) .default-${colorName}`
+      ] = overrideDarkVariables;
     }
-  });
+  }
 
   return resolved;
 };

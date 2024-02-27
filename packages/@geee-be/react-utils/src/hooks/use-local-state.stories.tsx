@@ -10,12 +10,17 @@ type Story = StoryObj;
 
 export const Primary: Story = {
   render: () => {
-    const [value, setValue] = useLocalState('story-use-local-state', { val: 1 });
+    const [value, setValue] = useLocalState('story-use-local-state', {
+      val: 1,
+    });
     console.log('render', value);
     return (
       <div>
         {JSON.stringify(value)}
-        <button type="button" onClick={() => setValue((prev) => ({ val: prev.val + 1 ?? -2 }))}>
+        <button
+          type="button"
+          onClick={() => setValue((prev) => ({ val: prev.val + 1 ?? -2 }))}
+        >
           Inc
         </button>
       </div>

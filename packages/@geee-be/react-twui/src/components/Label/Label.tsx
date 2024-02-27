@@ -2,13 +2,19 @@ import * as LabelPrimitive from '@radix-ui/react-label';
 import { Slot } from '@radix-ui/react-slot';
 import React from 'react';
 
-import { cn, isElementWithChildren, isReactElement } from '../../helpers/utils.js';
+import {
+  cn,
+  isElementWithChildren,
+  isReactElement,
+} from '../../helpers/utils.js';
 import { Tooltip } from '../Tooltip/index.js';
 import { RequiredIcon } from '../icons/index.js';
 
 /* ---------------------------------- Types --------------------------------- */
 export type LabelElement = React.ElementRef<typeof LabelPrimitive.Root>;
-export type LabelProps = React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> & {
+export type LabelProps = React.ComponentPropsWithoutRef<
+  typeof LabelPrimitive.Root
+> & {
   /** Tooltip text to display when hovering over the label */
   tooltip?: React.ReactNode;
 
@@ -24,7 +30,19 @@ export type LabelProps = React.ComponentPropsWithoutRef<typeof LabelPrimitive.Ro
 
 /* -------------------------------- Component ------------------------------- */
 const LabelComponent = React.forwardRef<LabelElement, LabelProps>(
-  ({ asChild = false, children, className, description, disabled, required = false, tooltip, ...otherProps }, ref) => {
+  (
+    {
+      asChild = false,
+      children,
+      className,
+      description,
+      disabled,
+      required = false,
+      tooltip,
+      ...otherProps
+    },
+    ref,
+  ) => {
     const useAsChild = asChild && isReactElement(children);
 
     const innerContent = useAsChild ? (
@@ -45,7 +63,12 @@ const LabelComponent = React.forwardRef<LabelElement, LabelProps>(
         {children ? <span>{children}</span> : null}
 
         {description ? (
-          <span className={cn('font-normal text-paper-content/70', disabled && 'text-paper-content/50')}>
+          <span
+            className={cn(
+              'font-normal text-paper-content/70',
+              disabled && 'text-paper-content/50',
+            )}
+          >
             {description}
           </span>
         ) : null}
@@ -86,9 +109,13 @@ const LabelComponent = React.forwardRef<LabelElement, LabelProps>(
 
 const HelperText = React.forwardRef<
   HTMLSpanElement,
-  React.HTMLAttributes<HTMLSpanElement> & { error?: boolean; disabled?: boolean }
+  React.HTMLAttributes<HTMLSpanElement> & {
+    error?: boolean;
+    disabled?: boolean;
+  }
 >(({ children, error, disabled, className, ...otherProps }, ref) => {
-  const HelperTextComponent = children && isReactElement(children) ? Slot : 'span';
+  const HelperTextComponent =
+    children && isReactElement(children) ? Slot : 'span';
   const ariaInvalid = otherProps['aria-invalid'];
 
   return children ? (

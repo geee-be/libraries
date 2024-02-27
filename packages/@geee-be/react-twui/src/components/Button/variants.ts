@@ -6,8 +6,8 @@ export const buttonVariants = cva({
     size: {
       'xs-icon': 'gap-0 p-2',
       'sm-icon': 'gap-0 px-[0.66rem] py-1',
-      'sm': 'gap-2 px-[0.75rem] py-1',
-      'md': 'gap-2 px-[1rem] py-2',
+      sm: 'gap-2 px-[0.75rem] py-1',
+      md: 'gap-2 px-[1rem] py-2',
     },
     shape: {
       rounded: 'rounded-lg',
@@ -54,7 +54,8 @@ export const buttonVariants = cva({
     {
       color: 'default',
       variant: ['outline', 'transparent', 'link'],
-      class: 'text-default hover:bg-default/10 dark:hover:bg-default-content/10',
+      class:
+        'text-default hover:bg-default/10 dark:hover:bg-default-content/10',
     },
     // primary
     {
@@ -70,7 +71,8 @@ export const buttonVariants = cva({
     {
       color: 'primary',
       variant: ['outline', 'transparent', 'link'],
-      class: 'text-primary hover:bg-primary/10 dark:hover:bg-primary-content/10',
+      class:
+        'text-primary hover:bg-primary/10 dark:hover:bg-primary-content/10',
     },
     // secondary
     {
@@ -86,7 +88,8 @@ export const buttonVariants = cva({
     {
       color: 'secondary',
       variant: ['outline', 'transparent', 'link'],
-      class: 'text-secondary hover:bg-secondary/10 dark:hover:bg-secondary-content/20',
+      class:
+        'text-secondary hover:bg-secondary/10 dark:hover:bg-secondary-content/20',
     },
     // info
     {
@@ -118,7 +121,8 @@ export const buttonVariants = cva({
     {
       color: 'warning',
       variant: ['outline', 'transparent', 'link'],
-      class: 'text-warning hover:bg-warning/10 dark:hover:bg-warning-content/20',
+      class:
+        'text-warning hover:bg-warning/10 dark:hover:bg-warning-content/20',
     },
     // success
     {
@@ -134,7 +138,8 @@ export const buttonVariants = cva({
     {
       color: 'success',
       variant: ['outline', 'transparent', 'link'],
-      class: 'text-success hover:bg-success/10 dark:hover:bg-success-content/20',
+      class:
+        'text-success hover:bg-success/10 dark:hover:bg-success-content/20',
     },
     // error
     {
@@ -175,8 +180,8 @@ export const iconVariants = cva({
     size: {
       'xs-icon': 'h-5 w-5',
       'sm-icon': 'h-6 w-6',
-      'sm': 'h-5 w-5',
-      'md': 'h-6 w-6',
+      sm: 'h-5 w-5',
+      md: 'h-6 w-6',
     },
   },
   compoundVariants: [

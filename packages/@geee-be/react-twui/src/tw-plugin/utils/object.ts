@@ -18,13 +18,15 @@ type TransformedKeys<T extends Record<string, unknown>> = {
   [K in keyof T as K extends `${infer Prefix}-DEFAULT` ? Prefix : K]: T[K];
 };
 
-const removeDefaultKeys = <T extends Record<string, unknown>>(obj: T): TransformedKeys<T> => {
+const removeDefaultKeys = <T extends Record<string, unknown>>(
+  obj: T,
+): TransformedKeys<T> => {
   const newObj = {} as Record<string, unknown>;
 
-  Object.keys(obj).forEach((key) => {
+  for (const key of Object.keys(obj)) {
     const newKey = key.endsWith('-DEFAULT') ? key.replace('-DEFAULT', '') : key;
     newObj[newKey] = obj[key];
-  });
+  }
 
   return newObj as TransformedKeys<T>;
 };
@@ -36,7 +38,9 @@ const removeDefaultKeys = <T extends Record<string, unknown>>(obj: T): Transform
  * @param obj theme object
  * @returns object with flattened keys
  */
-export const flattenThemeObject = <T>(obj: T): TransformedKeys<Record<string, string | [string, string]>> =>
+export const flattenThemeObject = <T>(
+  obj: T,
+): TransformedKeys<Record<string, string | [string, string]>> =>
   removeDefaultKeys(
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     flatten(obj, {
