@@ -84,7 +84,6 @@ export abstract class KoaService<
     this.use(errorMiddleware());
     this.use(validate());
     if (this.options.helmetOptions) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       this.use(helmet(this.options.helmetOptions as any));
     }
     this.use(conditional());

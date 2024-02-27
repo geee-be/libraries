@@ -42,7 +42,6 @@ export const flattenThemeObject = <T>(
   obj: T,
 ): TransformedKeys<Record<string, string | [string, string]>> =>
   removeDefaultKeys(
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     flatten(obj, {
       safe: true,
       delimiter: '-',

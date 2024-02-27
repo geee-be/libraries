@@ -43,9 +43,7 @@ export const requestContextMiddleware = (
 };
 
 const getClient = (ctx: AuthorizationContext): Client => ({
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
   ips: ctx.request.ips.length ? ctx.request.ips : [ctx.request.ip],
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
   userAgent: ctx.request.header['user-agent'],
 });
 

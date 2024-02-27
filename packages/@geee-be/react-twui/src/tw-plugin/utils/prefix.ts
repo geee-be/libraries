@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 /**
  * Constructs a new type by prefixing all keys of a given object type with a string.
  *

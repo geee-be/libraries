@@ -12,11 +12,9 @@ export const useHistoryState = <T, S = T>(
   options?: SerializationOptions<T, S>,
 ): [T, Dispatch<SetStateAction<T>>] => {
   if (typeof history === 'undefined') {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return [undefined as any, () => {}];
   }
   const [value, setValue] = useState<T>(
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     () =>
       deserialize(history.state?.[key], options?.fromSerializable) ??
       getInitialValue(initialValue),

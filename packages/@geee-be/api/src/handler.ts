@@ -91,10 +91,8 @@ export class Handler<
 
   public patchOne(): PatchOneHandler<TPatch> {
     return async (filter, patch) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const result = await this.collection.findOneAndUpdate(
         (await asPromise(filter)) as Filter<T>,
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         { $set: this.mutatePatch(patch as any) as MatchKeysAndValues<T> },
         { returnDocument: 'after' },
       );
@@ -105,7 +103,6 @@ export class Handler<
   }
 
   protected mutateInsert(input: TInsert & WithId): T {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return this.options.mutateInsert
       ? this.options.mutateInsert(input)
       : (input as any);

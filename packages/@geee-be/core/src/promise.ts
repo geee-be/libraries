@@ -9,14 +9,12 @@ export const promiseToCallback = <T>(
   return promise.then(
     (res) => {
       setImmediate(() => {
-        // eslint-disable-next-line promise/no-callback-in-promise
         cb(undefined, res);
       });
       return undefined;
     },
     (err: Error) => {
       setImmediate(() => {
-        // eslint-disable-next-line promise/no-callback-in-promise
         cb(err);
       });
     },

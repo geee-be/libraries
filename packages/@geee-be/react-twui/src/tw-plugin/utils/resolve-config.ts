@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /**
  * This Tailwind plugin is based and inspired on "tw-colors" and "NextUI".
  *
@@ -156,10 +153,8 @@ export const resolveConfig = (
       }
     } catch (error: unknown) {
       if (error instanceof Error) {
-        // eslint-disable-next-line no-console
         console.warn('tw-plugin-build-error:', error.message);
       } else {
-        // eslint-disable-next-line no-console
         console.warn('tw-plugin-build-error:', error);
       }
     }
@@ -222,10 +217,8 @@ export const resolveConfig = (
         }
       } catch (error: unknown) {
         if (error instanceof Error) {
-          // eslint-disable-next-line no-console
           console.warn('tw-plugin-build-error:', error.message);
         } else {
-          // eslint-disable-next-line no-console
           console.warn('tw-plugin-build-error:', error);
         }
       }

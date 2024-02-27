@@ -63,9 +63,7 @@ export const stringToHash = (str: string): number => {
   for (let i = 0; i < str.length; i++) {
     const char = str.charCodeAt(i);
 
-    // eslint-disable-next-line no-bitwise
     hash = (hash << 5) - hash + char;
-    // eslint-disable-next-line no-bitwise
     hash |= 0; // Convert to 32-bit integer
   }
 
