@@ -18,10 +18,6 @@ type ColorScale = {
   // soft
   soft: string | [string, string];
   'soft-fg': string | [string, string];
-
-  // vivid
-  vivid: string | [string, string];
-  'vivid-fg': string | [string, string];
 } & Record<string, string | [string, string]>;
 
 type ControlColors = {

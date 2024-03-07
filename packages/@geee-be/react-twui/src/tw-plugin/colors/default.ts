@@ -7,8 +7,4 @@ export const defaultColors: ThemableColorScale = {
   // soft
   soft: ['hsl(0 0% 60% / 0.5)', 'hsl(0 0% 40% / 0.5)'],
   'soft-fg': ['hsl(0 0% 25%)', 'hsl(0 0% 88%)'],
-
-  // vivid
-  vivid: ['hsl(0 0% 88% / 0.5)', 'hsl(0 0% 25% / 0.5)'],
-  'vivid-fg': ['hsl(0 0% 25%)', 'hsl(0 0% 88%)'],
 };
