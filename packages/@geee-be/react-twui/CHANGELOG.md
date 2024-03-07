@@ -1,5 +1,11 @@
 # @geee-be/react-twui
 
+## 1.2.2
+
+### Patch Changes
+
+- bb4967b: Export card components explicitly
+
 ## 1.2.1
 
 ### Patch Changes
