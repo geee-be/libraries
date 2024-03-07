@@ -1,5 +1,11 @@
 # @geee-be/react-twui
 
+## 1.2.1
+
+### Patch Changes
+
+- bea8a8b: Simplified colors
+
 ## 1.2.0
 
 ### Minor Changes
