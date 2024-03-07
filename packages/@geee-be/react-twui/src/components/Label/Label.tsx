@@ -101,7 +101,7 @@ const LabelComponent = React.forwardRef<LabelElement, LabelProps>(
           {innerContent}
         </LabelPrimitive.Root>
 
-        {tooltip ? <Tooltip fg={tooltip} side="right" /> : null}
+        {tooltip ? <Tooltip content={tooltip} side="right" /> : null}
       </div>
     );
   },
