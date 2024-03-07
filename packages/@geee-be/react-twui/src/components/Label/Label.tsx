@@ -65,8 +65,8 @@ const LabelComponent = React.forwardRef<LabelElement, LabelProps>(
         {description ? (
           <span
             className={cn(
-              'font-normal text-paper-content/70',
-              disabled && 'text-paper-content/50',
+              'font-normal text-paper-fg/70',
+              disabled && 'text-paper-fg/50',
             )}
           >
             {description}
@@ -93,7 +93,7 @@ const LabelComponent = React.forwardRef<LabelElement, LabelProps>(
           asChild={useAsChild}
           className={cn(
             'Label-root inline-flex cursor-pointer items-center gap-1 text-sm font-medium leading-6',
-            disabled && 'pointer-events-none text-paper-content/50',
+            disabled && 'pointer-events-none text-paper-fg/50',
             className,
           )}
           {...otherProps}
@@ -101,7 +101,7 @@ const LabelComponent = React.forwardRef<LabelElement, LabelProps>(
           {innerContent}
         </LabelPrimitive.Root>
 
-        {tooltip ? <Tooltip content={tooltip} side="right" /> : null}
+        {tooltip ? <Tooltip fg={tooltip} side="right" /> : null}
       </div>
     );
   },
@@ -123,9 +123,9 @@ const HelperText = React.forwardRef<
       data-component="HelperText"
       ref={ref}
       className={cn(
-        'Label-helperText text-start text-sm leading-6 text-paper-content/70 antialiased',
+        'Label-helperText text-start text-sm leading-6 text-paper-fg/70 antialiased',
         (ariaInvalid ?? error) && 'text-destructive',
-        disabled && 'text-paper-content/50',
+        disabled && 'text-paper-fg/50',
         className,
       )}
       role={ariaInvalid ? 'alert' : undefined}

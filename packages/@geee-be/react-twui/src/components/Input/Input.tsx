@@ -23,10 +23,10 @@ export const Input = forwardRef<InputElement, InputProps>(
           // focus
           'outline-control-focus focus:outline focus:outline-2 focus:outline-offset-2',
           // color
-          'bg-control text-control-content border-default hover:border-default/70 placeholder:text-control-content/50',
+          'bg-control text-control-fg border-default hover:border-default/70 placeholder:text-control-fg/50',
           ariaInvalid && 'border-destructive hover:border-destructive',
           disabled &&
-            'bg-control text-control-content/50 placeholder:text-control-content/50 border-default/50 hover:border-default/50',
+            'bg-control text-control-fg/50 placeholder:text-control-fg/50 border-default/50 hover:border-default/50',
           className,
         )}
         disabled={disabled || readOnly}

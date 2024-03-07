@@ -50,7 +50,7 @@ const parseColorValue = (
   }) as [Hsla, Hsla];
 };
 
-const contentColor = (hsl: Hsl): Hsl => {
+const fgColor = (hsl: Hsl): Hsl => {
   const color = Color(hsl);
   const [h, s, l] = color
     .lightness(color.isDark() ? 90 : 10)
@@ -101,8 +101,8 @@ export const resolveConfig = (
       const [light, dark] = parseColorValue(colorValue);
       if (!light || !dark) break;
 
-      const lightContent = contentColor(light);
-      const darkContent = contentColor(dark);
+      const lightContent = fgColor(light);
+      const darkContent = fgColor(dark);
 
       const colorVariable = `--color-${colorName}`;
       const opacityVariable = `--color-${colorName}-opacity`;
@@ -123,8 +123,8 @@ export const resolveConfig = (
           twOpacityVariable,
         );
 
-      if (!colorName.endsWith('content')) {
-        const colorContentVariable = `--color-${colorName}-content`;
+      if (!colorName.endsWith('fg')) {
+        const colorContentVariable = `--color-${colorName}-fg`;
 
         lightVariables[colorContentVariable] =
           `${lightContent.h} ${lightContent.s}% ${lightContent.l}%`;
@@ -140,7 +140,7 @@ export const resolveConfig = (
         }
 
         // Set the dynamic color in tailwind config theme.colors
-        resolved.colors[`${colorName}-content`] = ({
+        resolved.colors[`${colorName}-fg`] = ({
           opacityVariable: twOpacityVariable,
           opacityValue: twOpacityValue,
         }) =>
@@ -181,8 +181,8 @@ export const resolveConfig = (
         const [light, dark] = parseColorValue(colorValue);
         if (!light || !dark) break;
 
-        const lightContent = contentColor(light);
-        const darkContent = contentColor(dark);
+        const lightContent = fgColor(light);
+        const darkContent = fgColor(dark);
 
         const colorVariable = `--color-default${
           colorVariant !== 'DEFAULT' ? `-${colorVariant}` : ''
@@ -197,10 +197,10 @@ export const resolveConfig = (
         overrideDarkVariables[colorVariable] =
           `${dark.h} ${dark.s}% ${dark.l}%`;
 
-        if (!colorVariant.endsWith('content')) {
+        if (!colorVariant.endsWith('fg')) {
           const colorContentVariable = `--color-default${
             colorVariant !== 'DEFAULT' ? `-${colorVariant}` : ''
-          }-content`;
+          }-fg`;
 
           overrideLightVariables[colorContentVariable] =
             `${lightContent.h} ${lightContent.s}% ${lightContent.l}%`;

@@ -13,15 +13,15 @@ import { warning } from './warning.js';
 type ColorScale = {
   // default
   DEFAULT: string | [string, string];
-  content: string | [string, string];
+  fg: string | [string, string];
 
   // soft
   soft: string | [string, string];
-  'soft-content': string | [string, string];
+  'soft-fg': string | [string, string];
 
   // vivid
   vivid: string | [string, string];
-  'vivid-content': string | [string, string];
+  'vivid-fg': string | [string, string];
 } & Record<string, string | [string, string]>;
 
 type ControlColors = {
@@ -64,7 +64,7 @@ export const themableColors: ThemableColors = {
     DEFAULT: ['hsl(255, 0%, 98%)', 'hsl(255 0% 15%)'],
     nested: ['hsl(255, 0%, 90% / 0.35)', 'hsl(255 0% 10% / 0.35)'],
     border: ['hsl(255 0% 80% / 0.5)', 'hsl(255 0% 0% / 0.5)'],
-    content: ['hsl(255 0% 28%)', 'hsl(255 0% 72%)'],
+    fg: ['hsl(255 0% 28%)', 'hsl(255 0% 72%)'],
   },
   control: {
     DEFAULT: ['hsl(255, 0%, 98%)', 'hsl(255 0% 15%)'],

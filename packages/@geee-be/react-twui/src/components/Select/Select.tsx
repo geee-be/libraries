@@ -71,11 +71,11 @@ export const Select = forwardRef<SelectElement, SelectProps>(
           // focus
           'outline-control-focus focus:outline focus:outline-2 focus:outline-offset-2',
           // color
-          'bg-control text-control-content border-default hover:border-default/70 data-[placeholder]:text-control-content/50',
+          'bg-control text-control-fg border-default hover:border-default/70 data-[placeholder]:text-control-fg/50',
           (props['aria-invalid'] ?? destructive) &&
             'border-destructive hover:border-destructive',
           disabled &&
-            'bg-control text-control-content/50 data-[placeholder]:text-control-content/50 border-default/50 hover:border-default/50',
+            'bg-control text-control-fg/50 data-[placeholder]:text-control-fg/50 border-default/50 hover:border-default/50',
           className,
         )}
         aria-label={ariaLabel}
@@ -88,7 +88,7 @@ export const Select = forwardRef<SelectElement, SelectProps>(
         </div>
         <BaseSelect.Icon
           className={cn(
-            'text-control-content right-0 ml-4',
+            'text-control-fg right-0 ml-4',
             disabled && 'text-transparent',
           )}
         >
@@ -97,14 +97,14 @@ export const Select = forwardRef<SelectElement, SelectProps>(
       </BaseSelect.Trigger>
       <BaseSelect.Portal>
         <BaseSelect.Content className="overflow-hidden bg-control rounded-xl border-2 border-control-focus shadow-xl">
-          <BaseSelect.ScrollUpButton className="flex items-center justify-center h-6 bg-control text-control-content cursor-default">
+          <BaseSelect.ScrollUpButton className="flex items-center justify-center h-6 bg-control text-control-fg cursor-default">
             <ChevronUpIcon />
           </BaseSelect.ScrollUpButton>
           <BaseSelect.Viewport className="p-1">
             {items.map((group, groupIndex) => (
               <Fragment key={group.key}>
                 {groupIndex > 0 ? (
-                  <BaseSelect.Separator className="h-[1px] bg-control-content/10 m-1" />
+                  <BaseSelect.Separator className="h-[1px] bg-control-fg/10 m-1" />
                 ) : null}
                 <BaseSelect.Group>
                   {group.label ? (
@@ -125,7 +125,7 @@ export const Select = forwardRef<SelectElement, SelectProps>(
               </Fragment>
             ))}
           </BaseSelect.Viewport>
-          <BaseSelect.ScrollDownButton className="flex items-center justify-center h-6 bg-control text-control-content cursor-default">
+          <BaseSelect.ScrollDownButton className="flex items-center justify-center h-6 bg-control text-control-fg cursor-default">
             <ChevronDownIcon />
           </BaseSelect.ScrollDownButton>
         </BaseSelect.Content>
@@ -145,7 +145,7 @@ const SelectItem = forwardRef<
       className={cn(
         'cursor-pointer leading-none text-sm rounded-lg flex items-center h-[45px] pr-[35px] pl-6 relative select-none data-[disabled]:pointer-events-none data-[highlighted]:outline-none',
         // colors
-        'text-control-content data-[disabled]:text-control-content/50 data-[highlighted]:bg-control-content/10 data-[highlighted]:text-control-content',
+        'text-control-fg data-[disabled]:text-control-fg/50 data-[highlighted]:bg-control-fg/10 data-[highlighted]:text-control-fg',
         className,
       )}
       {...props}

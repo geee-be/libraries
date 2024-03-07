@@ -7,9 +7,9 @@ export const cardVariants = cva({
       'square-top': 'rounded-t-none rounded-b-xl',
     },
     color: {
-      none: 'border-paper-border text-paper-content',
+      none: 'border-paper-border text-paper-fg',
       primary:
-        'border-paper-border text-paper-content border-t-[6px] border-t-primary',
+        'border-paper-border text-paper-fg border-t-[6px] border-t-primary',
     },
   },
   defaultVariants: {
@@ -59,12 +59,12 @@ export const cardHeaderVariants = cva({
     },
     color: {
       none: '',
-      primary: 'bg-primary text-primary-content default-primary',
-      secondary: 'bg-secondary text-secondary-content default-secondary',
-      info: 'bg-info text-info-content default-info',
-      warning: 'bg-warning text-warning-content default-warning',
-      success: 'bg-success text-success-content default-success',
-      error: 'bg-error text-error-content default-error',
+      primary: 'bg-primary text-primary-fg default-primary',
+      secondary: 'bg-secondary text-secondary-fg default-secondary',
+      info: 'bg-info text-info-fg default-info',
+      warning: 'bg-warning text-warning-fg default-warning',
+      success: 'bg-success text-success-fg default-success',
+      error: 'bg-error text-error-fg default-error',
     },
   },
   defaultVariants: {

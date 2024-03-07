@@ -8,18 +8,17 @@ export const alertVariants = cva({
     },
     color: {
       default:
-        'border-default-border bg-default-soft text-paper-content default-default',
+        'border-default-soft-fg bg-default-soft text-paper-fg default-default',
       primary:
-        'border-primary-border bg-primary-soft text-paper-content default-primary',
+        'border-primary-soft-fg bg-primary-soft text-paper-fg default-primary',
       secondary:
-        'border-secondary-border bg-secondary-soft text-paper-content default-secondary',
-      info: 'border-info-border bg-info-soft text-paper-content default-info',
+        'border-secondary-soft-fg bg-secondary-soft text-paper-fg default-secondary',
+      info: 'border-info-soft-fg bg-info-soft text-paper-fg default-info',
       warning:
-        'border-warning-border bg-warning-soft text-paper-content default-warning',
+        'border-warning-soft-fg bg-warning-soft text-paper-fg default-warning',
       success:
-        'border-success-border bg-success-soft text-paper-content default-success',
-      error:
-        'border-error-border bg-error-soft text-paper-content default-error',
+        'border-success-soft-fg bg-success-soft text-paper-fg default-success',
+      error: 'border-error-soft-fg bg-error-soft text-paper-fg default-error',
     },
   },
   defaultVariants: {
@@ -32,13 +31,13 @@ export const alertTitleVariants = cva({
   base: 'text-start font-bold',
   variants: {
     color: {
-      default: 'text-default-soft-content',
-      primary: 'text-primary-soft-content',
-      secondary: 'text-secondary-soft-content',
-      info: 'text-info-soft-content',
-      warning: 'text-warning-soft-content',
-      success: 'text-success-soft-content',
-      error: 'text-error-soft-content',
+      default: 'text-default-soft-fg',
+      primary: 'text-primary-soft-fg',
+      secondary: 'text-secondary-soft-fg',
+      info: 'text-info-soft-fg',
+      warning: 'text-warning-soft-fg',
+      success: 'text-success-soft-fg',
+      error: 'text-error-soft-fg',
     },
   },
   defaultVariants: {
@@ -49,13 +48,13 @@ export const alertTitleVariants = cva({
 export const alertIconVariants = cva({
   variants: {
     color: {
-      default: 'text-default-soft-content',
-      primary: 'text-primary-soft-content',
-      secondary: 'text-secondary-soft-content',
-      info: 'text-info-soft-content',
-      warning: 'text-warning-soft-content',
-      success: 'text-success-soft-content',
-      error: 'text-error-soft-content',
+      default: 'text-default-soft-fg',
+      primary: 'text-primary-soft-fg',
+      secondary: 'text-secondary-soft-fg',
+      info: 'text-info-soft-fg',
+      warning: 'text-warning-soft-fg',
+      success: 'text-success-soft-fg',
+      error: 'text-error-soft-fg',
     },
   },
   defaultVariants: {

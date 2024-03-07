@@ -37,7 +37,7 @@ const CardRoot = React.forwardRef<
       ref={ref}
       className={clsx(
         cn(
-          'Card-root bg-paper rounded-xl text-paper-content border border-primary overflow-clip',
+          'Card-root bg-paper rounded-xl text-paper-fg border border-primary overflow-clip',
           className,
         ),
         '[&_.Card-root]:bg-paper-nested',
