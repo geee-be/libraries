@@ -25,6 +25,6 @@
     "esbuild": "^0.17.18",
     "rimraf": "^5.0.0",
     "ts-unused-exports": "^9.0.4",
-    "typescript": "^5.2.2"
+    "typescript": "^5.4.2"
   }
 }
