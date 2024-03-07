@@ -7,13 +7,4 @@ export const info: ThemableColorScale = {
   border: '#1485FF',
   // 'content': '#1485FF',
   icon: '#1485FF',
-  '100': '#D0EFFF',
-  '200': '#A1DBFF',
-  '300': '#72C3FF',
-  '400': '#4EACFF',
-  '500': '#1485FF',
-  '600': '#0E67DB',
-  '700': '#0A4CB7',
-  '800': '#063593',
-  '900': '#03257A',
 };

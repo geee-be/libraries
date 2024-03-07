@@ -71,11 +71,11 @@ export const Select = forwardRef<SelectElement, SelectProps>(
           // focus
           'outline-control-focus focus:outline focus:outline-2 focus:outline-offset-2',
           // color
-          'bg-control text-control-content border-default-500 hover:border-default-400 data-[placeholder]:text-control-content/50',
+          'bg-control text-control-content border-default hover:border-default/70 data-[placeholder]:text-control-content/50',
           (props['aria-invalid'] ?? destructive) &&
             'border-destructive hover:border-destructive',
           disabled &&
-            'bg-control text-control-content/50 data-[placeholder]:text-control-content/50 border-default-300 hover:border-default-300',
+            'bg-control text-control-content/50 data-[placeholder]:text-control-content/50 border-default/50 hover:border-default/50',
           className,
         )}
         aria-label={ariaLabel}

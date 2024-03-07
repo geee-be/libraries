@@ -44,7 +44,7 @@ export const buttonVariants = cva({
     {
       color: 'default',
       variant: 'solid',
-      class: 'bg-default text-default-content hover:bg-default-600',
+      class: 'bg-default text-default-content hover:bg-default/80',
     },
     {
       color: 'default',
@@ -61,7 +61,7 @@ export const buttonVariants = cva({
     {
       color: 'primary',
       variant: 'solid',
-      class: 'bg-primary text-primary-content hover:bg-primary-600',
+      class: 'bg-primary text-primary-content hover:bg-primary/80',
     },
     {
       color: 'primary',
@@ -78,7 +78,7 @@ export const buttonVariants = cva({
     {
       color: 'secondary',
       variant: 'solid',
-      class: 'bg-secondary text-secondary-content hover:bg-primary-600',
+      class: 'bg-secondary text-secondary-content hover:bg-secondary/80',
     },
     {
       color: 'secondary',
@@ -95,7 +95,7 @@ export const buttonVariants = cva({
     {
       color: 'info',
       variant: 'solid',
-      class: 'bg-info text-info-content hover:bg-info-600',
+      class: 'bg-info text-info-content hover:bg-info/80',
     },
     {
       color: 'info',
@@ -111,7 +111,7 @@ export const buttonVariants = cva({
     {
       color: 'warning',
       variant: 'solid',
-      class: 'bg-warning text-warning-content hover:bg-warning-600',
+      class: 'bg-warning text-warning-content hover:bg-warning/80',
     },
     {
       color: 'warning',
@@ -128,7 +128,7 @@ export const buttonVariants = cva({
     {
       color: 'success',
       variant: 'solid',
-      class: 'bg-success text-success-content hover:bg-success-600',
+      class: 'bg-success text-success-content hover:bg-success/80',
     },
     {
       color: 'success',
@@ -145,7 +145,7 @@ export const buttonVariants = cva({
     {
       color: 'error',
       variant: 'solid',
-      class: 'bg-error text-error-content hover:bg-error-600',
+      class: 'bg-error text-error-content hover:bg-error/80',
     },
     {
       color: 'error',

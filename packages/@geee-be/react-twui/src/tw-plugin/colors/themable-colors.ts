@@ -22,17 +22,6 @@ type ColorScale = {
   // vivid
   vivid: string | [string, string];
   'vivid-content': string | [string, string];
-
-  // general, lines
-  '100': string | [string, string | [string, string]];
-  '200': string | [string, string | [string, string]];
-  '300': string | [string, string | [string, string]];
-  '400': string | [string, string | [string, string]];
-  '500': string | [string, string | [string, string]];
-  '600': string | [string, string | [string, string]];
-  '700': string | [string, string | [string, string]];
-  '800': string | [string, string | [string, string]];
-  '900': string | [string, string | [string, string]];
 } & Record<string, string | [string, string]>;
 
 type ControlColors = {
