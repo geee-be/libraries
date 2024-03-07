@@ -5,7 +5,7 @@
  * @template P - The string to prefix keys with.
  * @returns A new object type with all keys prefixed with the given string.
  */
-type PrefixKeys<T extends Record<string, any>, P extends string> = {
+type PrefixKeys<T extends object, P extends string> = {
   [K in keyof T & string as `${P}-${K & string}`]: T[K];
 };
 
@@ -21,14 +21,18 @@ type PrefixKeys<T extends Record<string, any>, P extends string> = {
  * const result = addPrefixToObjKey(obj, 'xx');
  * // result: { 'xx-a': 1, 'xx-b': 2 }
  */
-export const addPrefix = <T extends Record<string, any>, P extends string>(
+export const addPrefix = <
+  T extends Record<string, unknown>,
+  K extends keyof T,
+  P extends string,
+>(
   obj: T,
   prefix: P,
 ): PrefixKeys<T, P> => {
   const result = {} as PrefixKeys<T, P>;
 
   for (const key of Object.keys(obj)) {
-    result[`${prefix}-${key}` as keyof PrefixKeys<T, P>] = obj[key as keyof T];
+    result[`${prefix}-${key}` as keyof PrefixKeys<T, P>] = obj[key as K] as any;
   }
 
   return result;
