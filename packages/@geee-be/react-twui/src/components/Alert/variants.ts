@@ -8,17 +8,17 @@ export const alertVariants = cva({
     },
     color: {
       default:
-        'border-default-soft-fg bg-default-soft text-paper-fg default-default',
+        'border-default-muted-fg bg-default-muted text-paper-fg default-default',
       primary:
-        'border-primary-soft-fg bg-primary-soft text-paper-fg default-primary',
+        'border-primary-muted-fg bg-primary-muted text-paper-fg default-primary',
       secondary:
-        'border-secondary-soft-fg bg-secondary-soft text-paper-fg default-secondary',
-      info: 'border-info-soft-fg bg-info-soft text-paper-fg default-info',
+        'border-secondary-muted-fg bg-secondary-muted text-paper-fg default-secondary',
+      info: 'border-info-muted-fg bg-info-muted text-paper-fg default-info',
       warning:
-        'border-warning-soft-fg bg-warning-soft text-paper-fg default-warning',
+        'border-warning-muted-fg bg-warning-muted text-paper-fg default-warning',
       success:
-        'border-success-soft-fg bg-success-soft text-paper-fg default-success',
-      error: 'border-error-soft-fg bg-error-soft text-paper-fg default-error',
+        'border-success-muted-fg bg-success-muted text-paper-fg default-success',
+      error: 'border-error-muted-fg bg-error-muted text-paper-fg default-error',
     },
   },
   defaultVariants: {
@@ -31,13 +31,13 @@ export const alertTitleVariants = cva({
   base: 'text-start font-bold',
   variants: {
     color: {
-      default: 'text-default-soft-fg',
-      primary: 'text-primary-soft-fg',
-      secondary: 'text-secondary-soft-fg',
-      info: 'text-info-soft-fg',
-      warning: 'text-warning-soft-fg',
-      success: 'text-success-soft-fg',
-      error: 'text-error-soft-fg',
+      default: 'text-default-muted-fg',
+      primary: 'text-primary-muted-fg',
+      secondary: 'text-secondary-muted-fg',
+      info: 'text-info-muted-fg',
+      warning: 'text-warning-muted-fg',
+      success: 'text-success-muted-fg',
+      error: 'text-error-muted-fg',
     },
   },
   defaultVariants: {
@@ -48,13 +48,13 @@ export const alertTitleVariants = cva({
 export const alertIconVariants = cva({
   variants: {
     color: {
-      default: 'text-default-soft-fg',
-      primary: 'text-primary-soft-fg',
-      secondary: 'text-secondary-soft-fg',
-      info: 'text-info-soft-fg',
-      warning: 'text-warning-soft-fg',
-      success: 'text-success-soft-fg',
-      error: 'text-error-soft-fg',
+      default: 'text-default-muted-fg',
+      primary: 'text-primary-muted-fg',
+      secondary: 'text-secondary-muted-fg',
+      info: 'text-info-muted-fg',
+      warning: 'text-warning-muted-fg',
+      success: 'text-success-muted-fg',
+      error: 'text-error-muted-fg',
     },
   },
   defaultVariants: {

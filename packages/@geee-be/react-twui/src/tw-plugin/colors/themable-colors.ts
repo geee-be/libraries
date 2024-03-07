@@ -15,9 +15,9 @@ type ColorScale = {
   DEFAULT: string | [string, string];
   fg: string | [string, string];
 
-  // soft
-  soft: string | [string, string];
-  'soft-fg': string | [string, string];
+  // muted
+  muted: string | [string, string];
+  'muted-fg': string | [string, string];
 } & Record<string, string | [string, string]>;
 
 type ControlColors = {
