@@ -1,8 +1,0 @@
-{
-  "extends": "../create/tsconfig.web.json",
-  "compilerOptions": {
-    "noEmit": false,
-    "outDir": "./dist"
-  },
-  "include": ["./src"]
-}
