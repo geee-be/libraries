@@ -14,7 +14,7 @@ export abstract class Api<StateT = any, CustomT = ApiContext> extends Router<
   }
 
   public mount(parent: Router<StateT, CustomT>): void {
-    this.mountRoutes();
+    this.mountRoutes(this);
     parent.use(this.routes(), this.allowedMethods());
   }
 
@@ -22,5 +22,5 @@ export abstract class Api<StateT = any, CustomT = ApiContext> extends Router<
    * Override to add the routes for this API
    * @return {void}
    */
-  protected abstract mountRoutes(): void;
+  protected abstract mountRoutes(router: Router<StateT, CustomT>): void;
 }
