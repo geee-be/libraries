@@ -101,7 +101,7 @@ export namespace Endpoint {
   export const findMany =
     <T>(
       handler: FindManyHandler<T>,
-      filter: (ctx: ApiContext) => Filter<T> | Promise<Filter<T>>,
+      filter: NoInfer<(ctx: ApiContext) => Filter<T> | Promise<Filter<T>>>,
       mutator?: (result: T[]) => unknown,
       ...extensions: ((ctx: ApiContext) => void)[]
     ) =>
@@ -128,7 +128,7 @@ export namespace Endpoint {
   export const findOne =
     <T>(
       handler: FindOneHandler<T>,
-      filter: (ctx: ApiContext) => Filter<T> | Promise<Filter<T>>,
+      filter: NoInfer<(ctx: ApiContext) => Filter<T> | Promise<Filter<T>>>,
       mutator?: (result: T) => unknown,
       ...extensions: ((ctx: ApiContext) => void)[]
     ) =>
@@ -149,7 +149,7 @@ export namespace Endpoint {
       authCheck: AuthCheck | undefined,
       handler: InsertOneHandler<T>,
       check: ValueProcessor<T>,
-      foreignKeys: ForeignKeyValidation<T>,
+      foreignKeys: ForeignKeyValidation<Partial<T>>,
       getInsert: InsertEntityFactory<T> = getInsertEntity,
     ) =>
     async (ctx: AuthorizationContext): Promise<void> => {
@@ -170,7 +170,7 @@ export namespace Endpoint {
       authCheck: AuthCheck | undefined,
       handler: PatchOneHandler<T>,
       check: ValueProcessor<Partial<T>>,
-      foreignKeys: ForeignKeyValidation<T>,
+      foreignKeys: ForeignKeyValidation<Partial<T>>,
       filter: (ctx: ApiContext) => Filter<T> | Promise<Filter<T>>,
     ) =>
     async (ctx: AuthorizationContext): Promise<void> => {
