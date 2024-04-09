@@ -1,5 +1,11 @@
 # @geee-be/api
 
+## 1.4.1
+
+### Patch Changes
+
+- e1f4d41: send router to mountRoutes
+
 ## 1.4.0
 
 ### Minor Changes
