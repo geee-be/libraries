@@ -1,5 +1,12 @@
 # @geee-be/api
 
+## 1.4.2
+
+### Patch Changes
+
+- 1211c6f: Improved types
+- 562b479: Improved typing for ForeignKeyValidation
+
 ## 1.4.1
 
 ### Patch Changes
