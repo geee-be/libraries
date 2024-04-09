@@ -17,10 +17,9 @@ export interface FindManyResult<T> {
   matches: number;
 }
 
-export type ForeignKeyValidation<T = unknown> = Record<
-  keyof T,
-  (value: unknown) => Promise<boolean>
->;
+export type ForeignKeyValidation<T> = {
+  [K in keyof T]: (value: T[K]) => Promise<boolean>;
+};
 
 interface WithRequestBody {
   request: Request & {
