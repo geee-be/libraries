@@ -1,5 +1,11 @@
 # @geee-be/api
 
+## 1.4.3
+
+### Patch Changes
+
+- efa86b2: Foreign keys typing fix
+
 ## 1.4.2
 
 ### Patch Changes
