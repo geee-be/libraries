@@ -17,7 +17,7 @@ import { asPromise, findManyQuery, validateForeignKeys } from './util.js';
 
 export interface Input<T> {
   contract: Contract<T>;
-  foreignKeys?: ForeignKeyValidation<T>;
+  foreignKeys?: ForeignKeyValidation<Partial<T>>;
 }
 
 export type ActionInputs<A> = { [K in keyof A]: Input<A[K]> };
