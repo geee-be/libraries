@@ -4,6 +4,7 @@ import type { RouterContext } from '@koa/router';
 import type { Middleware } from 'koa';
 import { Summary } from 'prom-client';
 import { formatError } from './error.js';
+import { bodyAsString } from './util.js';
 
 const responseSummary = new Summary({
   help: 'Response timing (seconds)',
@@ -173,6 +174,10 @@ export const observeMiddleware = (
           duration: durationMs,
           route,
           status: ctx.status,
+          response:
+            ctx.status === Statuses.BAD_REQUEST
+              ? bodyAsString(ctx.body).slice(0, 2048)
+              : undefined,
         });
       }
     } catch (err) {
