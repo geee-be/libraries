@@ -1,5 +1,11 @@
 # @geee-be/api
 
+## 1.4.4
+
+### Patch Changes
+
+- df162f1: export const bodyAsString = (body: unknown): str
+
 ## 1.4.3
 
 ### Patch Changes
