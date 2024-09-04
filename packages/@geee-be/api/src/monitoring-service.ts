@@ -2,7 +2,7 @@ import type { Logger } from '@geee-be/logger';
 import type { Service } from '@geee-be/service';
 import Router from '@koa/router';
 import Koa from 'koa';
-import type { Server } from 'net';
+import type { Server } from 'node:net';
 import 'reflect-metadata';
 import { onError } from './error.js';
 import {

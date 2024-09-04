@@ -1,4 +1,4 @@
-import { hostname } from 'os';
+import { hostname } from 'node:os';
 import { get } from 'stack-trace';
 import { ConsoleWriter } from './console-writer.js';
 import type { Log, LogWriter } from './log-writer.js';

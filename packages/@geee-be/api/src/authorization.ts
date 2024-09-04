@@ -2,7 +2,7 @@ import { Statuses } from '@geee-be/core';
 import type { Logger, MaybeWithLogger } from '@geee-be/logger';
 import { logger } from '@geee-be/logger';
 import type * as Router from '@koa/router';
-import { createSecretKey } from 'crypto';
+import { createSecretKey } from 'node:crypto';
 import type {
   JWSHeaderParameters,
   JWTPayload,

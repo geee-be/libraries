@@ -76,12 +76,12 @@ export const asPromise = async <T>(input: T | Promise<T>): Promise<T> =>
     ? await input
     : Promise.resolve(input);
 
-    export const bodyAsString = (body: unknown): string => {
-      if (typeof body === 'string') {
-        return body;
-      }
-      if (Buffer.isBuffer(body)) {
-        return body.toString();
-      }
-      return JSON.stringify(body);
-    };
+export const bodyAsString = (body: unknown): string => {
+  if (typeof body === 'string') {
+    return body;
+  }
+  if (Buffer.isBuffer(body)) {
+    return body.toString();
+  }
+  return JSON.stringify(body);
+};

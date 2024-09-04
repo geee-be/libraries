@@ -186,6 +186,7 @@ export const given = <S>(
       };
 
     whenImpl.only = (name: string, whenFn: (state: S) => void) => {
+      // biome-ignore lint/suspicious/noFocusedTests: not actual test
       describe.only(`WHEN ${name}`, () => {
         whenFn(setup());
       });
@@ -206,6 +207,7 @@ given.only = (
   _setup: () => unknown,
   _fn: (when: When<unknown>, then: TestAPI) => void,
 ) => {
+  // biome-ignore lint/suspicious/noFocusedTests: not actual test
   describe.only(`GIVEN ${name}`, () => {});
 };
 

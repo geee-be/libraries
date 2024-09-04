@@ -1,6 +1,6 @@
 import * as crypto from 'node:crypto';
 import fs from 'node:fs/promises';
-import { isPromise } from 'util/types';
+import { isPromise } from 'node:util/types';
 import type { MigrationDef } from './types';
 
 export const fileDigest = async (filePath: string): Promise<string> => {
