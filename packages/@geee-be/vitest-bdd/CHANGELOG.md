@@ -1,5 +1,11 @@
 # @geee-be/vitest-bdd
 
+## 1.3.0
+
+### Minor Changes
+
+- 42dc825: Updated to vitest ^2.1.4
+
 ## 1.2.0
 
 ### Minor Changes
