@@ -75,7 +75,7 @@
       "**/.rush": true,
       "**/.vscode": true,
       "**/node_modules": true,
-      "dist": true
+      "dist": false
     },
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,

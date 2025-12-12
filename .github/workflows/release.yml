@@ -20,14 +20,14 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v3
 
-      - name: Setup Node.js 18.x
+      - name: Setup Node.js 24.x
         uses: actions/setup-node@v3
         with:
-          node-version: 18.x
+          node-version: 24.x
 
       - uses: pnpm/action-setup@v2
         with:
-          version: 7.17.1
+          version: 10.25.0
           run_install: |
             - args: [--no-frozen-lockfile]
 

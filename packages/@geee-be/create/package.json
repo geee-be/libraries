@@ -28,7 +28,6 @@
     "tsconfig.bun.json"
   ],
   "scripts": {
-    "prebuild": "rimraf dist/*",
     "build": "tsc"
   }
 }

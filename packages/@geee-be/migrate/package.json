@@ -15,12 +15,8 @@
     },
     "./package.json": "./package.json"
   },
-  "files": [
-    "dist/**/*.js",
-    "dist/**/*.d.ts"
-  ],
+  "files": ["dist/**/*.js", "dist/**/*.d.ts"],
   "scripts": {
-    "prebuild": "rimraf dist/*",
     "build": "tsc",
     "lint": "npm run lint:biome && npm run lint:types && npm run lint:unused-exports",
     "lint:biome": "biome ci src/",
