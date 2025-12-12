@@ -7,7 +7,7 @@
   "author": "Greg Bacchus",
   "type": "module",
   "scripts": {
-    "build": "pnpm --stream --parallel -r build",
+    "build": "pnpm -r build",
     "changes": "changeset && git add .changeset",
     "changeset": "changeset",
     "lint": "pnpm --stream -r lint",
