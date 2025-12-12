@@ -7,7 +7,7 @@
   "author": "Greg Bacchus",
   "type": "module",
   "scripts": {
-    "build": "pnpm -r --sequential build",
+    "build": "pnpm --filter core build && pnpm --filter service build && pnpm --filter logger build && pnpm --filter api build && pnpm --filter migrate build && pnpm --filter vitest-bdd build && pnpm --filter create build",
     "changes": "changeset && git add .changeset",
     "changeset": "changeset",
     "lint": "pnpm --stream -r lint",
