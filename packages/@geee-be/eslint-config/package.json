@@ -7,6 +7,13 @@
   "author": "Greg Bacchus",
   "type": "module",
   "main": "index.json",
+  "exports": {
+    ".": "./index.json",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.json"
+  ],
   "scripts": {},
   "peerDependencies": {
     "@typescript-eslint/eslint-plugin": ">= 6.7",

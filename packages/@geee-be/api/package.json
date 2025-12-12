@@ -6,8 +6,19 @@
   "license": "MIT",
   "author": "Greg Bacchus",
   "type": "module",
-  "main": "dist/index.js",
-  "types": "src/index.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.d.ts"
+  ],
   "scripts": {
     "prebuild": "rimraf dist/*",
     "build": "tsc",
