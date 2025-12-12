@@ -1,5 +1,15 @@
 # @geee-be/api
 
+## 1.4.5
+
+### Patch Changes
+
+- 9163998: improve module exports
+- Updated dependencies [9163998]
+  - @geee-be/service@1.1.1
+  - @geee-be/logger@1.2.1
+  - @geee-be/core@1.3.1
+
 ## 1.4.4
 
 ### Patch Changes

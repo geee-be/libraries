@@ -1,5 +1,11 @@
 # @geee-be/core
 
+## 1.3.1
+
+### Patch Changes
+
+- 9163998: improve module exports
+
 ## 1.3.0
 
 ### Minor Changes

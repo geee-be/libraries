@@ -1,5 +1,11 @@
 # @geee-be/vitest-bdd
 
+## 2.0.1
+
+### Patch Changes
+
+- 9163998: improve module exports
+
 ## 2.0.0
 
 ### Major Changes
