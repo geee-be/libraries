@@ -233,7 +233,7 @@ export namespace Endpoint {
     <A extends object>(
       authCheck: AuthCheck | undefined,
       handler: ActionHandler<A>,
-      inputs: ActionInputs<A>,
+      inputs: A extends undefined ? unknown : ActionInputs<A>,
     ) =>
     async (ctx: AuthorizationContext): Promise<void> => {
       checkAuth(authCheck);
