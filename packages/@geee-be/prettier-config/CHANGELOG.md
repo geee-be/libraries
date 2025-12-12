@@ -1,5 +1,11 @@
 # @geee-be/prettier-config
 
+## 1.0.6
+
+### Patch Changes
+
+- 9163998: improve module exports
+
 ## 1.0.5
 
 ### Patch Changes

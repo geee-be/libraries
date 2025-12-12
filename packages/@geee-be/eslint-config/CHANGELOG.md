@@ -1,5 +1,11 @@
 # @geee-be/eslint-config
 
+## 1.1.1
+
+### Patch Changes
+
+- 9163998: improve module exports
+
 ## 1.1.0
 
 ### Minor Changes

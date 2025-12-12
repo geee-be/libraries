@@ -1,5 +1,13 @@
 # @geee-be/service
 
+## 1.1.1
+
+### Patch Changes
+
+- 9163998: improve module exports
+- Updated dependencies [9163998]
+  - @geee-be/core@1.3.1
+
 ## 1.1.0
 
 ### Minor Changes

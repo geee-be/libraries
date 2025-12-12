@@ -1,5 +1,11 @@
 # @geee-be/create
 
+## 1.0.5
+
+### Patch Changes
+
+- 9163998: improve module exports
+
 ## 1.0.4
 
 ### Patch Changes

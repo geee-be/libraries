@@ -1,5 +1,13 @@
 # @geee-be/logger
 
+## 1.2.1
+
+### Patch Changes
+
+- 9163998: improve module exports
+- Updated dependencies [9163998]
+  - @geee-be/core@1.3.1
+
 ## 1.2.0
 
 ### Minor Changes
