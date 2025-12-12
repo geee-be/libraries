@@ -5,15 +5,16 @@
   "keywords": [],
   "license": "MIT",
   "author": "Greg Bacchus",
+  "repository": {
+    "url": "https://github.com/geee-be/libraries"
+  },
   "type": "module",
   "main": "index.json",
   "exports": {
     ".": "./index.json",
     "./package.json": "./package.json"
   },
-  "files": [
-    "index.json"
-  ],
+  "files": ["index.json"],
   "scripts": {},
   "peerDependencies": {
     "eslint-config-prettier": ">= 9.0",

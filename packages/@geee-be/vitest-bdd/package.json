@@ -5,6 +5,9 @@
   "keywords": [],
   "license": "MIT",
   "author": "Greg Bacchus",
+  "repository": {
+    "url": "https://github.com/geee-be/libraries"
+  },
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
