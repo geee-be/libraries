@@ -1,5 +1,11 @@
 # @geee-be/api
 
+## 1.4.6
+
+### Patch Changes
+
+- ad3eec3: Improved types on Endpoint.action
+
 ## 1.4.5
 
 ### Patch Changes
