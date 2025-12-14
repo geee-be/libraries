@@ -1,5 +1,11 @@
 # @geee-be/api
 
+## 1.4.7
+
+### Patch Changes
+
+- 6df2795: Refactor action inputs handling to support undefined type and improve type safety
+
 ## 1.4.6
 
 ### Patch Changes
