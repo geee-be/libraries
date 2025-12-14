@@ -230,17 +230,17 @@ export namespace Endpoint {
     };
 
   export const action =
-    <A extends object>(
+    <A extends object | undefined>(
       authCheck: AuthCheck | undefined,
       handler: ActionHandler<A>,
-      inputs: A extends undefined ? unknown : ActionInputs<A>,
+      inputs: A extends undefined ? undefined : ActionInputs<A>,
     ) =>
     async (ctx: AuthorizationContext): Promise<void> => {
       checkAuth(authCheck);
 
       const resolved = await Promise.all(
-        Object.keys(inputs).map(async (key) => {
-          const input = inputs[key as keyof typeof inputs] as Input<unknown>;
+        Object.keys(inputs ?? {}).map(async (key) => {
+          const input = (inputs as Record<string, Input<unknown>>)[key];
           const extractor = extractors[key];
           if (!extractor) return undefined;
 
@@ -256,13 +256,13 @@ export namespace Endpoint {
       );
       const handlerArgs = resolved
         .filter((item) => !!item)
-        .reduce((acc, item) => Object.assign(acc, item), {} as A);
+        .reduce((acc, item) => Object.assign(acc, item), {}) as A;
 
       const result = await handler(
         {
           ...handlerArgs,
           referrer: (ctx.request as unknown as { referrer: unknown }).referrer,
-        },
+        } as A,
         ctx as ApiContext,
       );
       if (result === undefined) return;
