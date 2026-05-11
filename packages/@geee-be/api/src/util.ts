@@ -11,13 +11,13 @@ import {
   maybeAsArray,
   maybeAsObject,
 } from 'validata';
-import { query } from 'validata-koa';
 import type {
   ApiContext,
   Entity,
   FindManyQuery,
   ForeignKeyValidation,
 } from './types.js';
+import { query } from './validata-getters.js';
 
 export const validateForeignKeys = async <T extends Entity>(
   foreignKeys: ForeignKeyValidation<T>,

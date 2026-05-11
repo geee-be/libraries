@@ -2,8 +2,7 @@ import type { RequestContext, RequestUser } from '@geee-be/core';
 import type { Filter } from 'mongodb';
 import type { Contract, NotPrimitive, ValueProcessor } from 'validata';
 import { isObject } from 'validata';
-import { Statuses, body, headers, params, query } from 'validata-koa';
-import type { AuthorizationContext } from './authorization.js';
+import { Statuses } from 'validata-koa';
 import { ForbiddenError, UnauthorizedError } from './error.js';
 import { filterAnd } from './mongo.js';
 import { requestContext } from './request-context.js';
@@ -14,6 +13,12 @@ import type {
   PaginatedList,
 } from './types.js';
 import { asPromise, findManyQuery, validateForeignKeys } from './util.js';
+import {
+  body as getBody,
+  headers as getHeaders,
+  params as getParams,
+  query as getQuery,
+} from './validata-getters.js';
 
 export interface Input<T> {
   contract: Contract<T>;
@@ -66,17 +71,33 @@ const getInsertEntity = <T>(
   ctx: ApiContext,
   check: ValueProcessor<NoId<T>>,
 ): T => {
-  return body(ctx, check) as T;
+  return getBody(ctx, check) as T;
+};
+
+const extractBody = <T>(ctx: ApiContext, check: ValueProcessor<T>): T => {
+  return getBody(ctx, check);
+};
+
+const extractParams = <T>(ctx: ApiContext, check: ValueProcessor<T>): T => {
+  return getParams(ctx, check);
+};
+
+const extractQuery = <T>(ctx: ApiContext, check: ValueProcessor<T>): T => {
+  return getQuery(ctx, check);
+};
+
+const extractHeaders = <T>(ctx: ApiContext, check: ValueProcessor<T>): T => {
+  return getHeaders(ctx, check);
 };
 
 const extractors: Record<
   string,
   (ctx: ApiContext, checker: ValueProcessor<Entity>) => Entity
 > = {
-  body,
-  params,
-  query,
-  headers,
+  body: extractBody,
+  params: extractParams,
+  query: extractQuery,
+  headers: extractHeaders,
 };
 
 export type AuthCheck<User extends RequestUser = RequestUser> = (
@@ -105,7 +126,7 @@ export namespace Endpoint {
       mutator?: (result: T[]) => unknown,
       ...extensions: ((ctx: ApiContext) => void)[]
     ) =>
-    async (ctx: AuthorizationContext): Promise<void> => {
+    async (ctx: ApiContext): Promise<void> => {
       const { filter: queryFilter, limit, skip, sort } = findManyQuery(ctx);
       const contextFilter = await asPromise(filter(ctx));
       const combinedFilter = filterAnd([queryFilter, contextFilter]) ?? {};
@@ -132,7 +153,7 @@ export namespace Endpoint {
       mutator?: (result: T) => unknown,
       ...extensions: ((ctx: ApiContext) => void)[]
     ) =>
-    async (ctx: AuthorizationContext): Promise<void> => {
+    async (ctx: ApiContext): Promise<void> => {
       const filterQuery = await asPromise(filter(ctx));
       const item = await handler(filterQuery);
       if (!item) return;
@@ -152,7 +173,7 @@ export namespace Endpoint {
       foreignKeys: ForeignKeyValidation<Partial<T>>,
       getInsert: InsertEntityFactory<T> = getInsertEntity,
     ) =>
-    async (ctx: AuthorizationContext): Promise<void> => {
+    async (ctx: ApiContext): Promise<void> => {
       checkAuth(authCheck);
 
       const entity = getInsert(ctx, check);
@@ -173,11 +194,11 @@ export namespace Endpoint {
       foreignKeys: ForeignKeyValidation<Partial<T>>,
       filter: (ctx: ApiContext) => Filter<T> | Promise<Filter<T>>,
     ) =>
-    async (ctx: AuthorizationContext): Promise<void> => {
+    async (ctx: ApiContext): Promise<void> => {
       checkAuth(authCheck);
 
       const filterObject = await asPromise(filter(ctx));
-      const patch = body(ctx, check);
+      const patch = extractBody(ctx, check);
 
       await validateForeignKeys(foreignKeys, patch);
       const result = await handler(filterObject, patch);
@@ -205,18 +226,27 @@ export namespace Endpoint {
       headerContract?: ContractOrUndefined<H>,
       onSuccess?: (ctx: ApiContext) => void,
     ) =>
-    async (ctx: AuthorizationContext): Promise<void> => {
+    async (ctx: ApiContext): Promise<void> => {
       checkAuth(authCheck);
 
-      const b = body(ctx, bodyValidata);
+      const b = extractBody(ctx, bodyValidata);
       const p = paramContract
-        ? params(ctx, isObject(paramContract, { stripExtraProperties: true }))
+        ? extractParams(
+            ctx,
+            isObject(paramContract, { stripExtraProperties: true }),
+          )
         : undefined;
       const q = queryContract
-        ? query(ctx, isObject(queryContract, { stripExtraProperties: true }))
+        ? extractQuery(
+            ctx,
+            isObject(queryContract, { stripExtraProperties: true }),
+          )
         : undefined;
       const h = headerContract
-        ? headers(ctx, isObject(headerContract, { stripExtraProperties: true }))
+        ? extractHeaders(
+            ctx,
+            isObject(headerContract, { stripExtraProperties: true }),
+          )
         : undefined;
       const result = await handler(
         { body: b, params: p as P, query: q as Q, headers: h as H },
@@ -235,7 +265,7 @@ export namespace Endpoint {
       handler: ActionHandler<A>,
       inputs: A extends undefined ? undefined : ActionInputs<A>,
     ) =>
-    async (ctx: AuthorizationContext): Promise<void> => {
+    async (ctx: ApiContext): Promise<void> => {
       checkAuth(authCheck);
 
       const resolved = await Promise.all(

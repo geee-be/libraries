@@ -1,11 +1,14 @@
 import type { Client, RequestContext, RequestUser } from '@geee-be/core';
 import type { Logger } from '@geee-be/logger';
-import type { Middleware } from '@koa/router';
 import { AsyncLocalStorage } from 'async_hooks';
+import type { Middleware } from 'koa';
 import { DateTime } from 'luxon';
 import { isIssue, isObject, isString, maybeString } from 'validata';
-import type { AuthorizationContext } from './authorization.js';
 import type { ApiContext } from './types.js';
+
+interface AuthorizationLike {
+  authorization?: unknown;
+}
 
 export type UserResolver = (
   iss: string,
@@ -42,13 +45,13 @@ export const requestContextMiddleware = (
   };
 };
 
-const getClient = (ctx: AuthorizationContext): Client => ({
+const getClient = (ctx: ApiContext): Client => ({
   ips: ctx.request.ips.length ? ctx.request.ips : [ctx.request.ip],
   userAgent: ctx.request.header['user-agent'],
 });
 
 export const makeRequestContext = async (
-  ctx: AuthorizationContext,
+  ctx: ApiContext & AuthorizationLike,
   userResolver?: UserResolver,
 ): Promise<RequestContext> => {
   const traceId = Array.isArray(ctx.header['trace-id'])

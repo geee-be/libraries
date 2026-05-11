@@ -1,8 +1,7 @@
 import { Statuses } from '@geee-be/core';
 import type { Logger, MaybeWithLogger } from '@geee-be/logger';
 import { logger } from '@geee-be/logger';
-import type * as Router from '@koa/router';
-import { createSecretKey } from 'node:crypto';
+import type { RouterContext, RouterMiddleware } from '@koa/router';
 import type {
   JWSHeaderParameters,
   JWTPayload,
@@ -18,6 +17,7 @@ import type {
   Next,
   ParameterizedContext,
 } from 'koa';
+import { createSecretKey } from 'node:crypto';
 import type { UserResolver } from './request-context.js';
 import { requestContextMiddleware } from './request-context.js';
 import type { ApiContext, RequestHeaders } from './types.js';
@@ -33,7 +33,7 @@ export type AuthorizationContext = ParameterizedContext<
   DefaultState,
   ApiContext
 > &
-  Router.RouterParamContext<DefaultState, ApiContext> &
+  RouterContext<DefaultState, ApiContext> &
   ExtendableContext &
   MaybeWithAuthorization;
 
@@ -101,7 +101,7 @@ export namespace Jwt {
 
 export class JwtDecoder {
   public middleware(): Middleware<unknown, AuthorizationContext> &
-    Router.Middleware<unknown, AuthorizationContext> {
+    RouterMiddleware<unknown, AuthorizationContext> {
     return async (ctx: AuthorizationContext, next: Next): Promise<void> => {
       const { headers } = ctx.request;
       ctx.authorization = JwtDecoder.getAuthorization(headers);
@@ -180,7 +180,7 @@ export abstract class BaseJwtAuthentication {
   }
 
   public middleware(): Middleware<unknown, AuthorizationContext> &
-    Router.Middleware<unknown, AuthorizationContext> {
+    RouterMiddleware<unknown, AuthorizationContext> {
     return async (ctx: AuthorizationContext, next: Next): Promise<void> => {
       const { status, authorization } = await this.getAuthorization(
         ctx,
