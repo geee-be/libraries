@@ -1,5 +1,11 @@
 # @geee-be/api
 
+## 2.0.0
+
+### Major Changes
+
+- 8515bcc: Upgrade to kao 3
+
 ## 1.4.7
 
 ### Patch Changes
