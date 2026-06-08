@@ -1,5 +1,11 @@
 # @geee-be/vitest-bdd
 
+## 2.1.0
+
+### Minor Changes
+
+- 649cc91: Update vitest version
+
 ## 2.0.1
 
 ### Patch Changes
