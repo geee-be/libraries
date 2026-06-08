@@ -3,14 +3,12 @@
   "version": "2.0.1",
   "description": "",
   "keywords": [],
-  "license": "MIT",
-  "author": "Greg Bacchus",
   "repository": {
     "url": "https://github.com/geee-be/libraries"
   },
+  "license": "MIT",
+  "author": "Greg Bacchus",
   "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -18,6 +16,8 @@
     },
     "./package.json": "./package.json"
   },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": ["dist/**/*.js", "dist/**/*.d.ts"],
   "scripts": {
     "build": "tsc",
@@ -30,10 +30,10 @@
     "test": "vitest",
     "test:dev": "vitest --watch --ui"
   },
-  "dependencies": {
-    "vitest": "^3.0.6"
-  },
   "devDependencies": {
-    "@vitest/ui": "^3.0.6"
+    "@vitest/ui": "^4.0.16"
+  },
+  "peerDependencies": {
+    "vitest": "^4.0.16"
   }
 }

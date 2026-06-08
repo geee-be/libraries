@@ -1,4 +1,4 @@
-import type { Awaitable, TestAPI, TestFunction } from 'vitest';
+import type { TestAPI, TestFunction } from 'vitest';
 import { describe, it } from 'vitest';
 
 type WhenFunction<S> = (setup: S) => void;
@@ -149,7 +149,7 @@ const then = (name: string, thenFn: TestFunction): void => {
 
 then.each =
   <T>(cases: ReadonlyArray<T>) =>
-  (name: string, thenFn: (...args: T[]) => Awaitable<void>) => {
+  (name: string, thenFn: (...args: T[]) => Promise<void>) => {
     it.each(cases)(`THEN ${name}`, thenFn);
   };
 
